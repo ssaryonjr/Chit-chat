@@ -1,0 +1,293 @@
+/* Global Styling */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+:root {
+  --background: #f1f5f9;
+	--secondary-background: #ffffff;
+	--primary-text: #121212;
+  --inputField-color: #f1f5f9;
+  --accent: #e86c1a;
+	/* --accent: #1a73e8; */
+	--grey-tone: #dadce0;
+  --title: #121212;
+  --dotted-gray: #dee1e3;
+
+	--shadow-normal: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+		0 1px 2px 0 rgba(0, 0, 0, 0.06);
+	--shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	--shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+		0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='dark']{
+  --background: #0b0d0d;
+  --secondary-background: #16191d;
+  --inputField-color: #2b2d2f;
+  --primary-text: #9b9b9b;
+  --accent: #e86c1a;
+  --title: #b8b8b8;
+  --grey-tone: #3e3f41;
+  --dotted-gray: #4c4b4b; 
+}
+
+*,
+*::before,
+*::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+	list-style-type: none;
+	text-decoration: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+
+.app {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: all .9s;
+}
+
+
+.logo {
+  width: 9.5rem;
+}
+
+.logo-signup{
+  width: 8rem;
+}
+
+/* (/) Root/Homepage */
+.authContainer,
+.auth-register-container {
+  max-width: 50rem;
+  width: 100%;
+  padding: 4rem 4.5rem;
+  border: none;
+  outline: none;
+  border-radius: .5rem;
+  font-size: 1.8rem;
+	font-weight: normal;
+	line-height: 1.5;
+  color: var(--primary-text);
+  background: var(--secondary-background);
+  box-shadow: var(--shadow-large);
+  margin: 2.5rem 0;
+}
+
+/*Login Page*/
+.login-top-container{
+  display: flex;
+  align-items: flex-end;
+}
+
+.text {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.text-large{
+  font-size: 4rem;
+  font-weight: 600;
+  color: var(--title);
+  margin-right: .5rem;
+}
+
+.text-medium{
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: var(--title);
+  margin-right: .5rem;
+}
+
+
+.text-links {
+  color: var(--accent)
+}
+
+.text-links:hover{
+  text-decoration: underline;
+  color: var( --accent)
+}
+
+.login-form{
+  margin-top: 2.5rem;
+}
+
+.input-field{
+  font-family: inherit;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: inherit;
+  width: 100%;
+  height: auto;
+  padding: 1.25rem 2.25rem;
+  border: none;
+  outline: none;
+  border-radius: 3rem;
+  color: var(--primary-text);
+  background: var(--inputField-color);
+  text-transform: unset;
+}
+
+.auth {
+  margin-bottom: 2.2rem;
+}
+
+.auth-control{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 3.5rem;
+  width: 100%;
+}
+
+.auth-submit{
+  font-family: inherit;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: inherit;
+  cursor: pointer;
+  min-width: 40%;
+  height: auto;
+  padding: 0.85rem 1.25rem;
+  border: none;
+  outline: none;
+  border-radius: 2rem;
+  color: #fff;
+  background: var(--accent);
+  box-shadow: var(--shadow-medium);
+  text-transform: capitalize;
+  text-rendering: optimizeLegibility;
+}
+
+.striped {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.striped-line{
+  flex: auto;
+	flex-basis: auto;
+  border: none;
+  outline: none;
+  height: 2px;
+  background: var(--grey-tone);
+}
+
+.striped-text {
+  font-family: inherit;
+  font-size:2rem;
+  font-weight: 500;
+  line-height: inherit;
+  color: var(--primary-text);
+  margin: 0 1rem;
+}
+
+.login-method {
+  font-family: inherit;
+  font-size: 1.85rem;
+  font-weight: 500;
+  line-height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding: 1.32rem 1.25rem;
+  outline: none;
+  border: 2px solid var(--grey-tone);
+  border-radius: 3rem;
+  color: var(--primary-text);
+  background: var(--secondary-background);
+  text-transform: capitalize;
+  text-rendering: optimizeLegibility;
+  transition: all 0.35s ease;
+  margin-bottom: 2rem;
+}
+
+.login-method:hover{
+  background: var(--inputField-color);
+}
+
+.affiliate-icons {
+  width: 2.5rem;
+  margin-right: .5rem;
+}
+
+
+/* Register Page */
+.auth-register-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.name-field {
+  width: 48.5%;
+}
+
+.name-field:last-child{
+  margin-left: .5rem;
+}
+
+.register-label {
+  display: inline-block;
+  margin-left: 1.2rem;
+}
+
+.signup-top-container{
+  display: flex;
+  align-items: flex-end;
+}
+
+.register-profile-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3.5rem;
+  position: relative;
+  border: 3px dotted var(--dotted-gray);
+  border-radius: 10px;
+  padding: 2rem 0;
+  text-align: left;
+}
+
+.register-pic{
+  border-radius: 100%;
+  width: 12rem;
+  border-radius: 100%;
+}
+
+.online-indicator{
+  display: block;
+  border-radius: 9999px;
+  height: 28px;
+  width: 28px;
+  background-color: #12c312;
+  position: absolute;
+  border: 5px solid var(--secondary-background);
+  transform: translate(135%, 10%);
+}
