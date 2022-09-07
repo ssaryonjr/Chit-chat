@@ -5,11 +5,11 @@ import Logo from '../img/logo.png'
 const Home = () => {
   return (
     <>
-      
-      <main className="authContainer">
+      <main className="auth-container">
         <div>
           <div className="login-top-container">
-            <h1 className="text text-large">Sign In</h1><img class="logo" src={Logo} alt="logo" />
+            <h1 className="text text-large">Sign In</h1>
+            <img class="logo" src={Logo} alt="logo" />
           </div>
           <p className="text text-normal">
             New here?{" "}
@@ -54,7 +54,7 @@ const Home = () => {
           <button className="login-method">
             <img
               className="affiliate-icons"
-              src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png"
+              src="https://res.cloudinary.com/dng5tdawb/image/upload/v1662515134/google-logo-png-suite-everything-you-need-know-about-google-newest-0_uu57nf.png"
               alt="google icon"
             />
             Sign in with Google
@@ -62,7 +62,7 @@ const Home = () => {
           <button className="login-method">
             <img
               className="affiliate-icons"
-              src="https://theacademy.la/wp-content/uploads/2017/04/facebook-logo-png-transparent-background.png"
+              src="https://res.cloudinary.com/dng5tdawb/image/upload/v1662515176/facebook-logo-png-transparent-background_s06sid.png"
               alt="google icon"
             />
             Sign in with Facebook
