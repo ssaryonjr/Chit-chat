@@ -133,12 +133,12 @@ html {
 
 .input-field{
   font-family: inherit;
-  font-size: 2rem;
+  font-size: 1.65rem;
   font-weight: 400;
   line-height: inherit;
   width: 100%;
   height: auto;
-  padding: 1.25rem 2.25rem;
+  padding: .85rem 2.35rem;
   border: none;
   outline: none;
   border-radius: 3rem;
@@ -253,7 +253,7 @@ html {
 
 .require-star{
   font-weight: 600;
-  color: rgb(232, 1, 1);
+  color: #e80101;
   font-size: 2rem;
 }
 
@@ -266,11 +266,11 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 3.5rem;
+  margin-top: 1.5rem;
   position: relative;
   border: 3px dotted var(--dotted-gray);
   border-radius: 10px;
-  padding: 2rem 0;
+  padding: .85rem 0;
   text-align: left;
   transition: all 1.2s;
 }
@@ -278,7 +278,9 @@ html {
 
 .register-pic{
   border-radius: 100%;
-  width: 12rem;
+  width: 13rem;
+  height: 13rem;
+  object-fit:cover;
   border-radius: 100%;
 }
 
@@ -303,6 +305,16 @@ html {
   width: 49%;
   display: flex;
   flex-direction: column;
+}
+
+.form-warning{
+  display: block;
+  text-align: center;
+  font-weight: 600;
+  color: #e80101;
+  font-size: 1/5rem;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 580px){
@@ -333,11 +345,15 @@ html {
     margin-right: .5rem;
   }
 
-  .signup-top-container{
+  /* .signup-top-container{
     align-items: center;
     flex-direction: column-reverse;
-  }
+  } */
 
+  .register-pic{
+  width: 12rem;
+  height: 12rem;
+  }
 }
 
 @media screen and (max-width: 430px){

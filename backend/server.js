@@ -1,25 +1,25 @@
 require('dotenv').config();
 const express = require("express");
-const chats = require("./data/data");
+const connectDB = require('./config/db');
+const PORT = process.env.PORT || 5000
+const colors = require('colors')
+const { notFound, errorHandler } = require('./middleware/errorMiddleware')
+connectDB()
 
 const app = express();
 
-const PORT = process.env.PORT || 5000
 
-app.get("/", (req, res) => {
-  res.send("API is working baby");
-});
+//Middleware that parses incoming JSON request and puts the data in req.body 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-app.get("/api/chat", (req, res) => {
-  res.send(chats);
-});
-
-app.get("/api/chat/:id", (req, res) => {
-  console.log(req.params.id);
-  const singleChat = chats.find((chat) => chat._id === req.params.id);
-  res.send(singleChat);
-});
+//API Routes
+app.use('/api/user', require("./routes/userRoutes"))
 
 app.listen(PORT, () => {
-  console.log(`Server is running on PORT: ${PORT}`);
+  console.log(`Server is running on PORT: ${PORT}`.bgBlue);
 });
+
+//Error handling
+app.use(notFound)
+app.use(errorHandler)

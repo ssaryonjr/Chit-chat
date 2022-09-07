@@ -19,12 +19,12 @@ function App() {
 
   return (
     <div className="app" data-theme={toggleTheme}>
-      <ThemeToggle handleClick={switchTheme} />
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/messages" element={<ChatPage />} />
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>
+      <ThemeToggle handleClick={switchTheme} />
     </div>
   );
 }

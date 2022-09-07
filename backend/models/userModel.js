@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
 
 const userSchema = mongoose.Schema(
   {
@@ -6,13 +7,14 @@ const userSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-    lasttName: {
+    lastName: {
       type: String,
       require: true,
     },
     email: {
       type: String,
       require: true,
+      unique: true,
     },
     password: {
       type: String,
@@ -20,7 +22,6 @@ const userSchema = mongoose.Schema(
     }, 
     profilePic: {
       type: String,
-      require: true,
       default:
         "https://res.cloudinary.com/dng5tdawb/image/upload/v1662105307/blank-profile-picture-973460_1280_owecxz.png",
     },
@@ -28,6 +29,24 @@ const userSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const User = mongoose.model("User", userSchema)
+//Verifies if encrypt password matches the hashed password.
+userSchema.methods.matchPassword = async function(password) {
+  return await bcrypt.compare(password, this.password)
+}
 
+//Before saving created user to database hash password.
+userSchema.pre('save', async function (next) {
+
+  //If password already modified, do nothing.
+  if (!this.isModified) {
+    next()
+  }
+
+  //Encrypts password
+  const salt = await bcrypt.genSalt(10)
+  this.password = await bcrypt.hash(this.password, salt)
+})
+
+
+const User = mongoose.model("User", userSchema)
 module.exports = User
