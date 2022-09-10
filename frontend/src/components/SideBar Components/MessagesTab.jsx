@@ -15,7 +15,14 @@ function MessagesTab() {
             <span className="online-circle"></span>
           </div>
           <div className="conversation-info">
-            <h6 className="conversation-sender">Santiago Mole</h6>
+            <h6 className="conversation-sender">
+              Santiago Mole{" "}
+              <img
+                src="https://www.trollishly.com/wp-content/uploads/2021/07/Get-Free-Eligibility-Check.png"
+                alt="verified"
+                className="verified-badge small"
+              />
+            </h6>
             <span className="conversation-brief">
               I love juice and making ever..
             </span>
@@ -45,7 +52,8 @@ function MessagesTab() {
           <div className="conversation-info">
             <h6 className="conversation-sender">Best coders group</h6>
             <span className="conversation-brief">
-              I love juice and making ever..
+              I love juice and making ever.. we making two lines to see whats
+              up..
             </span>
           </div>
           <div className="conversation-date">
@@ -59,7 +67,7 @@ function MessagesTab() {
         <section className="user-conversation-container">
           <div className="thumbnail-container">
             <img
-              src="https://randomuser.me/api/portraits/men/30.jpg"
+              src="https://randomuser.me/api/portraits/men/54.jpg"
               alt="thumbnail"
               className="conversation-thumbnail"
             />
@@ -68,12 +76,12 @@ function MessagesTab() {
           <div className="conversation-info">
             <h6 className="conversation-sender">Jacob Smith</h6>
             <span className="conversation-brief">
-              I love juice and making ever..
+              I love juice and making ever.. testing two lines again to see if
+              i..
             </span>
           </div>
           <div className="conversation-date">
             <span className="conversation-timestamp">10:22 PM</span>
-            
           </div>
         </section>
       </div>

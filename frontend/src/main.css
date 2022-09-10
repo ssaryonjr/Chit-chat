@@ -758,8 +758,8 @@ input[id="radio-3"]:checked ~ .glider {
   height: 1.3rem;
   border-radius: 100%;
   position: absolute;
-  top: 1px;
-  right: 3px;
+  top: 4px;
+  right: 10px;
   border: 1.5px solid white;;
 }
 
@@ -860,4 +860,10 @@ input[id="radio-3"]:checked ~ .glider {
 .group-count{
   color: white;
   font-size: 1.8rem;
+}
+
+.verified-badge.small{
+  width: 1.5rem;
+  object-fit: cover;
+  display: inline-block;
 }
