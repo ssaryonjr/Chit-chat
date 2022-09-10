@@ -611,6 +611,7 @@ input[id="radio-3"]:checked ~ .glider {
   position: relative;
   height: 6rem;
   border-bottom: 1px solid var(--grey-tone);
+  display: flex;
 }
 
 .search-input{
@@ -618,7 +619,7 @@ input[id="radio-3"]:checked ~ .glider {
   position: relative;
   height: 3.9rem;
   font-size: 1.5rem;
-  width: 100%;
+  width: 90%;
   font-weight: 500;
   border-radius: 2rem;
   padding-left: 4rem;
@@ -634,6 +635,27 @@ input[id="radio-3"]:checked ~ .glider {
   font-size: 1.9rem;
   color: rgb(151, 151, 151);
 }
+
+.groupchat-btn{
+  background-color: var(--inputField-color);
+  width: 3.8rem;
+  height: 3.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-left: .5rem;
+}
+
+.groupchat-btn:hover {
+  background-color: rgb(230, 230, 230);
+}
+.groupchat-icon{
+  font-size: 1.7rem;
+  color: rgb(151, 151, 151);
+}
+
+
 
 .user-list-wrapper{
   width: 100%;
