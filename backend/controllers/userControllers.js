@@ -55,7 +55,7 @@ const loginUser = asyncHandler(async(req, res) => {
     //Locate email in database
     const user = await User.findOne({ email });
 
-
+    //Sends signed-in user data back to client side.
     if (user && (await user.matchPassword(password))) {
         res.json({
             _id: user._id,
@@ -71,4 +71,23 @@ const loginUser = asyncHandler(async(req, res) => {
     }
 })
 
-module.exports = {registerUser, loginUser}
+
+//@desc Fetch all users (for searching)
+//@route GET /api/user
+//@access Private
+//Example: /api/user?search=sam
+const findUsers = asyncHandler(async (req, res) => {
+    const keyword = req.query.search ? {
+        $or: [
+            { firstName: { $regex: req.query.search, $options: "i" } },
+            { lastName: { $regex: req.query.search, $options: "i" } },
+            ],
+        } : {};
+
+    const users = await User.find(keyword).find({
+    _id: { $ne: req.user._id },
+    });
+    res.send(users);
+})
+
+module.exports = {registerUser, loginUser, findUsers}

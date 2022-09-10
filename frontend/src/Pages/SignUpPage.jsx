@@ -1,19 +1,24 @@
 import React, { useState } from 'react'
 import Logo from '../img/logo.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 function SignUpPage() {
+  const navigate = useNavigate()
+  const defaultProfile = "https://res.cloudinary.com/dng5tdawb/image/upload/v1662530729/ece2b0f541d47e4078aef33ffd22777e_tqiffc.jpg"
 
+  const [warning, setWarning] = useState('')
+  const [loading, setLoading] = useState(false)
   const [signupForm, setSignupForm] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confPassword: "",
-    profilePic: "https://res.cloudinary.com/dng5tdawb/image/upload/v1662530729/ece2b0f541d47e4078aef33ffd22777e_tqiffc.jpg"
+    profilePic: defaultProfile
   });
-
-  const [warning, setWarning] = useState('')
+  
+ 
 
   const updateForm = (event) => {
     const { name, value } = event.target
@@ -24,26 +29,98 @@ function SignUpPage() {
   }
   
   //Update user profile picture on screen. 
-  const uploadPicture = (event) => {
-    const retrievedPicture = event.target.files[0];
-
+  const uploadPicture = (retrievedPicture) => {
     if (retrievedPicture === undefined) {
-      setWarning('Please select an image!')
+      setSignupForm((prevData) => ({
+        ...prevData,
+        profilePic: defaultProfile,
+      }));
+      setWarning('')
+    }
+
+    if (retrievedPicture.type === "image/jpeg" || retrievedPicture.type === "image/png") {
+      setLoading(true);
+      const data = new FormData()
+      data.append("file", retrievedPicture)
+      data.append("upload_preset", "Chitchat")
+      data.append("cloud_name", "ssaryonjr")
+
+      fetch("https://api.cloudinary.com/v1_1/ssaryonjr/image/upload", {
+        method: 'post',
+        body: data
+      }).then((res) => res.json())
+        .then(data => {
+          setSignupForm(prevData => ({
+            ...prevData,
+            profilePic: data.url.toString()
+          }))
+          setLoading(false)
+        }).catch((err) => {
+          console.log(err)
+        })
+      
+      setWarning('')
+    } else {
+      setWarning("Uploaded picture is not supported")
+      setSignupForm((prevData) => ({
+        ...prevData,
+        profilePic: defaultProfile,
+      }));
+    }
+
+  };
+
+  const handleSubmit = async(event) => {
+    event.preventDefault()
+    const { firstName, lastName, email, password, confPassword, profilePic } = signupForm
+    
+    //Validates all fields have be inputed.
+    if (!firstName || !lastName || !email || !password || !confPassword) {
+      setWarning('Please fill out all required fields')
       return
     }
 
-    // if (retrievedPicture )
+    if (password !== confPassword) {
+      setWarning('Passwords do not match')
+      return
+    }
 
-    const pic = URL.createObjectURL(event.target.files[0])
-    setSignupForm(prevData => ({
-      ...prevData,
-      profilePic: pic
-    }))
+    if (password.length <= 5) {
+      setWarning('Password must be a minimum of 6 characters')
+      return
+    }
+
+
+    try {
+      const { data } = await axios.post("/api/user",
+        { firstName, lastName, email, password, profilePic },
+        { headers: { "Content-type": "application/json", } });
+
+      localStorage.setItem('userData', JSON.stringify(data))
+      navigate('/homepage')
+
+    } catch (error) {
+      setWarning(
+        error.response.data.message
+          .toString()
+          .split("User validation failed: email:")
+      );
+    }
+
   }
 
-  const handleSubmit = () => {
+  const profileImg = (
+    <>
+     <img
+      src={signupForm.profilePic}
+      className="register-pic"
+      alt="user profile"
+    />
+    <span className="online-indicator"></span>
+    </>
+  );
 
-  }
+  const loadSpinner = <span class="loading__anim"></span>;
 
   return (
     <>
@@ -54,12 +131,8 @@ function SignUpPage() {
         </div>
 
         <div className="register-profile-form">
-          <img
-            src={signupForm.profilePic}
-            className="register-pic"
-            alt="user profile"
-          />
-          <span className="online-indicator"></span>
+          {loading ? loadSpinner : profileImg}
+          
         </div>
 
         <form className="login-form">
@@ -69,7 +142,7 @@ function SignUpPage() {
               type="file"
               placeholder="Email Address"
               className="auth input-field"
-              onChange={uploadPicture}
+              onChange={(e) => uploadPicture(e.target.files[0])}
             />
           </label>
           <div className="register-name-container">
@@ -151,7 +224,9 @@ function SignUpPage() {
           </label>
           <span className="form-warning">{warning}</span>
           <div className="auth-control">
-            <button className="auth-submit">Sign In</button>
+            <button className="auth-submit" onClick={handleSubmit}>
+              Sign up
+            </button>
           </div>
         </form>
         <div className="striped">

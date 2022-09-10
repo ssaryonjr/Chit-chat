@@ -1,8 +1,8 @@
 import "./main.css";
 import { Routes, Route } from "react-router-dom"
-import React, { useState, useContext} from 'react'
+import React, { useState } from 'react'
 import LoginPage from './Pages/LoginPage'
-import ChatPage from "./Pages/ChatPage";
+import HomePage from './Pages/HomePage'
 import ThemeToggle from "./components/ThemeToggle"
 import SignUpPage from "./Pages/SignUpPage";
 
@@ -21,7 +21,7 @@ function App() {
     <div className="app" data-theme={toggleTheme}>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/messages" element={<ChatPage />} />
+        <Route path="/homepage" element={<HomePage />} />
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>
       <ThemeToggle handleClick={switchTheme} />

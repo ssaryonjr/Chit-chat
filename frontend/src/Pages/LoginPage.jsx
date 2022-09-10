@@ -1,8 +1,49 @@
 import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import Logo from '../img/logo.png' 
+import axios from "axios";
+
 
 const Home = () => {
+  const navigate = useNavigate();
+  const [warning, setWarning] = useState('')
+  const [loginForm, setLoginForm] = useState({
+    email: "",
+    password: ""
+  })
+
+  const updateForm = (event) => {
+    const { name, value} = event.target
+    setLoginForm(prevData => ({
+      ...prevData,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    
+    const {email, password} = loginForm
+    if (!email || !password) {
+      setWarning("Please fill out all fields")
+      return
+    }
+
+    try {
+      const { data } = await axios.post("/api/user/login",
+        { email, password },
+        { headers: { "Content-type": "application/json" } }
+      );
+
+        localStorage.setItem("userData", JSON.stringify(data));
+        navigate("/homepage");
+
+
+    } catch (error) {
+      setWarning("Invalid user credentials")
+    }
+  }
+
   return (
     <>
       <main className="auth-container">
@@ -24,7 +65,9 @@ const Home = () => {
                 type="email"
                 placeholder="Email Address"
                 className="auth input-field"
-                required="true"
+                onChange={updateForm}
+                name="email"
+                value={loginForm.email}
               />
             </label>
             <label htmlFor="password">
@@ -32,15 +75,19 @@ const Home = () => {
                 type="password"
                 placeholder="Password"
                 className="auth input-field"
-                required="true"
+                onChange={updateForm}
+                name="password"
+                value={loginForm.password}
               />
             </label>
-
+            <span className="form-warning">{warning}</span>
             <div className="auth-control">
-              <a href="./signup" className="text-links">
+              <a href="./forgotpassword" className="text-links">
                 Forgot password
               </a>
-              <button className="auth-submit">Sign In</button>
+              <button className="auth-submit"
+              onClick={handleSubmit}
+              >Sign In</button>
             </div>
           </form>
           <div class="striped">

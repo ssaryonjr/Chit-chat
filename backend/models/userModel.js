@@ -15,11 +15,15 @@ const userSchema = mongoose.Schema(
       type: String,
       require: true,
       unique: true,
+      match: [
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        "Please provide a valid email.",
+      ],
     },
     password: {
       type: String,
       require: true,
-    }, 
+    },
     profilePic: {
       type: String,
       default:
@@ -37,7 +41,7 @@ userSchema.methods.matchPassword = async function(password) {
 //Before saving created user to database hash password.
 userSchema.pre('save', async function (next) {
 
-  //If password already modified, do nothing.
+  //If password already modified, move on.
   if (!this.isModified) {
     next()
   }

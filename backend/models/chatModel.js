@@ -13,7 +13,7 @@ const chatModel = mongoose.Schema({
         {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-    },
+        },
     ],
     latestMessage: {
         type: mongoose.Schema.Types.ObjectId,

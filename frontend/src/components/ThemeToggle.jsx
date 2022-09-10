@@ -1,9 +1,17 @@
-import React, {useState} from 'react'
-import {Switch} from 'antd'
+import React from 'react'
 
 function ThemeToggle(prop) {
   return (
-       <Switch onClick={prop.handleClick}/>
+    <div className="toggle-switch">
+      <label className="toggle-container">
+        <input
+          className="toggle-checker"
+          type="checkbox"
+          onClick={prop.handleClick}
+        />
+        <span className="slider"></span>
+      </label>
+    </div>
   );
 }
 
