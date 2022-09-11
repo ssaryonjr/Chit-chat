@@ -31,7 +31,7 @@ function SideBar() {
   return (
     <aside>
         <div className="user-heading">
-            <h1 className="user-title">Sam Saryon</h1>
+            <h1 className="user-title">James Johnson</h1>
             <div className="user-thumbnail-container">
                 <img src={Profile} className="user-thumbnail" alt="user thumbnail" />
                 <span className="user-ping"></span>
