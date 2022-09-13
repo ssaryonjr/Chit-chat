@@ -1,14 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import OnlineUsers from "./OnlineUsers";
+import SearchResult from "./SearchResult";
+import { useQuery } from 'react-query'
+import axios from "axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
-  faPlus,
   faUserPlus,
-  faUserGroup
 } from "@fortawesome/free-solid-svg-icons";
 
+
 function GlobalUsers() {
+  const [search, setSearch] = useState("");
+  const [showOnlineBoard, setShowOnlineBoard] = useState(true);
+  const [showSearchResult, setShowSearchResult] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  //User info
+  const user = JSON.parse(localStorage.getItem("userData"));
+  axios.defaults.headers.common.Authorization = `Bearer ${user.token}`
+
+  const { data, isLoading, error, isIdle } = useQuery(["searchUser", search], async () => {
+    const { data } = await axios.get(`/api/user?search=${search}`)
+    return data
+  }, {
+      enabled: Boolean(search)
+    }
+  );
+
+  const handleSearchInput = (e) => {
+    setSearch(e.target.value);
+  };
+
   return (
     <div className="open-tab">
       <div className="search-container">
@@ -16,92 +41,55 @@ function GlobalUsers() {
           type="text"
           className="search-input"
           placeholder="Start a conversation.."
+          value={search}
+          onChange={handleSearchInput}
         />
         <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon" />
         <button className="groupchat-btn">
           <FontAwesomeIcon icon={faUserPlus} className="groupchat-icon" />
         </button>
-        
       </div>
 
-      <div className="user-list-wrapper">
-        <div className="user-list-container">
-          <h3 className="user-status-title">Online Users</h3>
-          <ul>
-            <li className="online-user-wrapper">
-              <img
-                className="user-status-thumbnail"
-                src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmxhY2slMjBtYW58ZW58MHx8MHx8&w=1000&q=80"
-              />
-              <div className="user-status-info">
-                <span className="user-status-name">
-                  Sam{" "}
-                  <img
-                    src="https://www.trollishly.com/wp-content/uploads/2021/07/Get-Free-Eligibility-Check.png"
-                    alt="verified"
-                    className="verified-badge small"
-                  />
-                </span>
-
-                <span className="user-status-subtitle">Online Now</span>
-              </div>
-              <span className="user-status-online-indicator green"></span>
-            </li>
-            <li className="online-user-wrapper">
-              <img
-                className="user-status-thumbnail"
-                src="https://media.istockphoto.com/photos/portrait-of-young-cheerful-african-american-woman-picture-id1207862195?k=20&m=1207862195&s=612x612&w=0&h=wc4k19nXnnogwobNULIwChFpDDZ9dgH5q0BACGs8gyA="
-              />
-              <div className="user-status-info">
-                <span className="user-status-name">Leah Makayeboko</span>
-                <span className="user-status-subtitle">Online Now</span>
-              </div>
-              <span className="user-status-online-indicator green"></span>
-            </li>
-          </ul>
-        </div>
-
-        <div className="user-list-container">
-          <h3 className="user-status-title">Offline Users</h3>
-          <ul>
-            <li className="online-user-wrapper">
-              <img
-                className="user-status-thumbnail"
-                src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmxhY2slMjBtYW58ZW58MHx8MHx8&w=1000&q=80"
-              />
-              <div className="user-status-info">
-                <span className="user-status-name">Sam Youngin</span>
-                <span className="user-status-subtitle">Offline</span>
-              </div>
-              <span className="user-status-online-indicator red"></span>
-            </li>
-            <li className="online-user-wrapper">
-              <img
-                className="user-status-thumbnail"
-                src="https://media.istockphoto.com/photos/portrait-of-young-cheerful-african-american-woman-picture-id1207862195?k=20&m=1207862195&s=612x612&w=0&h=wc4k19nXnnogwobNULIwChFpDDZ9dgH5q0BACGs8gyA="
-              />
-              <div className="user-status-info">
-                <span className="user-status-name">Sam Saryon</span>
-                <span className="user-status-subtitle">Offline</span>
-              </div>
-              <span className="user-status-online-indicator red"></span>
-            </li>
-            <li className="online-user-wrapper">
-              <img
-                className="user-status-thumbnail"
-                src="https://www.fakepersongenerator.com/Face/female/female2017102593066590.jpg"
-              />
-              <div className="user-status-info">
-                <span className="user-status-name">Sam Saryon</span>
-                <span className="user-status-subtitle">Offline</span>
-              </div>
-              <span className="user-status-online-indicator red"></span>
-            </li>
-          </ul>
-        </div>
-      </div>
+      {isIdle
+        ? <OnlineUsers />
+        : <SearchResult
+          loading={isLoading}
+          data={data}
+        />
+      }
     </div>
   );
 }
 
-export default GlobalUsers
+export default GlobalUsers;
+
+
+  // useEffect(() => {
+  //   if (search === "") {
+  //     setShowOnlineBoard(true);
+  //   }
+
+  //   if (search !== "") {
+  //     setShowOnlineBoard(false);
+
+  //     const fetchUsers = async () => {
+  //       try {
+  //         setLoading(true);
+
+  //         const config = { headers: { Authorization: `Bearer ${user.token}` } };
+
+  //         const { data } = await axios.get(
+  //           `/api/user?search=${search}`,
+  //           config
+  //         );
+  //         setLoading(false);
+  //         setSearchResult(data);
+  //         console.log(data);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     };
+
+  //     fetchUsers();
+  //   }
+  // }, [search]);

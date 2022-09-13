@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require("express");
+const cors = require('cors')
 const connectDB = require('./config/db');
 const PORT = process.env.PORT || 5000
 const colors = require('colors')
@@ -7,6 +8,7 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 connectDB()
 
 const app = express();
+app.use(cors())
 
 
 //Middleware that parses incoming JSON request and puts the data in req.body 

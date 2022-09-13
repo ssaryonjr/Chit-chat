@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Profile from '../img/samprofile.png'
+// import Profile from '../img/samprofile.png'
 
 import MessageTab from './SideBar Components/MessagesTab'
 import GlobalUsers from './SideBar Components/GlobalUsers'
@@ -14,8 +14,13 @@ import {
 
 
 
-function SideBar() {
-    const [currentTab, setCurrentTab] = useState(<MessageTab/>)
+function SideBar() { 
+  const user = JSON.parse(localStorage.getItem("userData"))
+  const {firstName, lastName, profilePic } = user
+
+  const [currentTab, setCurrentTab] = useState(<MessageTab />)
+  
+
 
     const changeTab = (e) => {
         const clicked = e.target.id
@@ -30,43 +35,34 @@ function SideBar() {
 
   return (
     <aside>
-        <div className="user-heading">
-            <h1 className="user-title">James Johnson</h1>
-            <div className="user-thumbnail-container">
-                <img src={Profile} className="user-thumbnail" alt="user thumbnail" />
-                <span className="user-ping"></span>
-            </div>
+      <div className="user-heading">
+        <h1 className="user-title">{firstName} {lastName}</h1>
+        <div className="user-thumbnail-container">
+          <img src={profilePic} className="user-thumbnail" alt="user thumbnail" />
+          <span className="user-ping"></span>
         </div>
-          
-    {currentTab}
+      </div>
 
-    <nav className="container">
+      {currentTab}
+
+      <nav className="container">
         <div className="tabs">
-            <input
-                type="radio"
-                id="radio-1"
-                name="tabs"
-                defaultChecked={true} 
-                onClick={changeTab}
-            />
-          <label className="tab" for="radio-1">
+          <input
+            type="radio"
+            id="radio-1"
+            name="tabs"
+            defaultChecked={true}
+            onClick={changeTab}
+          />
+          <label className="tab" htmlFor="radio-1">
             <FontAwesomeIcon icon={faComments} className="nav-icon" />
           </label>
-          <input 
-                type="radio" 
-                id="radio-2" 
-                name="tabs" 
-                onClick={changeTab}/>
-          <label className="tab" for="radio-2">
+          <input type="radio" id="radio-2" name="tabs" onClick={changeTab} />
+          <label className="tab" htmlFor="radio-2">
             <FontAwesomeIcon icon={faUserGroup} className="nav-icon" />
           </label>
-          <input 
-                type="radio" 
-                id="radio-3" 
-                name="tabs"
-                onClick={changeTab}  
-            />
-          <label className="tab" for="radio-3">
+          <input type="radio" id="radio-3" name="tabs" onClick={changeTab} />
+          <label className="tab" htmlFor="radio-3">
             <FontAwesomeIcon icon={faGear} className="nav-icon" />
           </label>
           <span className="glider"></span>

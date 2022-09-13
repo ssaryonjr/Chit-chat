@@ -16,7 +16,7 @@ function MessagesTab() {
           </div>
           <div className="conversation-info">
             <h6 className="conversation-sender">
-              Santiago Mole{" "}
+              David Johnson{" "}
               <img
                 src="https://www.trollishly.com/wp-content/uploads/2021/07/Get-Free-Eligibility-Check.png"
                 alt="verified"
@@ -37,14 +37,14 @@ function MessagesTab() {
 
         <section className="user-conversation-container">
           <div className="thumbnail-container">
-            <div class="avatars">
-              <span class="avatar">
+            <div className="avatars">
+              <span className="avatar">
                 <img src="https://randomuser.me/api/portraits/men/83.jpg" />
               </span>
-              <span class="avatar">
+              <span className="avatar">
                 <img src="https://randomuser.me/api/portraits/women/2.jpg" />
               </span>
-              <div class="avatar group-circle">
+              <div className="avatar group-circle">
                 <span className="group-count">+9</span>
               </div>
             </div>
