@@ -6,7 +6,7 @@ import MainPage from './Pages/MainPage'
 import ThemeToggle from "./components/ThemeToggle"
 import SignUpPage from "./Pages/SignUpPage";
 
-export const ThemeContext = React.createContext()
+export const ActiveMessageContext = React.createContext()
 
 function App() {
   const [toggleTheme, setToggleTheme] = useState("light");
@@ -18,6 +18,7 @@ function App() {
 
 
   return (
+    <ActiveMessageContext.Provider>
     <div className="app" data-theme={toggleTheme}>
       <Routes>
         <Route path="/" element={<LoginPage />} />
@@ -25,7 +26,8 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>
       <ThemeToggle handleClick={switchTheme} />
-    </div>
+      </div>
+      </ActiveMessageContext.Provider>
   );
 }
 

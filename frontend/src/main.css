@@ -153,6 +153,80 @@ html {
 }
 
 
+/*Preloading Skeleton */
+.skeleton-container {
+  padding: 2.5rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+@keyframes skeleton-animation
+{
+  
+  0%
+  {
+    right: 100%;
+  }
+  
+  50%
+  {
+    right: -128px;
+  }
+  
+  100%
+  {
+    right: 100%;
+  }
+  
+}
+
+.skeleton
+{
+  overflow: hidden;
+  width: 100%;
+  height: 58px;
+  display: grid;
+  grid-template-columns: 78px 100%;
+  grid-gap: 8px;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.skeleton:before
+{
+  display: block;
+  position: absolute;
+  width: 128px;
+  height: 58px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), #FFF, rgba(255, 255, 255, 0));
+  content: "";
+  animation: skeleton-animation 1.25s infinite;
+}
+
+.skeleton .s-img
+{
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #eee;
+  grid-row: 1 / 4;
+}
+
+.skeleton .s-line
+{
+  height: 20px;
+  background: #eee;
+}
+
+.skeleton .s-line.first { width: 100% }
+
+.skeleton .s-line.second { width: 75% }
+
+.skeleton .s-line.third { width: 50% }
+
 /* Login/Signup */
 .logo {
   width: 9.5rem;
@@ -680,6 +754,7 @@ input[id="radio-3"]:checked ~ .glider {
   padding-top: 2rem;
 }
 
+.search-user-wrapper,
 .online-user-wrapper {
   display: flex;
   flex-direction: row;
@@ -689,7 +764,8 @@ input[id="radio-3"]:checked ~ .glider {
   padding: 1rem 3rem;
 }
 
-.online-user-wrapper:hover {
+.online-user-wrapper:hover,
+.search-user-wrapper:hover {
   background-color: #f0f0f0d3;
   cursor: pointer;
 }
@@ -742,6 +818,30 @@ input[id="radio-3"]:checked ~ .glider {
 
 .user-status-online-indicator.red{
    background-color:#ff0000;
+}
+
+/* */
+.user-icon-wrapper {
+  margin-left: auto;
+  width: 7rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.user-list-btn {
+  background-color: var(--inputField-color);
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  border: 1px solid rgba(201, 200, 200, 0.85);
+  font-size: 2.3rem;
+}
+
+.user-list-btn:last-child{
+  margin-left: .7rem;
 }
 
 /* Message Tab */
@@ -857,8 +957,7 @@ input[id="radio-3"]:checked ~ .glider {
   border-top-right-radius: 1.5rem;
   border-bottom-right-radius: 1.5rem;
  }
-
-
+ 
 
  /*TESTING */
  .avatars {

@@ -21,7 +21,7 @@ function OnlineUsers() {
                 /> */}
               </span>
 
-              <span className="user-status-subtitle">Joined September</span>
+              <span className="user-status-subtitle">Online Now</span>
             </div>
             <span className="user-status-online-indicator green"></span>
           </li>
