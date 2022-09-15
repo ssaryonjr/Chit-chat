@@ -14,13 +14,22 @@ function SearchResult(props) {
   const loading = props.loading
   const data = props.data
 
-  const openChat = async(userId) => {
-    try {
-      axios.post(`/api/chat`, { userId })
-    } catch (error) {
-      
-    }
+  const openChat = () => {
+
   }
+
+  //Skeleton loader while fetchind data from database.
+  const skeletonAmount = [1,2,3,4,5,6,7]
+  const renderSkeletons = skeletonAmount.map(loader => {
+    return (
+      <div key={loader} className="skeleton">
+        <div className="s-img"></div>
+        <div className="s-line first"></div>
+        <div className="s-line second"></div>
+        <div className="s-line third"></div>
+      </div>
+    );
+  })
 
   const showList = data.map(user => {
     return (
@@ -53,54 +62,7 @@ function SearchResult(props) {
     <>
       {loading ? (
         <div className="skeleton-container">
-          <div className="skeleton">
-            <div className="s-img"></div>
-            <div className="s-line first"></div>
-            <div className="s-line second"></div>
-            <div className="s-line third"></div>
-          </div>
-
-          <div className="skeleton">
-            <div className="s-img"></div>
-            <div className="s-line first"></div>
-            <div className="s-line second"></div>
-            <div className="s-line third"></div>
-          </div>
-
-          <div className="skeleton">
-            <div className="s-img"></div>
-            <div className="s-line first"></div>
-            <div className="s-line second"></div>
-            <div className="s-line third"></div>
-          </div>
-
-          <div className="skeleton">
-            <div className="s-img"></div>
-            <div className="s-line first"></div>
-            <div className="s-line second"></div>
-            <div className="s-line third"></div>
-          </div>
-
-          <div className="skeleton">
-            <div className="s-img"></div>
-            <div className="s-line first"></div>
-            <div className="s-line second"></div>
-            <div className="s-line third"></div>
-          </div>
-
-          <div className="skeleton">
-            <div className="s-img"></div>
-            <div className="s-line first"></div>
-            <div className="s-line second"></div>
-            <div className="s-line third"></div>
-          </div>
-
-          <div className="skeleton">
-            <div className="s-img"></div>
-            <div className="s-line first"></div>
-            <div className="s-line second"></div>
-            <div className="s-line third"></div>
-          </div>
+          {renderSkeletons}
         </div>
       ) : (
         <div className="user-list-wrapper">

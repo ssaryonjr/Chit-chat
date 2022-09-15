@@ -9,28 +9,31 @@ function MessagesTab() {
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
   axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
-  const loggedUserId = currentUser._id
+  const loggedUserId = currentUser._id;
 
-  const { isLoading, data, error } = useQuery("chat-list", async() => {
+  const { isLoading, data } = useQuery("chat-list", async () => {
     const data = await axios.get("/api/chat");
-    return data
+    return data;
   });
 
-  // const dm = data?.data.map(c => console.log(c?.users.filter(g => g._id !== currentUser._id)))
+  const group = data?.data.map((chat) => {
+    return console.log(chat?.chatName);
+  });
 
-  // console.log(data?.data)
+  //Skeleton loader while fetchind data from database.
+  const skeletonAmount = [1, 2, 3, 4, 5, 6, 7, 8];
+  const renderSkeletons = skeletonAmount.map((loader) => {
+    return (
+      <div key={loader} className="skeleton">
+        <div className="s-img"></div>
+        <div className="s-line first"></div>
+        <div className="s-line second"></div>
+        <div className="s-line third"></div>
+      </div>
+    );
+  });
 
-  
-  const group = data?.data.map(chat => {
-    return console.log(chat?.chatName)
-  })
-  console.log(group)
-
-  
-
-
-  
-  const messageList = data?.data.map(chat => {
+  const messageList = data?.data.map((chat) => {
     return (
       <section className="user-conversation-container" key={chat?._id}>
         {chat.isGroupChat ? (
@@ -63,7 +66,7 @@ function MessagesTab() {
               {getSenderName(loggedUserId, chat)}
             </h6>
           ) : (
-              <h6 className="conversation-sender">{chat?.chatName}</h6>
+            <h6 className="conversation-sender">{chat?.chatName}</h6>
           )}
           <span className="conversation-brief">WILL FILL IN LATER</span>
         </div>
@@ -75,94 +78,18 @@ function MessagesTab() {
         </div>
       </section>
     );
-  })
+  });
 
   return (
     <div className="open-tab">
-      <div className="conversation-list-wrapper">
-        <h3 className="user-status-title">Recent Messages</h3>
-        {messageList}
-
-{/*         
-        <section className="user-conversation-container">
-          <div className="thumbnail-container">
-            <img
-              src="https://randomuser.me/api/portraits/men/59.jpg"
-              alt="thumbnail"
-              className="conversation-thumbnail"
-            />
-            <span className="online-circle"></span>
-          </div>
-          <div className="conversation-info">
-            <h6 className="conversation-sender">
-              David Johnson
-            </h6>
-            <span className="conversation-brief">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </span>
-          </div>
-          <div className="conversation-date">
-            <span className="conversation-timestamp">10:22 PM</span>
-            <div className="conversation-notification">
-              <span className="notification-number">8</span>
-            </div>
-          </div>
-        </section>
-
-        <section className="user-conversation-container">
-          <div className="thumbnail-container">
-
-            
-            <div className="avatars">
-              <span className="avatar">
-                <img src="https://randomuser.me/api/portraits/men/83.jpg" />
-              </span>
-              <span className="avatar">
-                <img src="https://randomuser.me/api/portraits/women/2.jpg" />
-              </span>
-              <div className="avatar group-circle">
-                <span className="group-count">+9</span>
-              </div>
-            </div>
-
-
-          </div>
-          <div className="conversation-info">
-            <h6 className="conversation-sender">Best coders group</h6>
-            <span className="conversation-brief">
-              I love juice and making ever.. we making two lines to see whats
-              up..
-            </span>
-          </div>
-          <div className="conversation-date">
-            <span className="conversation-timestamp">10:22 PM</span>
-            <div className="conversation-notification">
-              <span className="notification-number">3</span>
-            </div>
-          </div>
-        </section>
-
-        <section className="user-conversation-container">
-          <div className="thumbnail-container">
-            <img
-              src="https://randomuser.me/api/portraits/men/54.jpg"
-              alt="thumbnail"
-              className="conversation-thumbnail"
-            />
-            <span className="online-circle"></span>
-          </div>
-          <div className="conversation-info">
-            <h6 className="conversation-sender">Jacob Smith</h6>
-            <span className="conversation-brief">
-              I love juice and making ever.. testing two lines again to see if
-              i..
-            </span>
-          </div>
-          <div className="conversation-date">
-            <span className="conversation-timestamp">10:22 PM</span>
-          </div>
-        </section> */}
-      </div>
+      {isLoading ? (
+        <div className="skeleton-container">{renderSkeletons}</div>
+      ) : (
+        <div className="conversation-list-wrapper">
+          <h3 className="user-status-title">Recent Messages</h3>
+          {messageList}
+        </div>
+      )}
     </div>
   );
 }

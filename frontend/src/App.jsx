@@ -6,7 +6,7 @@ import MainPage from './Pages/MainPage'
 import ThemeToggle from "./components/ThemeToggle"
 import SignUpPage from "./Pages/SignUpPage";
 
-export const ActiveMessageContext = React.createContext()
+import ChatProvider from "./Context/ChatProvider";
 
 function App() {
   const [toggleTheme, setToggleTheme] = useState("light");
@@ -18,7 +18,7 @@ function App() {
 
 
   return (
-    <ActiveMessageContext.Provider>
+    <ChatProvider>
     <div className="app" data-theme={toggleTheme}>
       <Routes>
         <Route path="/" element={<LoginPage />} />
@@ -27,7 +27,7 @@ function App() {
       </Routes>
       <ThemeToggle handleClick={switchTheme} />
       </div>
-      </ActiveMessageContext.Provider>
+      </ChatProvider>
   );
 }
 
