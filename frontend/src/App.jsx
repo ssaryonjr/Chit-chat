@@ -6,7 +6,7 @@ import MainPage from './Pages/MainPage'
 import ThemeToggle from "./components/ThemeToggle"
 import SignUpPage from "./Pages/SignUpPage";
 
-import ChatProvider from "./Context/ChatProvider";
+import { ChatProvider } from './ChatContext'
 
 function App() {
   const [toggleTheme, setToggleTheme] = useState("light");
@@ -18,16 +18,17 @@ function App() {
 
 
   return (
-    <ChatProvider>
     <div className="app" data-theme={toggleTheme}>
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/homepage" element={<MainPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-      </Routes>
-      <ThemeToggle handleClick={switchTheme} />
-      </div>
-      </ChatProvider>
+      <ChatProvider>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/homepage" element={<MainPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+        </Routes>
+        <ThemeToggle handleClick={switchTheme} />
+      </ChatProvider>  
+    </div>
+      
   );
 }
 

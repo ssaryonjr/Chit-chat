@@ -9,31 +9,14 @@ function MessagesTab() {
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
   axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
-  const loggedUserId = currentUser._id;
+  const loggedUserId = currentUser._id
 
-  const { isLoading, data } = useQuery("chat-list", async () => {
+  const { isLoading, data, error } = useQuery("chat-list", async() => {
     const data = await axios.get("/api/chat");
-    return data;
+    return data
   });
-
-  const group = data?.data.map((chat) => {
-    return console.log(chat?.chatName);
-  });
-
-  //Skeleton loader while fetchind data from database.
-  const skeletonAmount = [1, 2, 3, 4, 5, 6, 7, 8];
-  const renderSkeletons = skeletonAmount.map((loader) => {
-    return (
-      <div key={loader} className="skeleton">
-        <div className="s-img"></div>
-        <div className="s-line first"></div>
-        <div className="s-line second"></div>
-        <div className="s-line third"></div>
-      </div>
-    );
-  });
-
-  const messageList = data?.data.map((chat) => {
+  
+  const messageList = data?.data.map(chat => {
     return (
       <section className="user-conversation-container" key={chat?._id}>
         {chat.isGroupChat ? (
@@ -66,7 +49,7 @@ function MessagesTab() {
               {getSenderName(loggedUserId, chat)}
             </h6>
           ) : (
-            <h6 className="conversation-sender">{chat?.chatName}</h6>
+              <h6 className="conversation-sender">{chat?.chatName}</h6>
           )}
           <span className="conversation-brief">WILL FILL IN LATER</span>
         </div>
@@ -78,18 +61,14 @@ function MessagesTab() {
         </div>
       </section>
     );
-  });
+  })
 
   return (
     <div className="open-tab">
-      {isLoading ? (
-        <div className="skeleton-container">{renderSkeletons}</div>
-      ) : (
-        <div className="conversation-list-wrapper">
-          <h3 className="user-status-title">Recent Messages</h3>
-          {messageList}
-        </div>
-      )}
+      <div className="conversation-list-wrapper">
+        <h3 className="user-status-title">Recent Messages</h3>
+        {messageList}
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import ChatContext from "../../ChatContext";
 import OnlineUsers from "./OnlineUsers";
 import SearchResult from "./SearchResult";
 import axios from "axios";
@@ -14,8 +15,11 @@ import {
 
 
 
+
 function GlobalUsers() {
-  const [search, setSearch] = useState("");
+  const { search, setSearch } = useContext(ChatContext);
+
+  // const [search, setSearch] = useState("");
   const [showOnlineBoard, setShowOnlineBoard] = useState(true);
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);

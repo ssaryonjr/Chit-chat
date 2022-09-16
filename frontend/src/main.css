@@ -831,13 +831,13 @@ input[id="radio-3"]:checked ~ .glider {
 
 .user-list-btn {
   background-color: var(--inputField-color);
-  width: 3rem;
+  width: 6rem;
   height: 3rem;
-  border-radius: 50%;
+  border-radius: 1.5rem;
   border: none;
   cursor: pointer;
   border: 1px solid rgba(201, 200, 200, 0.85);
-  font-size: 2.3rem;
+  font-size: 1.3rem;
 }
 
 .user-list-btn:last-child{

@@ -1,6 +1,5 @@
-import React, {useState} from 'react'
-// import Profile from '../img/samprofile.png'
-
+import React, {useState, useContext} from 'react'
+import ChatContext from '../ChatContext'
 import MessageTab from './SideBar Components/MessagesTab'
 import GlobalUsers from './SideBar Components/GlobalUsers'
 import Setting from './SideBar Components/Setting'
@@ -12,13 +11,13 @@ import {
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 
-
-
 function SideBar() { 
+  const {currentTab, setCurrentTab} = useContext(ChatContext);
+
   const user = JSON.parse(localStorage.getItem("userData"))
   const {firstName, lastName, profilePic } = user
 
-  const [currentTab, setCurrentTab] = useState(<MessageTab />)
+  // const [currentTab, setCurrentTab] = useState(<MessageTab />)
   
 
 
