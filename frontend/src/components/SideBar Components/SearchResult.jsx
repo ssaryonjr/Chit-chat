@@ -21,12 +21,12 @@ function SearchResult(props) {
 
   //Opens the chat that is clicked.
   const openChat = async(userId) => {
-    // try {
-    //   const { data } = await axios.post(`/api/chat`, { userId })
-    //   return data
-    // } catch (error) {
+    try {
+      const { data } = await axios.post(`/api/chat`, { userId })
+      return console.log(data)
+    } catch (error) {
       
-    // }
+    }
     setSelectedChat(userId)
     setSearch('')
     setCurrentTab(<MessagesTab />)
@@ -46,8 +46,6 @@ function SearchResult(props) {
     );
   })
 
-
-  console.log(data)
 
   const showList = data.map((user, index) => {
     return (

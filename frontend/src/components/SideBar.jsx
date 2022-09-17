@@ -34,17 +34,17 @@ function SideBar() {
 
   return (
     <aside>
-      <div className="user-heading">
+      {/* <div className="user-heading">
         <h1 className="user-title">{firstName} {lastName}</h1>
         <div className="user-thumbnail-container">
           <img src={profilePic} className="user-thumbnail" alt="user thumbnail" />
           <span className="user-ping"></span>
         </div>
-      </div>
+      </div> */}
 
       {currentTab}
 
-      <nav className="container">
+      <nav>
         <div className="tabs">
           <input
             type="radio"
