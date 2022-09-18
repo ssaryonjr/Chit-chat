@@ -16,6 +16,6 @@ root.render(
     <BrowserRouter>
         <App />
       </BrowserRouter>
-    <ReactQueryDevtools initialIsOpen />
+    <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 );

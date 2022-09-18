@@ -174,6 +174,18 @@ const removeGcUser = asyncHandler(async (req, res) => {
   }
 });
 
+//@desc Retrieve a singular specific chat to display.
+//@route GET /api/chat/:id
+//@access Private
+
+const openSingleChat = asyncHandler(async (req, res) => {
+    try {
+        const data = await Chat.findById(req.params.id);
+        res.status(200).send(data);
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 module.exports = {
   chatAccess,
@@ -181,5 +193,6 @@ module.exports = {
   createGroupChat,
   renameGroupChat,
   addGcUser,
-  removeGcUser
+  removeGcUser,
+  openSingleChat
 };

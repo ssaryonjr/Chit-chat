@@ -55,6 +55,10 @@ html {
   scroll-behavior: smooth;
 }
 
+#root {
+  width: 100%;
+  height: 100vh;
+}
 
 .app {
   margin: 0;
