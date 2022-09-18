@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react'
 import ChatContext from '../ChatContext'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperclip, faFaceLaughBeam, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faPaperclip, faFaceLaughBeam, faPaperPlane, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 
 function ChatBox() {
   const {selectedChat} = useContext(ChatContext)
@@ -16,10 +16,11 @@ function ChatBox() {
             className="single-chat-sender-photo"
           />
           <div className="single-chat-user-details">
-            <h5 className='single-chat-user-name'>Random User</h5>
-            <span className='single-chat-user-status'>Online Now</span>
+            <h5 className="single-chat-user-name">Random User</h5>
+            <span className="single-chat-user-status">Online Now</span>
           </div>
         </div>
+        <FontAwesomeIcon icon={faEllipsis} className="top-bar-msg-icon" />
       </div>
       <div className="open-msg-box"></div>
       <div className="msg-input-container">

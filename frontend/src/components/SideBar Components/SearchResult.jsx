@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function SearchResult(props) {
-  const { setSelectedChat, setSearch, setCurrentTab } = useContext(ChatContext)
+  const { setSelectedChat, setSearch, setCurrentTab, chats, setChats } = useContext(ChatContext)
   
   //Access logged in user data from local storage.
   const currentUser = JSON.parse(localStorage.getItem("userData"));
@@ -23,13 +23,19 @@ function SearchResult(props) {
   const openChat = async(userId) => {
     try {
       const { data } = await axios.post(`/api/chat`, { userId })
-      return console.log(data)
+      // return console.log(data)
+
+
+      if (!chats.find((c) => c._id === data._id)) {
+        setChats([data, ...chats])
+      }
+      setSelectedChat(data)
+      setSearch('')
+      setCurrentTab(<MessagesTab />)
     } catch (error) {
       
     }
-    setSelectedChat(userId)
-    setSearch('')
-    setCurrentTab(<MessagesTab />)
+    
   }
 
 

@@ -1,22 +1,36 @@
-import React from 'react'
+import React, { useState, useContext } from "react";
+import ChatContext from "../../ChatContext";
 import axios from "axios";
 import { useQuery } from "react-query";
 
-import { getSenderName, getSenderPic, getFirstGroupPic, getSecondGroupPic } from '../../config/ChatLogic';
-
+import {
+  getSenderName,
+  getSenderPic,
+  getFirstGroupPic,
+  getSecondGroupPic,
+} from "../../config/ChatLogic";
 
 function MessagesTab() {
+  //Global States
+   const {selectedChat, setSelectedChat, chats, setChats } = useContext(ChatContext);
+
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
   axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
-  const loggedUserId = currentUser._id
+  const loggedUserId = currentUser._id;
 
-  const { isLoading, data, error } = useQuery("chat-list", async() => {
-    const data = await axios.get("/api/chat");
+  //Fetching all users chats
+  const { isSuccess, data, error } = useQuery("chat-list", async () => {
+    const data = await axios.get("/api/chat")
+    setChats(data?.data)
     return data
   });
+
   
-  const messageList = data?.data.map(chat => {
+  
+  
+
+  const messageList = data?.data.map((chat) => {
     return (
       <section className="user-conversation-container" key={chat?._id}>
         {chat.isGroupChat ? (
@@ -49,7 +63,7 @@ function MessagesTab() {
               {getSenderName(loggedUserId, chat)}
             </h6>
           ) : (
-              <h6 className="conversation-sender">{chat?.chatName}</h6>
+            <h6 className="conversation-sender">{chat?.chatName}</h6>
           )}
           <span className="conversation-brief">WILL FILL IN LATER</span>
         </div>
@@ -59,9 +73,10 @@ function MessagesTab() {
             <span className="notification-number">8</span>
           </div>
         </div>
+        <div className="invisible-msg-wrapper"></div>
       </section>
     );
-  })
+  });
 
   return (
     <div className="open-tab">
@@ -73,4 +88,4 @@ function MessagesTab() {
   );
 }
 
-export default MessagesTab
+export default MessagesTab;

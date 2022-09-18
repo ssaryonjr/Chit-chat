@@ -34,6 +34,7 @@ const chatAccess = asyncHandler(async (req, res) => {
     //Checking if chat between two users already exist otherwise create it.
     if (conversation.length > 0) {
         res.send(conversation[0])
+        return //Might remove later, testing
     } else {
         var conversationData = {
             chatName: "sender",

@@ -6,7 +6,7 @@ const ChatContext = createContext();
 
 export function ChatProvider({ children }) {
     const [selectedChat, setSelectedChat] = useState()
-    const [chat, setChats] = useState([])
+    const [chats, setChats] = useState([])
     const [search, setSearch] = useState("")
     const [currentTab, setCurrentTab] = useState(<MessagesTab />)
     
@@ -18,7 +18,9 @@ export function ChatProvider({ children }) {
             search,
             setSearch,
             currentTab,
-            setCurrentTab
+            setCurrentTab,
+            chats,
+            setChats
         }}>
             {children}
         </ChatContext.Provider>

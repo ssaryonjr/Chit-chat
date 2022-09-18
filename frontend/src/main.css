@@ -874,6 +874,7 @@ input[id="radio-3"]:checked ~ .glider {
   margin: .8rem;
   border-radius: 1.5rem;
   position: relative;
+  /* border-left: 10px solid rgb(255, 42, 0); */
 }
 
 .invisible-msg-wrapper{
@@ -1076,7 +1077,6 @@ input[id="radio-3"]:checked ~ .glider {
   font-weight: 500;
   color: rgb(38, 37, 37);
 }
-
 
 .open-msg-box{
   width: 100%;
