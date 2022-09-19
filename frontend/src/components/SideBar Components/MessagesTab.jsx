@@ -12,7 +12,7 @@ import {
 
 function MessagesTab() {
   //Global States
-   const {selectedChat, setSelectedChat, chats, setChats } = useContext(ChatContext);
+  const { selectedChat, setSelectedChat, chats, setChats, showModal, setShowModal } = useContext(ChatContext);
 
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
@@ -20,19 +20,27 @@ function MessagesTab() {
   const loggedUserId = currentUser._id;
 
   //Fetching all users chats
-  const { isSuccess, data, error } = useQuery("chat-list", async () => {
+  const { data } = useQuery("chat-list", async () => {
     const data = await axios.get("/api/chat")
     setChats(data?.data)
     return data
   });
 
   
+  const openChat = async(id) => {
+    try {
+      const data = await axios.get(`/api/chat/${id}`)
+      return setSelectedChat(data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   
   
 
-  const messageList = data?.data.map((chat) => {
+  const messageList = data?.data.map((chat, index) => {
     return (
-      <section className="user-conversation-container" key={chat?._id}>
+      <section className="user-conversation-container" key={index}>
         {chat.isGroupChat ? (
           <div className="thumbnail-container">
             <div className="avatars">
@@ -73,7 +81,11 @@ function MessagesTab() {
             <span className="notification-number">8</span>
           </div>
         </div>
-        <div className="invisible-msg-wrapper"></div>
+        <div
+          className="invisible-msg-wrapper"
+          id={chat?._id}
+          onClick={(e)=> openChat(e.target.id)}
+        ></div>
       </section>
     );
   });
@@ -81,7 +93,13 @@ function MessagesTab() {
   return (
     <div className="open-tab">
       <div className="conversation-list-wrapper">
-        <h3 className="user-status-title">Recent Messages</h3>
+        <div className="message-tab-info-wrapper">
+          <h3 className="user-status-title">Recent Messages</h3>
+          <button
+            className="groupchat-button"
+            onClick={()=> setShowModal(prevValue => !prevValue)}
+          >+ Create Groupchat</button>
+        </div>
         {messageList}
       </div>
     </div>

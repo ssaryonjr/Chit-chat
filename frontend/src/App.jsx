@@ -25,7 +25,6 @@ function App() {
           <Route path="/homepage" element={<MainPage />} />
           <Route path="/signup" element={<SignUpPage />} />
         </Routes>
-        <ThemeToggle handleClick={switchTheme} />
       </ChatProvider>  
     </div>
       

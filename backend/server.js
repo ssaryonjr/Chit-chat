@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 //API Endpoint Routes
 app.use('/api/user', require("./routes/userRoutes"))
 app.use('/api/chat', require("./routes/chatRoutes"))
+app.use('/api/message', require("./routes/messageRoutes"))
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT: ${PORT}`.bgBlue);

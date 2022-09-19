@@ -12,10 +12,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 
-
-
-
-
 function GlobalUsers() {
   const { search, setSearch } = useContext(ChatContext);
 

@@ -53,15 +53,17 @@
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
+  overflow: hidden;
 }
 
-#root {
+/* #root {
   width: 100%;
   height: 100vh;
-}
+} */
 
 .app {
   margin: 0;
+  position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--background);
@@ -72,60 +74,8 @@ html {
   align-items: center;
   flex-direction: column;
   transition: all .9s;
+  padding: 2rem 3rem;
 }
-
-/* Theme Toggle Button */
-
-.toggle-switch {
-  position: relative;
-  width: 70px;
-}
-
-.toggle-container {
-  position: absolute;
-  width: 100%;
-  height: 30px;
-  background-color: var(--dark);
-  border-radius: 50px;
-  cursor: pointer;
-}
-
-.toggle-checker {
-  position: absolute;
-  display: none;
-}
-
-.slider {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50px;
-  transition: 0.3s;
-}
-
-.toggle-checker:checked ~ .slider {
-  background-color: var(--accent);
-}
-
-.slider::before {
-  content: "";
-  position: absolute;
-  top: 3.5px;
-  left: 6px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  box-shadow: inset 7px -4px 0px 0px var(--light);
-  background-color: var(--dark);
-  transition: 0.3s;
-}
-
-.toggle-checker:checked ~ .slider::before {
-  transform: translateX(36px);
-  background-color: var(--secondary-background);
-  box-shadow: none;
-}
-
 
 /*Loading Animation */
 
@@ -785,7 +735,7 @@ input[id="radio-3"]:checked ~ .glider {
 }
 
 .user-status-title {
-  font-size: 1.44rem;
+  font-size: 1.54rem;
   font-weight:700;
   color: grey;
   text-transform: uppercase;
@@ -864,6 +814,22 @@ input[id="radio-3"]:checked ~ .glider {
   width: 100%;
   height: 100%;
   overflow:auto;
+}
+
+.message-tab-info-wrapper{
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1.2rem;
+}
+
+.groupchat-button{
+  background-color: transparent;
+  color: rgb(238, 144, 22);
+  border: none;
+  border-radius: 1.5rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 
@@ -1031,6 +997,21 @@ input[id="radio-3"]:checked ~ .glider {
   border-bottom-right-radius: 1.5rem;
 }
 
+.unopened-chat-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.unopened-chat-title{
+  font-size: 3rem;
+  color: rgba(0, 0, 0, 0.379);
+  text-align: center;
+}
+
+
 .current-msg-top-bar{
   width: 100%;
   height: 8rem;
@@ -1082,6 +1063,59 @@ input[id="radio-3"]:checked ~ .glider {
   color: rgb(38, 37, 37);
 }
 
+.group-chat-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/*Group Chat ICON */
+
+ .group-chat-icon-wrapper {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  width: 45px;
+  height: 4.5rem;
+  margin-right: 7.4rem;
+}
+
+.group-chat-user-profile {
+  position: relative;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.group-chat-user-profile:not(:last-child) {
+  margin-left: -79px;
+}
+
+.group-chat-user-profile img {
+  width: 100%;
+  display: block;
+}
+
+.group-circle{
+  background-color: rgb(147, 146, 146);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.group-count{
+  color: white;
+  font-size: 1.8rem;
+}
+
+/* END OF GROUPCHAT ICON */ 
+
+
+
 .open-msg-box{
   width: 100%;
   height: calc(100% - 13rem);
@@ -1128,7 +1162,7 @@ input[id="radio-3"]:checked ~ .glider {
   height: 3.6rem;
   border-radius: 100%;
   border: none;
-  background-color: rgb(0, 153, 255);
+  background-color:rgb(238, 144, 22);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1138,4 +1172,75 @@ input[id="radio-3"]:checked ~ .glider {
 .send-icon {
   color: white;
   font-size: 1.8rem;
+}
+
+
+/*Group Chat Modal */
+
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content{
+  width: 40rem;
+  height: 35rem;
+  background-color: rgb(255, 255, 255);
+  border-radius: 1.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.5rem;
+}
+
+.close-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: red;
+  color: white;
+  border-radius: 2rem;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  right: -6px;
+  font-weight: bold;
+  top: -10px;
+  cursor: pointer;
+}
+
+.close-btn:hover{
+  background-color: rgb(220, 4, 4);
+}
+
+.modal-title{
+  font-size: 2.5rem;
+}
+
+.group-chat-input {
+  width: 100%;
+  height: 3.5rem;
+  font-size: 1.6rem;
+  border-radius: 2rem;
+  border: 1px solid rgb(177, 177, 177);
+  padding: 0 1rem;
+  margin-top: 1.5rem;
+}
+
+.group-chat-submit-btn {
+  background-color:rgb(238, 144, 22);
+  color: white;
+  padding: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 2rem;
+  margin-top: auto;
+  cursor: pointer;
 }

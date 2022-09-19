@@ -9,6 +9,7 @@ export function ChatProvider({ children }) {
     const [chats, setChats] = useState([])
     const [search, setSearch] = useState("")
     const [currentTab, setCurrentTab] = useState(<MessagesTab />)
+    const [showModal, setShowModal] = useState(false)
     
 
     return (
@@ -20,7 +21,9 @@ export function ChatProvider({ children }) {
             currentTab,
             setCurrentTab,
             chats,
-            setChats
+            setChats,
+            showModal,
+            setShowModal
         }}>
             {children}
         </ChatContext.Provider>

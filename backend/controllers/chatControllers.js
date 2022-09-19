@@ -180,7 +180,10 @@ const removeGcUser = asyncHandler(async (req, res) => {
 
 const openSingleChat = asyncHandler(async (req, res) => {
     try {
-        const data = await Chat.findById(req.params.id);
+        const data = await Chat.findById(req.params.id).populate(
+          "users",
+          "-password"
+        );
         res.status(200).send(data);
     } catch (error) {
         console.log(error)
