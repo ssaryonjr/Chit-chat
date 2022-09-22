@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios';
 import ChatContext from '../ChatContext'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,8 +17,19 @@ function ChatBox() {
   const loggedUserId = currentUser._id;
 
   const fetchAllMessages = async () => {
+    if (!selectedChat) return
 
+    try {
+      const { data } = await axios.get(`/api/message/${selectedChat?._id}`)
+      console.log(data)
+    } catch (error) {
+      
+    }
   }
+
+  useEffect(() => {
+    fetchAllMessages()
+  },[selectedChat])
 
   const sendMessage = async(e) => {
     e.preventDefault()
