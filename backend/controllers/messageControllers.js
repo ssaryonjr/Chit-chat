@@ -3,44 +3,58 @@ const Message = require("../models/messageModel");
 const User = require("../models/userModel");
 const Chat = require("../models/chatModel");
 
-
-
-//@description     Create New Message
+//@description     Send a New Message
 //@route           POST /api/Message/
-//@access          Protected
+//@access          Private
 const sendMessage = asyncHandler(async (req, res) => {
-    const { messageSent, chatId } = req.body
-    
-    if (!messageSent || !chatId) {
-        console.log("Unable to send your message")
-        return res.sendStatus(400)
-    }
+  const { messageSent, chatId } = req.body;
 
-    var newMessage = {
-        sender: req.user._id,
-        messageSent: messageSent,
-        chatReference: chatId,
-    }
+  if (!messageSent || !chatId) {
+    console.log("Unable to send your message");
+    return res.sendStatus(400);
+  }
 
-    try {
-        var message = await Message.create(newMessage)
+  var newMessage = {
+    sender: req.user._id,
+    messageSent: messageSent,
+    chatReference: chatId,
+  };
 
-        message = await message.populate("sender", "firstName lastName profilePic")
-        message = await message.populate("chat")
-        message = await User.populate(message, {
-            path: 'chat.users',
-            select: "firstName lastName profilePic",
-        })
+  try {
+    var message = await Message.create(newMessage);
 
-        await Chat.findByIdAndUpdate(req.body.chatId, {
-            latestMessage: message,
-        })
+    message = await message.populate("sender", "firstName lastName profilePic");
+    message = await message.populate("chatReference")
+    message = await User.populate(message, {
+      path: "chat.users",
+      select: "firstName lastName profilePic",
+    });
 
-        res.json(message)
-    } catch (error) {
-        res.status(400)
-        throw new Error(error.message)
-    }
-})
+    await Chat.findByIdAndUpdate(req.body.chatId, {
+      latestMessage: message,
+    });
 
-module.exports = { sendMessage }
+    res.json(message);
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+
+//@description     Get all Chat Messages between users.
+//@route           GET /api/Message/:chatId
+//@access          Private
+const getAllMessages = asyncHandler(async (req, res) => {
+  try {
+    const allMessages = await Message.find({
+      chatReference: req.params.chatId,
+    }).populate("sender", "firstName lastName profilePic")
+    .populate("chatReference")
+    res.json(allMessages);
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+
+module.exports = { sendMessage, getAllMessages };
