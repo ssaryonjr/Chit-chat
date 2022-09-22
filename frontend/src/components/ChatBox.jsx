@@ -4,6 +4,7 @@ import ChatContext from '../ChatContext'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip, faFaceLaughBeam, faPaperPlane, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { getSenderName, getSenderPic, getSecondGroupPic, getFirstGroupPic } from '../config/ChatLogic';
+import DisplayMessagesBox from './Chat Components/DisplayMessagesBox';
 
 
 function ChatBox() {
@@ -18,14 +19,16 @@ function ChatBox() {
 
   const fetchAllMessages = async () => {
     if (!selectedChat) return
-
     try {
       const { data } = await axios.get(`/api/message/${selectedChat?._id}`)
-      console.log(data)
+      
+      setAllMessages(data)
     } catch (error) {
       
     }
   }
+
+  console.log(allMessages)
 
   useEffect(() => {
     fetchAllMessages()
@@ -95,7 +98,9 @@ function ChatBox() {
             )}
             <FontAwesomeIcon icon={faEllipsis} className="top-bar-msg-icon" />
           </div>
-          <div className="open-msg-box"></div>
+          <div className="open-msg-box">
+            <DisplayMessagesBox messages={allMessages} />
+          </div>
           <div className="msg-input-container">
             <FontAwesomeIcon icon={faPaperclip} className="send-msg-icons" />
             <form className="send-msg-form" onSubmit={sendMessage}>
