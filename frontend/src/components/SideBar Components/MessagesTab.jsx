@@ -20,13 +20,13 @@ function MessagesTab() {
   const loggedUserId = currentUser._id;
 
   //Fetching all users chats
-  const { data } = useQuery("chat-list", async () => {
+  const { data } = useQuery(["chat-list"], async () => {
     const data = await axios.get("/api/chat")
     setChats(data?.data)
     return data
   });
 
-  
+
   const openChat = async(id) => {
     try {
       const data = await axios.get(`/api/chat/${id}`)
@@ -73,7 +73,7 @@ function MessagesTab() {
           ) : (
             <h6 className="conversation-sender">{chat?.chatName}</h6>
           )}
-          <span className="conversation-brief">WILL FILL IN LATER</span>
+          <span className="conversation-brief">{chat?.latestMessage?.messageSent}</span>
         </div>
         <div className="conversation-date">
           <span className="conversation-timestamp">10:22 PM</span>

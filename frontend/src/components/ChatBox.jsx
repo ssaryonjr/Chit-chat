@@ -7,14 +7,43 @@ import { getSenderName, getSenderPic, getSecondGroupPic, getFirstGroupPic } from
 
 
 function ChatBox() {
+  const [newMessage, setNewMessage] = useState('')
+  const [allMessages, setAllMessages] = useState()
+  const { selectedChat } = useContext(ChatContext);
+
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
   axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
   const loggedUserId = currentUser._id;
 
-  const { selectedChat } = useContext(ChatContext);
+  const fetchAllMessages = async () => {
 
-  console.log(selectedChat?.isGroupChat);
+  }
+
+  const sendMessage = async(e) => {
+    e.preventDefault()
+      if (newMessage){
+      try {
+        const {data} = await axios.post(`/api/message/`, {
+          messageSent: newMessage,
+          chatId: selectedChat?._id
+        })
+        console.log(data)
+        setNewMessage('')
+        setAllMessages([...allMessages, data])
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
+  const userTyping = (e) => {
+    setNewMessage(e.target.value)
+    console.log(newMessage)
+
+    //Typing indicator logic
+  }
+
 
   return (
     <main className="chat-box">
@@ -58,12 +87,14 @@ function ChatBox() {
           <div className="open-msg-box"></div>
           <div className="msg-input-container">
             <FontAwesomeIcon icon={faPaperclip} className="send-msg-icons" />
-            <form className="send-msg-form">
+            <form className="send-msg-form" onSubmit={sendMessage}>
               <label htmlFor="text-msg">
                 <input
                   type="text"
                   placeholder="Send a message"
                   className="send-msg-input"
+                  onChange={userTyping}
+                  value={newMessage}
                 />
               </label>
             </form>
