@@ -1,6 +1,6 @@
 import React from 'react'
 import ScrollableFeed from 'react-scrollable-feed'
-import { timeDifference } from '../../config/ChatLogic';
+import { timeDifference, isLastMessage, isSameSender } from '../../config/ChatLogic';
 
 function DisplayMessagesBox({ messages }) {
   //User info
@@ -20,26 +20,40 @@ function DisplayMessagesBox({ messages }) {
                       <span className="text-bubble sender">
                         {m?.messageSent}
                       </span>
-                      <span className='chat-bubble-time-right'>
+                      <span className="chat-bubble-time-right">
                         {timeDifference(currentTime, new Date(m?.createdAt))}
                       </span>
                     </div>
                   </div>
                 ) : (
                   <div className="chat-msg-container left-side" key={i}>
-                    <img
-                      src={m?.sender?.profilePic}
-                      alt="user profile"
-                      className="chat-bubble-user"
-                    />
-                    <div className="chat-bubble-left">
-                      <span className="text-bubble receiver">
-                        {m?.messageSent}
-                      </span>
-                      <span className='chat-bubble-time-left'>
-                        {timeDifference(currentTime, new Date(m?.createdAt))}
-                      </span>
-                    </div>
+                    {isSameSender(messages, m, i, loggedUserId) ||
+                    isLastMessage(messages, i, loggedUserId) ? (
+                      <>
+                        <img
+                          src={m?.sender?.profilePic}
+                          alt="user profile"
+                          className="chat-bubble-user"
+                        />
+                        <div className="chat-bubble-left">
+                          <span className="text-bubble receiver">
+                            {m?.messageSent}
+                          </span>
+                          <span className="chat-bubble-time-left">
+                            {timeDifference(
+                              currentTime,
+                              new Date(m?.createdAt)
+                            )}
+                          </span>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="chat-bubble-left indent">
+                        <span className="text-bubble receiver">
+                          {m?.messageSent}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 )}
               </>

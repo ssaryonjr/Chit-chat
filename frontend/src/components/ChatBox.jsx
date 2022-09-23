@@ -79,7 +79,7 @@ function ChatBox() {
                     </span>
                   </div>
                 </div>
-                <h1>{selectedChat?.chatName}</h1>
+                <h1 className='group-chat-name'>{selectedChat?.chatName}</h1>
               </div>
             ) : (
               <div className="single-chat-user-wrapper">

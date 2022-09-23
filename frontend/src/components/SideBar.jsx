@@ -50,13 +50,18 @@ function SideBar() {
             type="radio"
             id="radio-1"
             name="tabs"
-            defaultChecked={true}
             onClick={changeTab}
           />
           <label className="tab" htmlFor="radio-1">
             <FontAwesomeIcon icon={faComments} className="nav-icon" />
           </label>
-          <input type="radio" id="radio-2" name="tabs" onClick={changeTab} />
+          <input
+            type="radio"
+            id="radio-2"
+            name="tabs"
+            defaultChecked={true}
+            onClick={changeTab}
+          />
           <label className="tab" htmlFor="radio-2">
             <FontAwesomeIcon icon={faUserGroup} className="nav-icon" />
           </label>

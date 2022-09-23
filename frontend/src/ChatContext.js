@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
-import MessagesTab from "./components/SideBar Components/MessagesTab";
+import GlobalUsers from "./components/SideBar Components/GlobalUsers";
+
 
 
 const ChatContext = createContext();
@@ -8,7 +9,7 @@ export function ChatProvider({ children }) {
     const [selectedChat, setSelectedChat] = useState()
     const [chats, setChats] = useState([])
     const [search, setSearch] = useState("")
-    const [currentTab, setCurrentTab] = useState(<MessagesTab />)
+    const [currentTab, setCurrentTab] = useState(<GlobalUsers />)
     const [showModal, setShowModal] = useState(false)
     
 
