@@ -3,22 +3,20 @@ import ChatContext from "../../ChatContext";
 import axios from "axios";
 import { useQuery } from "react-query";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
-
-
 import {
   getSenderName,
   getSenderPic,
   getFirstGroupPic,
   getSecondGroupPic,
+  messageBrief,
+  latestMessageTime
 } from "../../config/ChatLogic";
 
 function MessagesTab() {
   //Global States
-  const { selectedChat, setSelectedChat, chats, setChats, showModal, setShowModal } = useContext(ChatContext);
+  const { setSelectedChat, selectedChat, setChats } = useContext(ChatContext);
+  
+  const currentTime = new Date()
 
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
@@ -26,12 +24,11 @@ function MessagesTab() {
   const loggedUserId = currentUser._id;
 
   //Fetching all users chats
-  const { data } = useQuery(["chat-list"], async () => {
+  const { data, refetch } = useQuery(["chat-list"], async () => {
     const data = await axios.get("/api/chat")
     setChats(data?.data)
     return data
   });
-
 
   const openChat = async(id) => {
     try {
@@ -41,12 +38,10 @@ function MessagesTab() {
       console.log(error)
     }
   }
-  
-  
-
+    
   const messageList = data?.data.map((chat, index) => {
     return (
-      <section className="user-conversation-container" key={index}>
+      <section style={{borderLeft: selectedChat?._id === chat?._id ? '10px solid #0B93F6' : 'none'}} className="user-conversation-container" key={index}>
         {chat.isGroupChat ? (
           <div className="thumbnail-container">
             <div className="avatars">
@@ -79,12 +74,12 @@ function MessagesTab() {
           ) : (
             <h6 className="conversation-sender">{chat?.chatName}</h6>
           )}
-          <span className="conversation-brief">{chat?.latestMessage?.messageSent}</span>
+          <span className="conversation-brief">{messageBrief(chat?.latestMessage?.messageSent)}</span>
         </div>
         <div className="conversation-date">
-          <span className="conversation-timestamp">10:22 PM</span>
+          <span className="conversation-timestamp">{latestMessageTime(currentTime, new Date(chat?.latestMessage?.updatedAt))}</span>
           <div className="conversation-notification">
-            <span className="notification-number">8</span>
+            <span className="notification-number">1</span>
           </div>
         </div>
         <div
@@ -97,34 +92,10 @@ function MessagesTab() {
   });
 
   return (
-    <div className="open-tab">
-      
-        <div className="message-tab-info-wrapper">
-          <h3 className="msg-tab-title">Messages •</h3>
-          <button
-            className="groupchat-button"
-            onClick={() => setShowModal((prevValue) => !prevValue)}
-          >
-            + Create Groupchat
-          </button>
-        </div>
-        <div className="search-container">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Search all messages"
-          />
-          <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon" />
-        </div>
-      
-        <div className="conversation-list-wrapper">
+      <div className="conversation-list-wrapper">
         {messageList}
-
-        {/* <div className="no-result-container">
-          <h1 className="no-result-title">No messages found</h1>
-        </div> */}
       </div>
-    </div>
+  
   );
 }
 

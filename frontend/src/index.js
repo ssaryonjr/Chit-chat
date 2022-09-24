@@ -9,7 +9,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 
 
 const queryClient = new QueryClient();
-queryClient.invalidateQueries(["chat-list"]);
+// queryClient.invalidateQueries(["chat-list"]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

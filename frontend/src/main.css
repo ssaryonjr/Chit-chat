@@ -62,7 +62,6 @@
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
-  overflow: hidden;
 }
 
 /* #root {
@@ -168,7 +167,7 @@ html {
   position: absolute;
   width: 128px;
   height: 58px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0), #FFF, rgba(255, 255, 255, 0));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(162, 162, 162, 0.63), rgba(255, 255, 255, 0));
   content: "";
   animation: skeleton-animation 1.25s infinite;
 }
@@ -178,14 +177,14 @@ html {
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  background: rgb(103, 103, 103);
+  background: rgb(54, 54, 54);
   grid-row: 1 / 4;
 }
 
 .skeleton .s-line
 {
   height: 20px;
-  background: rgb(103, 103, 103);
+  background: rgb(54, 54, 54);
 }
 
 .skeleton .s-line.first { width: 100% }
@@ -512,7 +511,7 @@ html {
   box-shadow: var(--shadow-large);
   border-radius: 1.5rem;
   display: flex;
-
+  
   /* font-family: 'Open Sans', sans-serif; */
 }
 
@@ -529,27 +528,14 @@ aside {
   background-color: #111111ff;
   font-weight: 600;
   font-size: 2.3rem; 
+  padding-top: 1.2rem;
 }
 
 
-/* .user-heading {
-  width: 100%;
-  height: 8rem;
-  background-color: rgb(34, 43, 54);
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  padding: 0 1.9rem;
-  align-items: center;
-  border-top-left-radius: 1.5rem;
-  border-bottom: 1px solid rgb(221, 221, 221);
-  border-right: 1px solid rgb(221, 221, 221);
-} */
-
-.user-title {
-  color: rgb(227, 135, 14);
-  font-weight: 700;
-  font-size: 2.7rem;
+.profile-thumbnail {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
 }
 
 .user-thumbnail-container,
@@ -576,93 +562,6 @@ aside {
   right: -2px;
 }
 
-/* Navigation */
-
-
-/* .navigation {
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  border-bottom-right-radius: 1.5rem;
-} */
-
-nav {
-  height: 34px;
-  width: 100%;
-}
-
-.tabs {
-  display: flex;
-  position: relative;
-  background-color: #111111ff;
-  box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 6px 12px 0 rgba(24, 27, 32, 0.15);
-  padding: 0.5rem;
-  border-bottom-left-radius: 1.5rem;
-}
-.tabs * {
-  z-index: 2;
-}
-input[type="radio"] {
-  display: none;
-}
-input[type="radio"]:checked + label {
-  color: #ecf3ff;
-}
-input[type="radio"]:checked + label > .notification {
-  background-color: #185ee0;
-  color: #fff;
-}
-.tab {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 34px;
-  width: 100%;
-  font-size: 1.55rem;
-  font-weight: 600;
-  border-radius: 99px;
-  cursor: pointer;
-  color: rgb(88, 89, 94);
-  transition: color 0.15s ease-in;
-}
-input[id="radio-1"]:checked ~ .glider {
-  transform: translateX(0);
-}
-input[id="radio-2"]:checked ~ .glider {
-  transform: translateX(100%);
-}
-input[id="radio-3"]:checked ~ .glider {
-  transform: translateX(200%);
-}
-.glider {
-  position: absolute;
-  display: flex;
-  height: 3.4rem;
-  /* width: 122px; */
-  width: calc(100% / 3.1);
-  background-color: #2b2b2b;
-  z-index: 1;
-  border-radius: 99px;
-  transition: 0.25s ease-out;
-}
-
-.nav-icon {
-  font-size: 2.5rem;
-}
-
-/* Opened Tabs */
-
-.open-tab {
-  height: calc(100% - 44px);
-  /* height: 70rem; */
-  width: 100%;
-  /* background: var(--secondary-background); */
-  background-color: #111111ff;
-  padding-top: 1rem;
-  border-top-left-radius: 1.5rem;
-}
-
-
 /* Global User Tab */
 .search-container {
   width: 100%;
@@ -680,7 +579,7 @@ input[id="radio-3"]:checked ~ .glider {
   height: 3.9rem;
   border: none;
   font-size: 1.5rem;
-  width: 190%;
+  width: 100%;
   font-weight: 500;
   border-radius: 2rem;
   padding-left: 4rem;
@@ -696,28 +595,6 @@ input[id="radio-3"]:checked ~ .glider {
   font-size: 1.9rem;
   color: rgb(151, 151, 151);
 }
-
-.groupchat-btn{
-  background-color: #2b2d2f;
-  color: #f0f0f0d3;
-  width: 3.8rem;
-  height: 3.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  margin-left: .5rem;
-  border: none;
-  cursor: pointer;
-}
-
-
-.groupchat-icon{
-  font-size: 1.7rem;
-  color: rgb(151, 151, 151);
-}
-
-
 
 .user-list-wrapper{
   width: 100%;
@@ -743,6 +620,7 @@ input[id="radio-3"]:checked ~ .glider {
   background-color: rgb(28, 29, 33);
   border-radius: 1.5rem;
   margin-bottom: 1rem;
+  position: relative;
 }
 
 .online-user-wrapper:hover,
@@ -884,9 +762,11 @@ input[id="radio-3"]:checked ~ .glider {
   border-radius: 1.5rem;
   font-weight: bold;
   font-size: 1.4rem;
-  padding: .2rem 1.8rem;
+  padding: .1rem 1.8rem;
   cursor: pointer;
   transition: 0.4s;
+  width: 19rem;
+  height: 3.4rem;
 }
 
 .groupchat-button:hover{
@@ -903,11 +783,12 @@ input[id="radio-3"]:checked ~ .glider {
   margin: 1rem .8rem;
   border-radius: 1.5rem;
   position: relative;
-  /* border-left: 10px solid rgb(255, 42, 0); */
+  /* border-left: 10px solid #0B93F6 */
 }
 
-.invisible-msg-wrapper{
-  background-color: rgba(255, 255, 255, 0);
+.invisible-msg-wrapper,
+.invisible-search-wrapper{
+  background-color: rgba(218, 215, 18, 0);
   width: 100%;
   height: 100%;
   position: absolute;
@@ -1397,14 +1278,14 @@ input[id="radio-3"]:checked ~ .glider {
 .modal-content{
   width: 40rem;
   min-height: 40rem;
-  background-color: rgb(35, 35, 41);
+  background-color: rgb(19, 19, 21);
   border-radius: 1.5rem;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem 2rem;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  box-shadow: rgba(174, 174, 174, 0.25) 0px 14px 28px, rgba(92, 91, 91, 0.22) 0px 10px 10px;
 }
 
 .close-btn {

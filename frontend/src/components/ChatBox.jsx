@@ -41,7 +41,6 @@ function ChatBox() {
           messageSent: newMessage,
           chatId: selectedChat?._id
         })
-        console.log(data)
         setNewMessage('')
         setAllMessages([...allMessages, data])
       } catch (error) {
@@ -52,11 +51,9 @@ function ChatBox() {
 
   const userTyping = (e) => {
     setNewMessage(e.target.value)
-    console.log(newMessage)
 
     //Typing indicator logic
   }
-
 
   return (
     <main className="chat-box">

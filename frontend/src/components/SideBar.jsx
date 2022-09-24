@@ -1,77 +1,81 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import ChatContext from '../ChatContext'
 import MessageTab from './SideBar Components/MessagesTab'
-import GlobalUsers from './SideBar Components/GlobalUsers'
-import Setting from './SideBar Components/Setting'
+import axios from 'axios'
+import SearchResult from './SideBar Components/SearchResult'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faComments,
-  faGear,
-  faUserGroup,
+  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 
 function SideBar() { 
-  const {currentTab, setCurrentTab} = useContext(ChatContext);
+//Global States
+const { search, setSearch, setShowModal } = useContext(ChatContext);
 
-  const user = JSON.parse(localStorage.getItem("userData"))
-  const {firstName, lastName, profilePic } = user
+  const user = JSON.parse(localStorage.getItem("userData"));
+  const config = { headers: { Authorization: `Bearer ${user.token}` } };
 
-  // const [currentTab, setCurrentTab] = useState(<MessageTab />)
   
+const [showOnlineBoard, setShowOnlineBoard] = useState(true);
+const [searchResult, setSearchResult] = useState([]);
+const [loading, setLoading] = useState(false);
 
+useEffect(() => {
+  if (search === "") {
+    setShowOnlineBoard(true);
+  }
 
-    const changeTab = (e) => {
-        const clicked = e.target.id
-        if (clicked === 'radio-1') {
-            setCurrentTab(<MessageTab />)
-        } else if (clicked === 'radio-2') {
-            setCurrentTab(<GlobalUsers />)
-        } else if (clicked === 'radio-3') {
-            setCurrentTab(<Setting />)
-        }
-    }
+  if (search !== "") {
+    setShowOnlineBoard(false);
+
+    const fetchUsers = async () => {
+      try {
+        setLoading(true);
+
+        const { data } = await axios.get(`/api/user?search=${search}`, config);
+        setLoading(false);
+        setSearchResult(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchUsers();
+  }
+}, [search]);
+
+const handleSearchInput = (e) => {
+  setSearch(e.target.value);
+};
 
   return (
     <aside>
-      {/* <div className="user-heading">
-        <h1 className="user-title">{firstName} {lastName}</h1>
-        <div className="user-thumbnail-container">
-          <img src={profilePic} className="user-thumbnail" alt="user thumbnail" />
-          <span className="user-ping"></span>
-        </div>
-      </div> */}
+      <div className="message-tab-info-wrapper">
+        <h3 className="msg-tab-title">Messages •</h3>
+        <button
+          className="groupchat-button"
+          onClick={() => setShowModal((prevValue) => !prevValue)}
+        >
+          + Create Groupchat
+        </button>
+      </div>
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Start a conversation.."
+          value={search}
+          onChange={handleSearchInput}
+        />
+        <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon" />
+      </div>
 
-      {currentTab}
-
-      <nav>
-        <div className="tabs">
-          <input
-            type="radio"
-            id="radio-1"
-            name="tabs"
-            onClick={changeTab}
-          />
-          <label className="tab" htmlFor="radio-1">
-            <FontAwesomeIcon icon={faComments} className="nav-icon" />
-          </label>
-          <input
-            type="radio"
-            id="radio-2"
-            name="tabs"
-            defaultChecked={true}
-            onClick={changeTab}
-          />
-          <label className="tab" htmlFor="radio-2">
-            <FontAwesomeIcon icon={faUserGroup} className="nav-icon" />
-          </label>
-          <input type="radio" id="radio-3" name="tabs" onClick={changeTab} />
-          <label className="tab" htmlFor="radio-3">
-            <FontAwesomeIcon icon={faGear} className="nav-icon" />
-          </label>
-          <span className="glider"></span>
-        </div>
-      </nav>
+      {showOnlineBoard ? (
+        <MessageTab />
+      ) : (
+        <SearchResult loading={loading} data={searchResult} />
+      )}
     </aside>
   );
 }

@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Logo from '../img/logo.png'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import ChatContext from '../ChatContext'
+
 
 function SignUpPage() {
+  const {setTest} = useContext(ChatContext)
+
   const navigate = useNavigate()
   const defaultProfile =
     "https://res.cloudinary.com/ssaryonjr/image/upload/v1662530729/ece2b0f541d47e4078aef33ffd22777e_tqiffc.jpg";
@@ -91,14 +95,25 @@ function SignUpPage() {
       return
     }
 
-
     try {
-      const { data } = await axios.post("/api/user",
+      const { data } = await axios.post(
+        "/api/user",
         { firstName, lastName, email, password, profilePic },
-        { headers: { "Content-type": "application/json", } });
+        { headers: { "Content-type": "application/json" } }
+      );
 
-      localStorage.setItem('userData', JSON.stringify(data))
-      navigate('/homepage')
+      localStorage.setItem("userData", JSON.stringify(data));
+      navigate("/homepage");
+
+      //User info
+      const currentUser = JSON.parse(localStorage.getItem("userData"));
+      axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
+
+      //Automatic generated welcome message.
+      await axios.post(`/api/chat`, {
+        userId: "6319a45164dc25f89f6e61e0",
+      });
+      
 
     } catch (error) {
       setWarning(
@@ -106,6 +121,7 @@ function SignUpPage() {
           .toString()
           .split("User validation failed: email:")
       );
+      console.log(error)
     }
 
   }
@@ -121,7 +137,7 @@ function SignUpPage() {
     </>
   );
 
-  const loadSpinner = <span class="loading__anim"></span>;
+  const loadSpinner = <span className="loading__anim"></span>;
 
   return (
     <>

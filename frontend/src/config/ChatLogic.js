@@ -48,7 +48,7 @@ export const isLastMessage = (messages, i, userId) => {
 };
 
 
-//Tiimestamps for messages
+//Timestamps for messages
 export const timeDifference = (current, previous) => {
   const msPerMinute = 60 * 1000;
   const msPerHour = msPerMinute * 60;
@@ -70,5 +70,40 @@ export const timeDifference = (current, previous) => {
     return Math.round(elapsed / msPerMonth) + " months ago";
   } else {
     return Math.round(elapsed / msPerYear) + " years ago";
+  }
+}
+
+//Timestamp for chat sidebar brief
+export const latestMessageTime = (current, previous) => {
+  const msPerMinute = 60 * 1000;
+  const msPerHour = msPerMinute * 60;
+  const msPerDay = msPerHour * 24;
+  const msPerMonth = msPerDay * 30;
+  const msPerYear = msPerDay * 365;
+
+  const elapsed = current - previous;
+
+  if (elapsed < msPerMinute) {
+    return Math.round(elapsed / 1000) + "s";
+  } else if (elapsed < msPerHour) {
+    return Math.round(elapsed / msPerMinute) + " min";
+  } else if (elapsed < msPerDay) {
+    return Math.round(elapsed / msPerHour) + " h";
+  } else if (elapsed < msPerMonth) {
+    return Math.round(elapsed / msPerDay) + " d";
+  } else if (elapsed < msPerYear) {
+    return Math.round(elapsed / msPerMonth) + " m";
+  } else {
+    return Math.round(elapsed / msPerYear) + " yr";
+  }
+}
+
+
+//Cut down message
+export const messageBrief = (message) => {
+  if (message?.length > 20) {
+      return message.split('').slice(0,25).join('') + ".."
+  } else {
+    return message
   }
 }

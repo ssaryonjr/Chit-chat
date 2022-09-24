@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom"
 import React, { useState } from 'react'
 import LoginPage from './Pages/LoginPage'
 import MainPage from './Pages/MainPage'
-import ThemeToggle from "./components/ThemeToggle"
 import SignUpPage from "./Pages/SignUpPage";
 
 import { ChatProvider } from './ChatContext'

@@ -42,7 +42,7 @@ const sendMessage = asyncHandler(async (req, res) => {
 });
 
 //@description     Get all Chat Messages between users.
-//@route           GET /api/Message/:chatId
+//@route           GET /api/message/:chatId
 //@access          Private
 const getAllMessages = asyncHandler(async (req, res) => {
   try {
@@ -58,7 +58,7 @@ const getAllMessages = asyncHandler(async (req, res) => {
 });
 
 //@description     Send an Automatic message to new users from admin
-//@route           POST /api/Message/welcomeMessage
+//@route           POST /api/message/welcomeMessage
 //@access          Private
 const welcomeMessage = asyncHandler(async (req, res) => {
   const { chatId } = req.body;
@@ -68,9 +68,10 @@ const welcomeMessage = asyncHandler(async (req, res) => {
     return res.sendStatus(400);
   }
 
+  //Automatic generated message sent to new users
   var newMessage = {
     sender: "6319a45164dc25f89f6e61e0",
-    messageSent: "Testing if this works",
+    messageSent: "Welcome to Chitchat! This is a free message web application built by me using React, Node, MongoDB, Express, Socket.io and a few other tools. \n \n Some cool features of this app includes live chat, group chats, message timestamps, and viewing users online/offline status. \n \n If you enjoy this app please follow me on github and twitter!\n https://github.com/ssaryonjr \n https://twitter.com/samsaryonjr",
     chatReference: chatId,
   };
 

@@ -1,13 +1,8 @@
-import React, {useState, useContext} from 'react'
+import React, {useContext} from 'react'
 import axios from 'axios';
 import ChatContext from '../../ChatContext';
 import MessagesTab from './MessagesTab';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEnvelope,
-  faIdBadge
-} from "@fortawesome/free-solid-svg-icons";
 
 function SearchResult(props) {
   const { setSelectedChat, setSearch, setCurrentTab, chats, setChats } = useContext(ChatContext)
@@ -32,9 +27,8 @@ function SearchResult(props) {
       setSearch('')
       setCurrentTab(<MessagesTab />)
     } catch (error) {
-      
+      console.log(error)
     }
-    
   }
 
 
@@ -55,27 +49,31 @@ function SearchResult(props) {
   const showList = data.map((user, index) => {
     return (
       <div key={index} className="search-user-wrapper">
-        <img className="user-status-thumbnail" src={user.profilePic} alt="user"/>
+        <img
+          className="user-status-thumbnail"
+          src={user.profilePic}
+          alt="user"
+        />
         <div className="user-status-info">
           <span className="user-status-name">
             {user.firstName} {user.lastName}
           </span>
 
-          <span className="user-status-subtitle">New User</span>
+          <span className="user-status-subtitle">Online Now</span>
         </div>
         <div className="user-icon-wrapper">
           {/* <button className="user-list-btn">
             <FontAwesomeIcon icon={faIdBadge} className="groupchat-icon" />
           </button> */}
 
-          <button
-            value={user._id}
-            className="user-list-btn"
-            onClick={(e)=> openChat(e.target.value)}
-          >
-            <FontAwesomeIcon icon={faEnvelope} className="groupchat-icon" />
-          </button>
+   
+          <span className="user-status-online-indicator green"></span>
         </div>
+        <div
+          className="invisible-search-wrapper"
+          id={user._id}
+          onClick={(e) => openChat(e.target.id)}
+        ></div>
       </div>
     );
   })
