@@ -5,7 +5,8 @@ import axios from 'axios'
 
 function SignUpPage() {
   const navigate = useNavigate()
-  const defaultProfile = "https://res.cloudinary.com/dng5tdawb/image/upload/v1662530729/ece2b0f541d47e4078aef33ffd22777e_tqiffc.jpg"
+  const defaultProfile =
+    "https://res.cloudinary.com/ssaryonjr/image/upload/v1662530729/ece2b0f541d47e4078aef33ffd22777e_tqiffc.jpg";
 
   const [warning, setWarning] = useState('')
   const [loading, setLoading] = useState(false)

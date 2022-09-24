@@ -94,11 +94,13 @@ function MessagesTab() {
     <div className="open-tab">
       <div className="conversation-list-wrapper">
         <div className="message-tab-info-wrapper">
-          <h3 className="user-status-title">Recent Messages</h3>
+          <h3 className="msg-tab-title">Messages •</h3>
           <button
             className="groupchat-button"
-            onClick={()=> setShowModal(prevValue => !prevValue)}
-          >+ Create Groupchat</button>
+            onClick={() => setShowModal((prevValue) => !prevValue)}
+          >
+            + Create Groupchat
+          </button>
         </div>
         {messageList}
       </div>

@@ -3,15 +3,15 @@
 
 
 :root {
-  --background: #f1f5f9;
+  /* --background: #f1f5f9;
   --secondary-background: #ffffff;
   --primary-text: #121212;
   --inputField-color: #f1f5f9;
   --accent: #e86c1a;
-  /* --accent: #1a73e8; */
+  --accent: #1a73e8;
   --grey-tone: #dadce0;
   --title: #121212;
-  --dotted-gray: #dee1e3;
+  --dotted-gray: #dee1e3; */
 
   --shadow-normal: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
     0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -23,6 +23,15 @@
 
   --light: #d8dbe0;
   --dark: #28292c;
+
+  --background: #0b0d0d;
+  --secondary-background: #16191d;
+  --inputField-color: #2b2d2f;
+  --primary-text: #9b9b9b;
+  --accent: #e86c1a;
+  --title: #b8b8b8;
+  --grey-tone: #3e3f41;
+  --dotted-gray: #4c4b4b; 
 }
 
 [data-theme='dark']{
@@ -67,7 +76,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background-color: var(--background); */
-  background-color: rgb(29, 29, 29);
+  background-color: rgb(21, 21, 21);
   min-height: 100vh;
   min-width: 100vw;
   display: flex;
@@ -92,11 +101,16 @@ html {
   width: 12rem;
   height: 12rem;
   border: 5px solid rgba(189, 189, 189, 0.25);
-  border-left-color: var(--accent);
-  border-top-color: var(--accent);
+  border-left-color: #0B93F6;
+  border-top-color: #0B93F6;
   border-radius: 50%;
   display: inline-block;
   animation: rotate 600ms infinite linear;
+}
+
+.loading-small{
+  width: 7rem;
+  height: 7rem;
 }
 
 @keyframes rotate {
@@ -709,11 +723,13 @@ input[id="radio-3"]:checked ~ .glider {
   width: 100%;
   height: calc(100% - 39px);
   overflow:auto;
+  padding: .2rem 1.7rem;
 }
 
 .user-list-container {
   width: 100%;
   padding-top: 2rem;
+
 }
 
 .search-user-wrapper,
@@ -724,6 +740,9 @@ input[id="radio-3"]:checked ~ .glider {
   width: 100%;
   height: 7rem;
   padding: 1rem 3rem;
+  background-color: rgb(28, 29, 33);
+  border-radius: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .online-user-wrapper:hover,
@@ -741,6 +760,7 @@ input[id="radio-3"]:checked ~ .glider {
   margin-left: 2rem;
   margin-bottom: .3rem;
 }
+
 
 .user-status-thumbnail{
   width: 5rem;
@@ -821,18 +841,33 @@ input[id="radio-3"]:checked ~ .glider {
   display: flex;
   justify-content: space-between;
   padding-right: 1.2rem;
+  margin: 1rem 0;
+}
+
+.msg-tab-title {
+  font-size: 1.94rem;
+  font-weight:700;
+  color:#ccccccd3;
+  text-transform: capitalize;
+  margin-left: 2rem;
+  margin-bottom: .3rem;
 }
 
 .groupchat-button{
-  background-color: transparent;
-  color: #0B93F6;
+  background-color: #0B93F6;
+  color: #f0f0f0d3;
   border: none;
   border-radius: 1.5rem;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  padding: .8rem;
   cursor: pointer;
+  transition: 0.4s;
 }
 
+.groupchat-button:hover{
+   background-color: #0567ad;
+}
 
 .user-conversation-container {
   display: flex;
@@ -1320,7 +1355,8 @@ input[id="radio-3"]:checked ~ .glider {
 /*Group Chat Modal */
 
 .modal-overlay {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.354);
+  backdrop-filter: blur(5px);
   width: 100%;
   height: 100%;
   top: 0;
@@ -1329,24 +1365,26 @@ input[id="radio-3"]:checked ~ .glider {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
 
 .modal-content{
   width: 40rem;
-  height: 35rem;
-  background-color: rgb(255, 255, 255);
+  min-height: 40rem;
+  background-color: rgb(24, 24, 24);
   border-radius: 1.5rem;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 1.5rem;
+  padding: 2rem 2rem;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 .close-btn {
   width: 2.5rem;
   height: 2.5rem;
-  background-color: red;
+  background-color:#0B93F6;
   color: white;
   border-radius: 2rem;
   border: none;
@@ -1359,21 +1397,26 @@ input[id="radio-3"]:checked ~ .glider {
 }
 
 .close-btn:hover{
-  background-color: rgb(220, 4, 4);
+  background-color: #0869af;
+  transition: 0.5s;
 }
 
 .modal-title{
   font-size: 2.5rem;
+  color: #e5e5e5;
 }
 
 .group-chat-input {
   width: 100%;
-  height: 3.5rem;
+  min-height: 3.5rem;
   font-size: 1.6rem;
   border-radius: 2rem;
-  border: 1px solid rgb(177, 177, 177);
-  padding: 0 1rem;
+  outline: none;
+  border: none;
+  padding: 0 1.5rem;
   margin-top: 1.5rem;
+  background-color: #2b2d2f;
+  color: #f0f0f0d3;
 }
 
 .group-chat-submit-btn {
@@ -1383,6 +1426,40 @@ input[id="radio-3"]:checked ~ .glider {
   font-weight: bold;
   border: none;
   border-radius: 2rem;
+  font-size: 1.5rem;
   margin-top: auto;
   cursor: pointer;
+  width: 90%;
+  transition: 0.3s;
+  margin-bottom: .7rem;
+}
+
+.group-chat-submit-btn:hover{
+  background-color:#0067b1;
+}
+
+.modal-warning{
+  color: grey;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.selected-users-container{
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.selected-user{
+  color: #f0f0f0;
+  display: block;
+  background-color: #0067b1;
+  font-size: 1.2rem;
+  border-radius: 1.5rem;
+  padding: .5rem 2.5rem .5rem 1.2rem;
+  text-transform: capitalize;
+  margin: .2rem;
 }

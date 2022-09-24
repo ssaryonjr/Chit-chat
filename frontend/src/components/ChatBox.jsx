@@ -28,7 +28,6 @@ function ChatBox() {
     }
   }
 
-  console.log(allMessages)
 
   useEffect(() => {
     fetchAllMessages()
