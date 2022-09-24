@@ -4,27 +4,8 @@ function OnlineUsers() {
   return (
     <div className="user-list-wrapper">
       <div className="user-list-container">
-        <h3 className="user-status-title">Online Users</h3>
+        <h3 className="user-status-title">• Online Users</h3>
         <ul>
-          <li className="online-user-wrapper">
-            <img
-              className="user-status-thumbnail"
-              src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmxhY2slMjBtYW58ZW58MHx8MHx8&w=1000&q=80"
-            />
-            <div className="user-status-info">
-              <span className="user-status-name">
-                Justin Jenkins
-                {/* <img
-                  src="https://www.trollishly.com/wp-content/uploads/2021/07/Get-Free-Eligibility-Check.png"
-                  alt="verified"
-                  className="verified-badge small"
-                /> */}
-              </span>
-
-              <span className="user-status-subtitle">Online Now</span>
-            </div>
-            <span className="user-status-online-indicator green"></span>
-          </li>
           <li className="online-user-wrapper">
             <img
               className="user-status-thumbnail"
@@ -40,7 +21,7 @@ function OnlineUsers() {
       </div>
 
       <div className="user-list-container">
-        <h3 className="user-status-title">Offline Users</h3>
+        <h3 className="user-status-title-offline">• Offline Users</h3>
         <ul>
           <li className="online-user-wrapper">
             <img
@@ -64,6 +45,9 @@ function OnlineUsers() {
             </div>
             <span className="user-status-online-indicator red"></span>
           </li>
+        
+        
+          
         </ul>
       </div>
     </div>

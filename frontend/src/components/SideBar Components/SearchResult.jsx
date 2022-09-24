@@ -19,12 +19,11 @@ function SearchResult(props) {
   const loading = props.loading
   const data = props.data
 
-  //Opens the chat that is clicked.
+  //Creates and opens the chat that is clicked.
   const openChat = async(userId) => {
     try {
       const { data } = await axios.post(`/api/chat`, { userId })
       // return console.log(data)
-
 
       if (!chats.find((c) => c._id === data._id)) {
         setChats([data, ...chats])
@@ -62,7 +61,7 @@ function SearchResult(props) {
             {user.firstName} {user.lastName}
           </span>
 
-          <span className="user-status-subtitle">Joined September 2022</span>
+          <span className="user-status-subtitle">New User</span>
         </div>
         <div className="user-icon-wrapper">
           {/* <button className="user-list-btn">
@@ -89,10 +88,12 @@ function SearchResult(props) {
         </div>
       ) : (
         <div className="user-list-wrapper">
-          <h3 className="user-status-title">Searched Users:</h3>
+        
             {data.length > 0
               ? showList
-              : <h3>Unable to find user</h3>
+              : <div className="no-result-container">
+                <h1 className='no-result-title'>No results found..</h1>
+              </div>
             }
         </div>
       )}

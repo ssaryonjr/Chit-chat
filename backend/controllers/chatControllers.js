@@ -14,7 +14,7 @@ const chatAccess = asyncHandler(async (req, res) => {
         return res.sendStatus(400)
     }
 
-    //Locate chat between two users.
+    //Locate chat between two users if it exist.
     var conversation = await Chat.find({
       isGroupChat: false,
       $and: [

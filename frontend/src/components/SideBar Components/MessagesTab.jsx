@@ -3,6 +3,12 @@ import ChatContext from "../../ChatContext";
 import axios from "axios";
 import { useQuery } from "react-query";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
+
+
 import {
   getSenderName,
   getSenderPic,
@@ -92,7 +98,7 @@ function MessagesTab() {
 
   return (
     <div className="open-tab">
-      <div className="conversation-list-wrapper">
+      
         <div className="message-tab-info-wrapper">
           <h3 className="msg-tab-title">Messages •</h3>
           <button
@@ -102,7 +108,21 @@ function MessagesTab() {
             + Create Groupchat
           </button>
         </div>
+        <div className="search-container">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search all messages"
+          />
+          <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon" />
+        </div>
+      
+        <div className="conversation-list-wrapper">
         {messageList}
+
+        {/* <div className="no-result-container">
+          <h1 className="no-result-title">No messages found</h1>
+        </div> */}
       </div>
     </div>
   );

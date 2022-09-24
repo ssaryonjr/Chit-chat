@@ -57,4 +57,42 @@ const getAllMessages = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { sendMessage, getAllMessages };
+//@description     Send an Automatic message to new users from admin
+//@route           POST /api/Message/welcomeMessage
+//@access          Private
+const welcomeMessage = asyncHandler(async (req, res) => {
+  const { chatId } = req.body;
+
+  if (!chatId) {
+    console.log("Unable to send your message");
+    return res.sendStatus(400);
+  }
+
+  var newMessage = {
+    sender: "6319a45164dc25f89f6e61e0",
+    messageSent: "Testing if this works",
+    chatReference: chatId,
+  };
+
+  try {
+    var message = await Message.create(newMessage);
+
+    message = await message.populate("sender", "firstName lastName profilePic");
+    message = await message.populate("chatReference")
+    message = await User.populate(message, {
+      path: "chat.users",
+      select: "firstName lastName profilePic",
+    });
+
+    await Chat.findByIdAndUpdate(req.body.chatId, {
+      latestMessage: message,
+    });
+
+    res.json(message);
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+
+module.exports = { sendMessage, getAllMessages, welcomeMessage };

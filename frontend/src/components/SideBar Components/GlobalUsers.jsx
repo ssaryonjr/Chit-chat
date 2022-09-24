@@ -58,6 +58,10 @@ function GlobalUsers() {
 
   return (
     <div className="open-tab">
+      <div className="message-tab-info-wrapper">
+        <h3 className="msg-tab-title">Global Users •</h3>
+     
+      </div>
       <div className="search-container">
         <input
           type="text"
@@ -67,18 +71,12 @@ function GlobalUsers() {
           onChange={handleSearchInput}
         />
         <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon" />
-        <button className="groupchat-btn">
-          <FontAwesomeIcon icon={faUsers} className="groupchat-icon" />
-        </button>
       </div>
 
       {showOnlineBoard ? (
         <OnlineUsers />
       ) : (
-          <SearchResult
-            loading={loading}
-            data={searchResult}
-          />
+        <SearchResult loading={loading} data={searchResult} />
       )}
     </div>
   );

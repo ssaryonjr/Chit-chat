@@ -126,7 +126,7 @@ function ChatBox() {
       ) : (
         <div className="unopened-chat-container">
           <h1 className="unopened-chat-title">
-            Find a user to start a conversation
+            Click a user to start a conversation
           </h1>
         </div>
       )}

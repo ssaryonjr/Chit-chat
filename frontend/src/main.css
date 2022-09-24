@@ -671,7 +671,7 @@ input[id="radio-3"]:checked ~ .glider {
   height: 6rem;
   /* border-bottom: 1px solid var(--grey-tone); */
   display: flex;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
 }
 
 .search-input{
@@ -680,7 +680,7 @@ input[id="radio-3"]:checked ~ .glider {
   height: 3.9rem;
   border: none;
   font-size: 1.5rem;
-  width: 90%;
+  width: 190%;
   font-weight: 500;
   border-radius: 2rem;
   padding-left: 4rem;
@@ -722,14 +722,14 @@ input[id="radio-3"]:checked ~ .glider {
 .user-list-wrapper{
   width: 100%;
   height: calc(100% - 39px);
+  height: 600px;
   overflow:auto;
   padding: .2rem 1.7rem;
 }
 
+
 .user-list-container {
   width: 100%;
-  padding-top: 2rem;
-
 }
 
 .search-user-wrapper,
@@ -752,13 +752,18 @@ input[id="radio-3"]:checked ~ .glider {
   cursor: pointer;
 }
 
-.user-status-title {
+.user-status-title,
+.user-status-title-offline {
   font-size: 1.54rem;
   font-weight:700;
   color: grey;
   text-transform: uppercase;
   margin-left: 2rem;
   margin-bottom: .3rem;
+}
+
+.user-status-title-offline{
+  margin-top: 3rem;
 }
 
 
@@ -806,6 +811,10 @@ input[id="radio-3"]:checked ~ .glider {
    background-color:#ff0000;
 }
 
+.user-status-online-indicator.grey{
+  background-color: grey;
+}
+
 /* */
 .user-icon-wrapper {
   margin-left: auto;
@@ -830,10 +839,25 @@ input[id="radio-3"]:checked ~ .glider {
   margin-left: .7rem;
 }
 
+.no-result-container{
+  height: 80%;
+  width: 100%;
+  /* background-color: rgba(28, 29, 33, 0.526); */
+  border-radius: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-result-title{
+  color: rgba(96, 96, 96, 0.629);
+  font-size: 2.1rem;
+}
+
 /* Message Tab */
 .conversation-list-wrapper {
   width: 100%;
-  height: 100%;
+  height: 605px;
   overflow:auto;
 }
 
@@ -845,7 +869,7 @@ input[id="radio-3"]:checked ~ .glider {
 }
 
 .msg-tab-title {
-  font-size: 1.94rem;
+  font-size: 2.4rem;
   font-weight:700;
   color:#ccccccd3;
   text-transform: capitalize;
@@ -855,12 +879,12 @@ input[id="radio-3"]:checked ~ .glider {
 
 .groupchat-button{
   background-color: #0B93F6;
-  color: #f0f0f0d3;
+  color: #f0f0f0;
   border: none;
   border-radius: 1.5rem;
   font-weight: bold;
   font-size: 1.4rem;
-  padding: .8rem;
+  padding: .2rem 1.8rem;
   cursor: pointer;
   transition: 0.4s;
 }
@@ -872,11 +896,11 @@ input[id="radio-3"]:checked ~ .glider {
 .user-conversation-container {
   display: flex;
   flex-direction: row;
-  background-color: rgb(28, 29, 33);
+  background-color: #1c1d21;
   align-items: center;
   padding: 1rem 1.7rem;
   height: 7.6rem;
-  margin: .8rem;
+  margin: 1rem .8rem;
   border-radius: 1.5rem;
   position: relative;
   /* border-left: 10px solid rgb(255, 42, 0); */
@@ -1043,6 +1067,8 @@ input[id="radio-3"]:checked ~ .glider {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #18191ba8;
+  border-radius: 1.5rem;
 }
 
 .unopened-chat-title{
@@ -1355,7 +1381,7 @@ input[id="radio-3"]:checked ~ .glider {
 /*Group Chat Modal */
 
 .modal-overlay {
-  background-color: rgba(0, 0, 0, 0.354);
+  background-color: rgba(0, 0, 0, 0.528);
   backdrop-filter: blur(5px);
   width: 100%;
   height: 100%;
@@ -1371,7 +1397,7 @@ input[id="radio-3"]:checked ~ .glider {
 .modal-content{
   width: 40rem;
   min-height: 40rem;
-  background-color: rgb(24, 24, 24);
+  background-color: rgb(35, 35, 41);
   border-radius: 1.5rem;
   position: relative;
   display: flex;
@@ -1445,21 +1471,61 @@ input[id="radio-3"]:checked ~ .glider {
 }
 
 .selected-users-container{
-  margin-top: 1rem;
+  margin: 1rem 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
   height: 100%;
+  border: 5px dotted rgba(128, 128, 128, 0.34);
+  border-radius: 1.5rem;
 }
 
 .selected-user{
   color: #f0f0f0;
   display: block;
-  background-color: #0067b1;
+  background-color: #0B93F6;
   font-size: 1.2rem;
   border-radius: 1.5rem;
-  padding: .5rem 2.5rem .5rem 1.2rem;
+  padding: .5rem 1.2rem .5rem 2.7rem;
   text-transform: capitalize;
-  margin: .2rem;
+  margin: .8rem .2rem;
+  position: relative;
+}
+
+.selected-user-delete-btn{
+  background-color: transparent;
+  border: none;
+  color: rgb(255, 255, 255);
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  font-size: .99rem;
+  cursor: pointer;
+  border: 1px solid white;
+  border-radius: 50%;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.group-chat-user-finder-container {
+  width: 100%;
+  max-height: 15rem;
+  overflow: auto;
+  margin: 1rem 0;
+  padding: 0 1rem;
+}
+
+.group-chat-user-finder-container::-webkit-scrollbar,
+.conversation-list-wrapper::-webkit-scrollbar,
+.user-list-wrapper::-webkit-scrollbar{
+  width: 5px;
+  background-color: rgba(44, 44, 44, 0.558);
+}
+
+.group-chat-user-finder-container::-webkit-scrollbar-thumb,
+.conversation-list-wrapper::-webkit-scrollbar-thumb,
+.user-list-wrapper::-webkit-scrollbar-thumb{
+  background-color: rgb(80, 80, 80);
+  border-radius: 1.5rem;
 }
