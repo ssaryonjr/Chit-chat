@@ -7,6 +7,7 @@ import SearchResult from './SideBar Components/SearchResult'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
+  faCaretDown
 } from "@fortawesome/free-solid-svg-icons";
 
 function SideBar() { 
@@ -52,7 +53,16 @@ const handleSearchInput = (e) => {
   return (
     <aside>
       <div className="message-tab-info-wrapper">
-        <h3 className="msg-tab-title">Messages •</h3>
+        <div className="menu-wrapper">
+          <h3 className="msg-tab-title">
+          Messages{" "}
+          <FontAwesomeIcon icon={faCaretDown} />
+        </h3>
+          <div className="dd-menu">
+            
+          </div>
+        </div>
+        
         <button
           className="groupchat-button"
           onClick={() => setShowModal((prevValue) => !prevValue)}
