@@ -3,24 +3,31 @@ import ChatContext from '../ChatContext'
 import MessageTab from './SideBar Components/MessagesTab'
 import axios from 'axios'
 import SearchResult from './SideBar Components/SearchResult'
+import { useNavigate } from "react-router-dom";
+
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
-  faCaretDown
+  faCaretDown,
+  faRightFromBracket,
+  faGear
 } from "@fortawesome/free-solid-svg-icons";
 
 function SideBar() { 
-//Global States
-const { search, setSearch, setShowModal } = useContext(ChatContext);
+  //Global States
+  const { search, setSearch, setShowModal } = useContext(ChatContext);
+
+  const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("userData"));
   const config = { headers: { Authorization: `Bearer ${user.token}` } };
 
   
-const [showOnlineBoard, setShowOnlineBoard] = useState(true);
-const [searchResult, setSearchResult] = useState([]);
-const [loading, setLoading] = useState(false);
+  const [showOnlineBoard, setShowOnlineBoard] = useState(true);
+  const [searchResult, setSearchResult] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [openDD, setOpenDD] = useState(false)
 
 useEffect(() => {
   if (search === "") {
@@ -46,23 +53,46 @@ useEffect(() => {
   }
 }, [search]);
 
-const handleSearchInput = (e) => {
-  setSearch(e.target.value);
-};
+  const handleSearchInput = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const openDDMenu = () => {
+    setOpenDD(prevValue => !prevValue)
+  }
+
+  const signOut = () => {
+    navigate("/");
+    JSON.parse(localStorage.removeItem("userData"));
+    
+  }
 
   return (
     <aside>
       <div className="message-tab-info-wrapper">
         <div className="menu-wrapper">
-          <h3 className="msg-tab-title">
-          Messages{" "}
-          <FontAwesomeIcon icon={faCaretDown} />
-        </h3>
-          <div className="dd-menu">
-            
-          </div>
+          <h3 className="msg-tab-title" onClick={openDDMenu}>
+            Messages <FontAwesomeIcon icon={faCaretDown} />
+          </h3>
+          {openDD && (
+            <div className="dd-menu">
+              <ul className="dd-wrapper">
+                <li className="menu-item">
+                  <FontAwesomeIcon icon={faGear} className="dd-menu-icon" />
+                  Display Preference
+                </li>
+                <li className="menu-item" onClick={signOut}>
+                  <FontAwesomeIcon
+                    icon={faRightFromBracket}
+                    className="dd-menu-icon"
+                  />
+                  Log out
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
-        
+
         <button
           className="groupchat-button"
           onClick={() => setShowModal((prevValue) => !prevValue)}

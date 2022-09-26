@@ -86,7 +86,7 @@ export const latestMessageTime = (current, previous) => {
   if (elapsed < msPerMinute) {
     return Math.round(elapsed / 1000) + "s";
   } else if (elapsed < msPerHour) {
-    return Math.round(elapsed / msPerMinute) + " min";
+    return Math.round(elapsed / msPerMinute) + "m";
   } else if (elapsed < msPerDay) {
     return Math.round(elapsed / msPerHour) + "h";
   } else if (elapsed < msPerMonth) {

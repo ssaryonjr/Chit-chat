@@ -539,12 +539,37 @@ aside {
   position: absolute;
   top: 6rem;
   left: 0;
-  width: 150px;
-  height: 150px;
-  background-color: rgb(69, 70, 70);
+  width: 220px;
+  height: 100px;
+  background-color: #181a1a;
   z-index: 3;
   border-radius: 1.5rem;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  color: #b8b8b8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  transition: 0.7s;
+  padding: 1rem;
+}
+
+.menu-item:first-child{
+    border-bottom:1px solid rgba(64, 61, 61, 0.413);
+
+}
+
+.menu-item {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: .4rem;
+  text-align: left;
+  font-size: 1.7rem;
+}
+
+.menu-item:hover{
+  color: rgb(228, 228, 228);
 }
 
 .dd-menu:before {
@@ -555,8 +580,13 @@ aside {
     transform: translateX(-50%);
     z-index: 3;
     border: 15px solid;
-    border-color: transparent transparent rgb(69, 70, 70) transparent;
+    border-color: transparent transparent #181a1a transparent;
 }
+
+.dd-menu-icon{
+  margin-right: .7rem;
+}
+
 
 /*End of drop menu */
 
