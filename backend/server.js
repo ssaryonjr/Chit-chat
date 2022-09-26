@@ -20,10 +20,42 @@ app.use('/api/user', require("./routes/userRoutes"))
 app.use('/api/chat', require("./routes/chatRoutes"))
 app.use('/api/message', require("./routes/messageRoutes"))
 
-app.listen(PORT, () => {
-  console.log(`Server is running on PORT: ${PORT}`.bgBlue);
-});
-
 //Error handling
 app.use(notFound)
 app.use(errorHandler)
+
+const server = app.listen(PORT, () => {
+  console.log(`Server is running on PORT: ${PORT}`.bgBlue);
+});
+
+
+//Initiating Socket.io
+const io = require("socket.io")(server, {
+  pingTimeOut: 60000, //Close connection after inactivity for 60 seconds.
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log('connected to socket.io')
+  socket.on('setup', (userData) => {
+    socket.join(userData._id)
+    console.log(`${userData.firstName} is online.`)
+    socket.emit('Connected')
+  })
+
+  socket.on('join chat', (room) => {
+    socket.join(room)
+    console.log(`User joined room: ${room}`)
+  })
+
+  socket.on('new message', (newMessageReceived) => {
+    var chat = newMessageReceived?.chatReference
+    console.log(chat)
+    
+    socket.broadcast.emit('message received',  newMessageReceived)
+
+  })
+})
+

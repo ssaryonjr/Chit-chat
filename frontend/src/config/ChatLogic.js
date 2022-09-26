@@ -117,5 +117,5 @@ export const findAdminChat = (chatList) => {
   const singlechats = chatList?.filter(chat => (chat?.users?.length === 2))
   const adminChat = singlechats?.filter(chat => chat?.users?.[0]?._id === adminId || chat?.users?.[1]?._id === adminId)
   
-  return adminChat?.[0]
+  return adminChat
 }

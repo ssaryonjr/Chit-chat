@@ -4,15 +4,20 @@ import ChatContext from '../ChatContext'
 import { useQueryClient } from "react-query";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperclip, faFaceLaughBeam, faPaperPlane, faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { faPaperclip, faFaceLaughBeam, faPaperPlane, faEllipsis, faCropSimple } from "@fortawesome/free-solid-svg-icons";
 import { getSenderName, getSenderPic, getSecondGroupPic, getFirstGroupPic } from '../config/ChatLogic';
 import DisplayMessagesBox from './Chat Components/DisplayMessagesBox';
 
+import io from 'socket.io-client'
+const ENDPOINT = "http://localhost:5000";
+var socket, selectedChatCompare;
 
 function ChatBox() {
+  const { selectedChat } = useContext(ChatContext);
+
   const [newMessage, setNewMessage] = useState("");
   const [allMessages, setAllMessages] = useState();
-  const { selectedChat } = useContext(ChatContext);
+  const [socketConnected, setSocketConnected] = useState(false)
 
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
@@ -28,13 +33,14 @@ function ChatBox() {
       const { data } = await axios.get(`/api/message/${selectedChat?._id}`);
 
       setAllMessages(data);
-    } catch (error) {}
+      socket.emit('join chat', selectedChat?._id)
+
+    } catch (error) {
+      console.log(error)
+    }
   };
 
-  useEffect(() => {
-    fetchAllMessages();
-  }, [selectedChat]);
-
+  
   const sendMessage = async (e) => {
     e.preventDefault();
     if (newMessage) {
@@ -43,14 +49,47 @@ function ChatBox() {
           messageSent: newMessage,
           chatId: selectedChat?._id,
         });
+
         setNewMessage("");
+        console.log(data)
+
+        socket.emit('new message', data)
         setAllMessages([...allMessages, data]);
         queryClient.invalidateQueries(["chat-list"]);
+        
       } catch (error) {
         console.log(error);
       }
     }
   };
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", currentUser);
+    socket.on("connection", () => {
+      setSocketConnected(true);
+    });
+  }, []);
+
+
+  useEffect(() => {
+    fetchAllMessages();
+    selectedChatCompare = selectedChat;
+  }, [selectedChat]);
+
+
+  useEffect(() => {
+    socket.on("message received", (newMessageReceived) => {
+      if (!selectedChatCompare || selectedChatCompare?._id !== newMessageReceived?.chatReference?._id) {
+        //Give notification
+        console.log("will noitify");
+      } else {
+        console.log(newMessageReceived)
+        setAllMessages([...allMessages, newMessageReceived]);
+        // queryClient.invalidateQueries(["chat-list"]);
+      }
+    });
+  });
 
   const userTyping = (e) => {
     setNewMessage(e.target.value);
