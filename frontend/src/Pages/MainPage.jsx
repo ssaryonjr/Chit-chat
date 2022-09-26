@@ -4,45 +4,52 @@ import ChatBox from '../components/ChatBox'
 import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ChatContext from '../ChatContext'
-import GroupChatModal from '../components/GroupChatModal'
 import axios from 'axios'
+import { findAdminChat } from '../config/ChatLogic'
+import { useQueryClient } from "react-query";
+import GroupChatModal from '../components/Modal Components/GroupChatModal'
 
 const MainPage = () => {
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
   axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
 
+  //Refetching
+  const queryClient = useQueryClient();
+
   //Global States
-  const { showModal, setShowModal } = useContext(ChatContext);
+  const { showModal } = useContext(ChatContext);
   const navigate = useNavigate();
 
   //Checks if user is NOT logged in.
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("userData"));
-    if (!user) navigate("/");
+    if (!user) {
+      navigate("/");
+    }
+
+    sendWelcomeMessage()
+
   }, []);
 
   //An automatic welcome message for new users from admin account.
   const sendWelcomeMessage = async () => {
     try {
       const { data } = await axios.get("/api/chat");
-      const chatId = data?.[0]?._id
-      if (!data?.[0]?.latestMessage) {
-        axios.post("/api/message/welcomeMessage", {
-          chatId: chatId
-        })
+      const adminChat = findAdminChat(data);
+      if (!adminChat?.latestMessage) {
+        await axios.post("/api/message/welcomeMessage", {
+          chatId: adminChat?._id,
+        });
+        queryClient.invalidateQueries(["chat-list"]);
+
       }
     } catch (error) {
       console.log(error);
     }
+    
   };
 
-  useEffect(() => {
-    sendWelcomeMessage();
-  },[])
-  
-
-  
   return (
     <main className="homepage">
       <SideBar />

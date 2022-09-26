@@ -63,7 +63,7 @@ const fetchAllChat = asyncHandler(async (req, res) => {
             .populate("users", "-password")
             .populate("groupHost", "-password")
             .populate("latestMessage")
-            .sort({ updateAt: -1 })
+            .sort({ updatedAt: -1 })
             .then(async (data) => {
                 data = await User.populate(data, {
                     path: "latestMessage.sender",

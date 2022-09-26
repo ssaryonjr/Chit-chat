@@ -11,7 +11,8 @@ import {
   faMagnifyingGlass,
   faCaretDown,
   faRightFromBracket,
-  faGear
+
+  faMoon
 } from "@fortawesome/free-solid-svg-icons";
 
 function SideBar() { 
@@ -78,7 +79,7 @@ useEffect(() => {
             <div className="dd-menu">
               <ul className="dd-wrapper">
                 <li className="menu-item">
-                  <FontAwesomeIcon icon={faGear} className="dd-menu-icon" />
+                  <FontAwesomeIcon icon={faMoon} className="dd-menu-icon" />
                   Display Preference
                 </li>
                 <li className="menu-item" onClick={signOut}>

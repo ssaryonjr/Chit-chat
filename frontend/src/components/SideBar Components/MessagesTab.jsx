@@ -9,7 +9,8 @@ import {
   getFirstGroupPic,
   getSecondGroupPic,
   messageBrief,
-  latestMessageTime
+  latestMessageTime,
+  findAdminChat
 } from "../../config/ChatLogic";
 
 function MessagesTab() {
@@ -24,11 +25,12 @@ function MessagesTab() {
   const loggedUserId = currentUser._id;
 
   //Fetching all users chats
-  const { data, refetch } = useQuery(["chat-list"], async () => {
+  const { data } = useQuery(["chat-list"], async () => {
     const data = await axios.get("/api/chat")
     setChats(data?.data)
     return data
   });
+
 
   const openChat = async(id) => {
     try {

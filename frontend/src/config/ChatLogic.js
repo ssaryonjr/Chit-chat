@@ -75,6 +75,7 @@ export const timeDifference = (current, previous) => {
 
 //Timestamp for chat sidebar brief
 export const latestMessageTime = (current, previous) => {
+
   const msPerMinute = 60 * 1000;
   const msPerHour = msPerMinute * 60;
   const msPerDay = msPerHour * 24;
@@ -93,8 +94,10 @@ export const latestMessageTime = (current, previous) => {
     return Math.round(elapsed / msPerDay) + "d";
   } else if (elapsed < msPerYear) {
     return Math.round(elapsed / msPerMonth) + "m";
-  } else {
+  } else if (elapsed > msPerYear) {
     return Math.round(elapsed / msPerYear) + "yr";
+  } else {
+    return ''
   }
 }
 
@@ -106,4 +109,13 @@ export const messageBrief = (message) => {
   } else {
     return message
   }
+}
+
+export const findAdminChat = (chatList) => {
+  const adminId = "6319a45164dc25f89f6e61e0";
+
+  const singlechats = chatList?.filter(chat => (chat?.users?.length === 2))
+  const adminChat = singlechats?.filter(chat => chat?.users?.[0]?._id === adminId || chat?.users?.[1]?._id === adminId)
+  
+  return adminChat?.[0]
 }

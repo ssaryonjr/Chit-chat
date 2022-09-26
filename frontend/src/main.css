@@ -89,6 +89,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 1.5rem 0;
 }
 
 .loading__anim {
@@ -825,7 +826,7 @@ aside {
 
 .invisible-msg-wrapper,
 .invisible-search-wrapper{
-  background-color: rgba(218, 215, 18, 0);
+  background-color: rgba(0, 0, 0, 0);
   width: 100%;
   height: 100%;
   position: absolute;
@@ -934,7 +935,7 @@ aside {
 
 .avatar {
   position: relative;
-  border: 4px solid #fff;
+  border: 4px solid #1c1d21;
   border-radius: 50%;
   overflow: hidden;
   width: 100%;
@@ -1011,7 +1012,7 @@ aside {
 
 .top-bar-msg-icon {
   font-size: 2.5rem;
-  color: rgb(99, 98, 98);
+  color: #ccccccd3;
   margin-left: auto;
   margin-right: 2rem;
   cursor: pointer;
@@ -1070,7 +1071,7 @@ aside {
 
 .group-chat-user-profile {
   position: relative;
-  border: 4px solid #fff;
+  border: 4px solid #1c1d21;
   border-radius: 50%;
   overflow: hidden;
   width: 100%;
@@ -1313,7 +1314,7 @@ aside {
 
 .modal-content{
   width: 40rem;
-  min-height: 40rem;
+  min-height: 36rem;
   background-color: rgb(19, 19, 21);
   border-radius: 1.5rem;
   position: relative;
@@ -1429,7 +1430,7 @@ aside {
   width: 100%;
   max-height: 15rem;
   overflow: auto;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   padding: 0 1rem;
 }
 

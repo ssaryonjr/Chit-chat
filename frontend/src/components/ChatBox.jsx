@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios';
 import ChatContext from '../ChatContext'
+import { useQueryClient } from "react-query";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip, faFaceLaughBeam, faPaperPlane, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { getSenderName, getSenderPic, getSecondGroupPic, getFirstGroupPic } from '../config/ChatLogic';
@@ -8,8 +10,8 @@ import DisplayMessagesBox from './Chat Components/DisplayMessagesBox';
 
 
 function ChatBox() {
-  const [newMessage, setNewMessage] = useState('')
-  const [allMessages, setAllMessages] = useState()
+  const [newMessage, setNewMessage] = useState("");
+  const [allMessages, setAllMessages] = useState();
   const { selectedChat } = useContext(ChatContext);
 
   //User info
@@ -17,43 +19,44 @@ function ChatBox() {
   axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
   const loggedUserId = currentUser._id;
 
-  const fetchAllMessages = async () => {
-    if (!selectedChat) return
-    try {
-      const { data } = await axios.get(`/api/message/${selectedChat?._id}`)
-      
-      setAllMessages(data)
-    } catch (error) {
-      
-    }
-  }
+  //Refetching
+  const queryClient = useQueryClient();
 
+  const fetchAllMessages = async () => {
+    if (!selectedChat) return;
+    try {
+      const { data } = await axios.get(`/api/message/${selectedChat?._id}`);
+
+      setAllMessages(data);
+    } catch (error) {}
+  };
 
   useEffect(() => {
-    fetchAllMessages()
-  },[selectedChat])
+    fetchAllMessages();
+  }, [selectedChat]);
 
-  const sendMessage = async(e) => {
-    e.preventDefault()
-      if (newMessage){
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    if (newMessage) {
       try {
-        const {data} = await axios.post(`/api/message/`, {
+        const { data } = await axios.post(`/api/message/`, {
           messageSent: newMessage,
-          chatId: selectedChat?._id
-        })
-        setNewMessage('')
-        setAllMessages([...allMessages, data])
+          chatId: selectedChat?._id,
+        });
+        setNewMessage("");
+        setAllMessages([...allMessages, data]);
+        queryClient.invalidateQueries(["chat-list"]);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
-  }
+  };
 
   const userTyping = (e) => {
-    setNewMessage(e.target.value)
+    setNewMessage(e.target.value);
 
     //Typing indicator logic
-  }
+  };
 
   return (
     <main className="chat-box">
@@ -75,7 +78,7 @@ function ChatBox() {
                     </span>
                   </div>
                 </div>
-                <h1 className='group-chat-name'>{selectedChat?.chatName}</h1>
+                <h1 className="group-chat-name">{selectedChat?.chatName}</h1>
               </div>
             ) : (
               <div className="single-chat-user-wrapper">
@@ -92,7 +95,9 @@ function ChatBox() {
                 </div>
               </div>
             )}
-            <FontAwesomeIcon icon={faEllipsis} className="top-bar-msg-icon" />
+            <FontAwesomeIcon icon={faEllipsis} className="top-bar-msg-icon"
+            onClick={selectedChat?.isGroupChat ? (()=> console.log('hi')) : (()=> console.log('bye'))}
+            />
           </div>
           <div className="open-msg-box">
             <DisplayMessagesBox messages={allMessages} />
