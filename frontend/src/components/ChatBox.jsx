@@ -19,6 +19,7 @@ import {
   getSenderPic,
   getSecondGroupPic,
   getFirstGroupPic,
+  getUserStatus
 } from "../config/ChatLogic";
 import DisplayMessagesBox from "./Chat Components/DisplayMessagesBox";
 
@@ -104,7 +105,6 @@ function ChatBox() {
         //Give notification
         console.log("will noitify");
       } else {
-        console.log(newMessageReceived);
         setAllMessages((prev) => [...prev, newMessageReceived]);
         queryClient.invalidateQueries(["chat-list"]);
       }
@@ -161,7 +161,9 @@ function ChatBox() {
                   <h5 className="single-chat-user-name">
                     {getSenderName(loggedUserId, selectedChat)}
                   </h5>
-                  <span className="single-chat-user-status">Online Now</span>
+                  <span className="single-chat-user-status">
+                    {getUserStatus(loggedUserId, selectedChat)}
+                  </span>
                 </div>
               </div>
             )}

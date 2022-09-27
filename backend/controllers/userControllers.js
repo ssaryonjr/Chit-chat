@@ -71,7 +71,6 @@ const loginUser = asyncHandler(async(req, res) => {
     }
 })
 
-
 //@desc Fetch all users (for searching)
 //@route GET /api/user
 //@access Private
@@ -90,4 +89,33 @@ const findUsers = asyncHandler(async (req, res) => {
     res.send(users);
 })
 
-module.exports = {registerUser, loginUser, findUsers}
+const updateOnlineStatus = asyncHandler(async (req, res) => {
+  //Current logged in user
+  const { userId, status } = req.body;
+
+  if (!userId) {
+    console.log("UserId or online status was not sent with request");
+    return res.sendStatus(400);
+  }
+
+  try {
+    const updateOnlineStatus = await User.findByIdAndUpdate(userId, {
+      userStatus: status,
+      lastActive: new Date()
+    });
+    
+    res.status(200).json(updateOnlineStatus)
+      
+  } catch (error) {
+      console.log(error)
+      throw new Error('Unable to update users online status =(')
+  }
+});
+
+
+module.exports = {
+    registerUser,
+    loginUser,
+    findUsers,
+    updateOnlineStatus
+}

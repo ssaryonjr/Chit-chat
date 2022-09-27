@@ -10,7 +10,7 @@ import {
   getSecondGroupPic,
   messageBrief,
   latestMessageTime,
-  findAdminChat
+  showStatusIcon
 } from "../../config/ChatLogic";
 
 function MessagesTab() {
@@ -65,7 +65,7 @@ function MessagesTab() {
               alt="user thumbnail"
               className="conversation-thumbnail"
             />
-            <span className="online-circle"></span>
+            {showStatusIcon(loggedUserId, chat) &&<span className="online-circle"></span>}
           </div>
         )}
         <div className="conversation-info">

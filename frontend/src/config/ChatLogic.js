@@ -127,3 +127,20 @@ export const findAdminChat = (chatList) => {
   
   return adminChat?.[0]
 }
+
+export const getUserStatus = (loggedUser, chat) => {
+  const oppositeUser =
+    chat?.users?.[0]._id !== loggedUser ? chat?.users?.[0] : chat?.users?.[1];
+  
+  return oppositeUser?.userStatus === 'offline'
+    ? `Last seen ${timeDifference(new Date(), new Date(oppositeUser?.lastActive))}`
+    : 'Online Now'
+}
+
+export const showStatusIcon = (loggedUser, chat) => {
+  const oppositeUser = chat?.users?.[0]._id !== loggedUser ? chat?.users?.[0] : chat?.users?.[1];
+
+  return oppositeUser?.userStatus === 'online'
+    ? true
+    : false
+}

@@ -190,6 +190,7 @@ const openSingleChat = asyncHandler(async (req, res) => {
     }
 })
 
+
 module.exports = {
   chatAccess,
   fetchAllChat,
@@ -197,5 +198,5 @@ module.exports = {
   renameGroupChat,
   addGcUser,
   removeGcUser,
-  openSingleChat
+  openSingleChat,
 };

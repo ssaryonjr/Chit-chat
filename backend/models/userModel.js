@@ -29,6 +29,11 @@ const userSchema = mongoose.Schema(
       default:
         "https://res.cloudinary.com/dng5tdawb/image/upload/v1662105307/blank-profile-picture-973460_1280_owecxz.png",
     },
+    userStatus: {
+      type: String,
+      default: 'offline'
+    },
+    lastActive: Date,
   },
   { timestamps: true }
 );
