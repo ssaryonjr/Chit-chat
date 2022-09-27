@@ -1,10 +1,19 @@
 //Single Chat:
 //Gets opposite user first and last name from chat object.
+
+// export const getSenderName = (loggedUser, chat) => {
+//   const user = chat?.users;
+//   return chat?.users?.[0]._id !== loggedUser
+//     ? `${user?.[0].firstName} ${user?.[0].lastName}`
+//     : `${user?.[1].firstName} ${user?.[1].lastName}`;
+// };
+
 export const getSenderName = (loggedUser, chat) => {
-  const user = chat?.users;
+  const [user1, user2] = chat?.users;
+  console.log({ user1, user2 });
   return chat?.users?.[0]._id !== loggedUser
-    ? `${user?.[0].firstName} ${user?.[0].lastName}`
-    : `${user?.[1].firstName} ${user?.[1].lastName}`;
+    ? `${user1?.firstName} ${user1?.lastName}`
+    : `${user2?.firstName} ${user2?.lastName}`;
 };
 
 //Single Chat:

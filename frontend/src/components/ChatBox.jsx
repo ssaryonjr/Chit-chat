@@ -1,14 +1,25 @@
-import React, { useState, useContext, useEffect } from 'react'
-import axios from 'axios';
-import ChatContext from '../ChatContext'
+import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import ChatContext from "../ChatContext";
 import { useQueryClient } from "react-query";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperclip, faFaceLaughBeam, faPaperPlane, faEllipsis, faCropSimple } from "@fortawesome/free-solid-svg-icons";
-import { getSenderName, getSenderPic, getSecondGroupPic, getFirstGroupPic } from '../config/ChatLogic';
-import DisplayMessagesBox from './Chat Components/DisplayMessagesBox';
+import {
+  faPaperclip,
+  faFaceLaughBeam,
+  faPaperPlane,
+  faEllipsis,
+  faCropSimple,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  getSenderName,
+  getSenderPic,
+  getSecondGroupPic,
+  getFirstGroupPic,
+} from "../config/ChatLogic";
+import DisplayMessagesBox from "./Chat Components/DisplayMessagesBox";
 
-import io from 'socket.io-client'
+import io from "socket.io-client";
 const ENDPOINT = "http://localhost:5000";
 var socket, selectedChatCompare;
 
@@ -17,7 +28,7 @@ function ChatBox() {
 
   const [newMessage, setNewMessage] = useState("");
   const [allMessages, setAllMessages] = useState();
-  const [socketConnected, setSocketConnected] = useState(false)
+  const [socketConnected, setSocketConnected] = useState(false);
 
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
@@ -33,14 +44,12 @@ function ChatBox() {
       const { data } = await axios.get(`/api/message/${selectedChat?._id}`);
 
       setAllMessages(data);
-      socket.emit('join chat', selectedChat?._id)
-
+      socket.emit("join chat", selectedChat?._id);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
-  
   const sendMessage = async (e) => {
     e.preventDefault();
     if (newMessage) {
@@ -51,12 +60,11 @@ function ChatBox() {
         });
 
         setNewMessage("");
-        console.log(data)
+        console.log(data);
 
-        socket.emit('new message', data)
+        socket.emit("new message", data);
         setAllMessages([...allMessages, data]);
         queryClient.invalidateQueries(["chat-list"]);
-        
       } catch (error) {
         console.log(error);
       }
@@ -71,25 +79,26 @@ function ChatBox() {
     });
   }, []);
 
-
   useEffect(() => {
     fetchAllMessages();
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
 
-
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
-      if (!selectedChatCompare || selectedChatCompare?._id !== newMessageReceived?.chatReference?._id) {
+      if (
+        !selectedChatCompare ||
+        selectedChatCompare?._id !== newMessageReceived?.chatReference?._id
+      ) {
         //Give notification
         console.log("will noitify");
       } else {
-        console.log(newMessageReceived)
-        setAllMessages([...allMessages, newMessageReceived]);
-        // queryClient.invalidateQueries(["chat-list"]);
+        console.log(newMessageReceived);
+        setAllMessages((prev) => [...prev, newMessageReceived]);
+        queryClient.invalidateQueries(["chat-list"]);
       }
     });
-  });
+  }, []);
 
   const userTyping = (e) => {
     setNewMessage(e.target.value);
@@ -134,8 +143,14 @@ function ChatBox() {
                 </div>
               </div>
             )}
-            <FontAwesomeIcon icon={faEllipsis} className="top-bar-msg-icon"
-            onClick={selectedChat?.isGroupChat ? (()=> console.log('hi')) : (()=> console.log('bye'))}
+            <FontAwesomeIcon
+              icon={faEllipsis}
+              className="top-bar-msg-icon"
+              onClick={
+                selectedChat?.isGroupChat
+                  ? () => console.log("hi")
+                  : () => console.log("bye")
+              }
             />
           </div>
           <div className="open-msg-box">
@@ -175,4 +190,4 @@ function ChatBox() {
   );
 }
 
-export default ChatBox
+export default ChatBox;
