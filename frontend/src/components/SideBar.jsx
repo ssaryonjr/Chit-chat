@@ -105,7 +105,7 @@ useEffect(() => {
         <input
           type="text"
           className="search-input"
-          placeholder="Start a conversation.."
+          placeholder="Find a user to chat with.."
           value={search}
           onChange={handleSearchInput}
         />

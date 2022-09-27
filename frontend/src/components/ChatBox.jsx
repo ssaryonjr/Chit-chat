@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import ChatContext from "../ChatContext";
 import { useQueryClient } from "react-query";
+import TypingAnimation from "./Chat Components/TypingAnimation";
+
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,6 +13,7 @@ import {
   faEllipsis,
   faCropSimple,
 } from "@fortawesome/free-solid-svg-icons";
+
 import {
   getSenderName,
   getSenderPic,
@@ -24,11 +27,13 @@ const ENDPOINT = "http://localhost:5000";
 var socket, selectedChatCompare;
 
 function ChatBox() {
-  const { selectedChat } = useContext(ChatContext);
+  const { selectedChat, isTyping, setIsTyping } = useContext(ChatContext);
 
   const [newMessage, setNewMessage] = useState("");
   const [allMessages, setAllMessages] = useState();
   const [socketConnected, setSocketConnected] = useState(false);
+  const [typing, setTyping] = useState(false)
+
 
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
@@ -52,6 +57,7 @@ function ChatBox() {
 
   const sendMessage = async (e) => {
     e.preventDefault();
+    socket.emit('stop typing', selectedChat?._id)
     if (newMessage) {
       try {
         const { data } = await axios.post(`/api/message/`, {
@@ -60,11 +66,11 @@ function ChatBox() {
         });
 
         setNewMessage("");
-        console.log(data);
 
         socket.emit("new message", data);
         setAllMessages([...allMessages, data]);
         queryClient.invalidateQueries(["chat-list"]);
+
       } catch (error) {
         console.log(error);
       }
@@ -74,9 +80,14 @@ function ChatBox() {
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", currentUser);
-    socket.on("connection", () => {
+    socket.on("connected", () => {
       setSocketConnected(true);
     });
+    socket.on('typing', () => setIsTyping(true))
+    socket.on('stop typing', () => setIsTyping(false))
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -104,6 +115,17 @@ function ChatBox() {
     setNewMessage(e.target.value);
 
     //Typing indicator logic
+    if (!socketConnected) return
+
+    if (!typing) {
+      setTyping(true)
+      socket.emit('typing', selectedChat?._id)
+    }
+
+    if (e.target.value === '') {
+      setTyping(false)
+      socket.emit('stop typing', selectedChat?._id)
+    }
   };
 
   return (

@@ -10,6 +10,8 @@ export function ChatProvider({ children }) {
     const [showModal, setShowModal] = useState(false)
     const [currentChat, setCurrentChat] = useState()
     const [refreshList, setRefreshList] = useState()
+    const [isTyping, setIsTyping] = useState(false);
+
 
     return (
         <ChatContext.Provider value={{
@@ -23,6 +25,8 @@ export function ChatProvider({ children }) {
             setShowModal,
             currentChat,
             setCurrentChat,
+            isTyping,
+            setIsTyping
         }}>
             {children}
         </ChatContext.Provider>

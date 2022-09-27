@@ -37,6 +37,8 @@ const MainPage = () => {
     try {
       const { data } = await axios.get("/api/chat");
       const adminChat = findAdminChat(data);
+      console.log(adminChat)
+
       if (!adminChat?.latestMessage) {
         await axios.post("/api/message/welcomeMessage", {
           chatId: adminChat?._id,
@@ -47,7 +49,6 @@ const MainPage = () => {
     } catch (error) {
       console.log(error);
     }
-    
   };
 
   return (

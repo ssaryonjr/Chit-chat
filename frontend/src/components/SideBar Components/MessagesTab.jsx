@@ -15,7 +15,7 @@ import {
 
 function MessagesTab() {
   //Global States
-  const { setSelectedChat, selectedChat, setChats } = useContext(ChatContext);
+  const { setSelectedChat, selectedChat, setChats, isTyping } = useContext(ChatContext);
   
   const currentTime = new Date()
 
@@ -76,7 +76,12 @@ function MessagesTab() {
           ) : (
             <h6 className="conversation-sender">{chat?.chatName}</h6>
           )}
-          <span className="conversation-brief">{messageBrief(chat?.latestMessage?.messageSent)}</span>
+          <span className="conversation-brief">
+            {isTyping
+              ? 'Typing...'
+              : messageBrief(chat?.latestMessage?.messageSent)
+              }
+          </span>
         </div>
         <div className="conversation-date">
           <span className="conversation-timestamp">{latestMessageTime(currentTime, new Date(chat?.latestMessage?.updatedAt))}</span>

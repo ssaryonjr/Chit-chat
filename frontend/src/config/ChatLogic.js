@@ -10,7 +10,6 @@
 
 export const getSenderName = (loggedUser, chat) => {
   const [user1, user2] = chat?.users;
-  console.log({ user1, user2 });
   return chat?.users?.[0]._id !== loggedUser
     ? `${user1?.firstName} ${user1?.lastName}`
     : `${user2?.firstName} ${user2?.lastName}`;
@@ -126,5 +125,5 @@ export const findAdminChat = (chatList) => {
   const singlechats = chatList?.filter(chat => (chat?.users?.length === 2))
   const adminChat = singlechats?.filter(chat => chat?.users?.[0]?._id === adminId || chat?.users?.[1]?._id === adminId)
   
-  return adminChat
+  return adminChat?.[0]
 }

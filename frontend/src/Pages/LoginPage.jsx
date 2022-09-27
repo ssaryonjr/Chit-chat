@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import Logo from '../img/logo.png' 
+import facebookLogo from '../img/facebook-logo.png'
+import googleLogo from '../img/google-logo.png'
 import axios from "axios";
 
 
@@ -109,7 +111,7 @@ const Home = () => {
           <button className="login-method">
             <img
               className="affiliate-icons"
-              src="https://res.cloudinary.com/dng5tdawb/image/upload/v1662515134/google-logo-png-suite-everything-you-need-know-about-google-newest-0_uu57nf.png"
+              src={googleLogo}
               alt="google icon"
             />
             Sign in with Google
@@ -117,7 +119,7 @@ const Home = () => {
           <button className="login-method">
             <img
               className="affiliate-icons"
-              src="https://res.cloudinary.com/dng5tdawb/image/upload/v1662515176/facebook-logo-png-transparent-background_s06sid.png"
+              src={facebookLogo}
               alt="google icon"
             />
             Sign in with Facebook
