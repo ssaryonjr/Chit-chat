@@ -85,9 +85,11 @@ function MessagesTab() {
         </div>
         <div className="conversation-date">
           <span className="conversation-timestamp">{latestMessageTime(currentTime, new Date(chat?.latestMessage?.updatedAt))}</span>
-          <div className="conversation-notification">
+
+          {/* <div className="conversation-notification">
             <span className="notification-number">1</span>
-          </div>
+          </div> */}
+
         </div>
         <div
           className="invisible-msg-wrapper"

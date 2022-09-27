@@ -15,58 +15,71 @@ import {
   faMoon
 } from "@fortawesome/free-solid-svg-icons";
 
-function SideBar() { 
+function SideBar() {
   //Global States
   const { search, setSearch, setShowModal } = useContext(ChatContext);
 
   const navigate = useNavigate();
 
-  const user = JSON.parse(localStorage.getItem("userData"));
-  const config = { headers: { Authorization: `Bearer ${user.token}` } };
+  //User info
+  const currentUser = JSON.parse(localStorage.getItem("userData"));
+  axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
 
-  
   const [showOnlineBoard, setShowOnlineBoard] = useState(true);
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [openDD, setOpenDD] = useState(false)
+  const [openDD, setOpenDD] = useState(false);
 
-useEffect(() => {
-  if (search === "") {
-    setShowOnlineBoard(true);
-  }
+  useEffect(() => {
+    if (search === "") {
+      setShowOnlineBoard(true);
+    }
 
-  if (search !== "") {
-    setShowOnlineBoard(false);
+    if (search !== "") {
+      setShowOnlineBoard(false);
 
-    const fetchUsers = async () => {
-      try {
-        setLoading(true);
+      const fetchUsers = async () => {
+        try {
+          setLoading(true);
 
-        const { data } = await axios.get(`/api/user?search=${search}`, config);
-        setLoading(false);
-        setSearchResult(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+          const { data } = await axios.get(`/api/user?search=${search}`);
+          setLoading(false);
+          setSearchResult(data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
-    fetchUsers();
-  }
-}, [search]);
+      fetchUsers();
+    }
+  }, [search]);
 
   const handleSearchInput = (e) => {
     setSearch(e.target.value);
   };
 
   const openDDMenu = () => {
-    setOpenDD(prevValue => !prevValue)
-  }
+    setOpenDD((prevValue) => !prevValue);
+  };
+
+  //Changes user status as offline
+  const showUserOffline = async () => {
+    try {
+      await axios.put("/api/user/userStatus", {
+        userId: currentUser._id,
+        status: "offline",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const signOut = () => {
+    showUserOffline(); 
     navigate("/");
     JSON.parse(localStorage.removeItem("userData"));
     
-  }
+  };
 
   return (
     <aside>

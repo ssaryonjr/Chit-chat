@@ -31,7 +31,7 @@ const server = app.listen(PORT, () => {
 
 //Initiating Socket.io
 const io = require("socket.io")(server, {
-  pingTimeOut: 60000, //Close connection after inactivity for 60 seconds.
+  pingTimeOut: 10000, //Close connection after inactivity for 60 seconds.
   cors: {
     origin: "http://localhost:3000",
   },
@@ -59,15 +59,15 @@ io.on("connection", (socket) => {
    });
 
   socket.on('new message', (newMessageReceived) => {
-    var chat = newMessageReceived?.chatReference
-    
+    // var chat = newMessageReceived?.chatReference
     socket.broadcast.emit('message received',  newMessageReceived)
 
   })
 
-  socket.off("setup", () => {
+  socket.on("disconnect", () => {
     console.log('USER DISCONNECTED')
-    socket.leave(userData._id)
+    socket.disconnect()
+  
   })
 })
 

@@ -23,28 +23,44 @@ const MainPage = () => {
 
   //Checks if user is NOT logged in.
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("userData"));
-    if (!user) {
+    if (!currentUser) {
       navigate("/");
     }
 
-    sendWelcomeMessage()
-
+    sendWelcomeMessage();
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("visibilitychange", showUserOffline);
+    return () => {
+      window.removeEventListener("visibilitychange", showUserOffline);
+    };
+  }, []);
+
+  //Changes user status as offline
+  const showUserOffline = async () => {
+    try {
+      await axios.put("/api/user/userStatus", {
+        userId: currentUser._id,
+        status: "offline",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //An automatic welcome message for new users from admin account.
   const sendWelcomeMessage = async () => {
     try {
       const { data } = await axios.get("/api/chat");
       const adminChat = findAdminChat(data);
-      console.log(adminChat)
+      console.log(adminChat);
 
       if (!adminChat?.latestMessage) {
         await axios.post("/api/message/welcomeMessage", {
           chatId: adminChat?._id,
         });
         queryClient.invalidateQueries(["chat-list"]);
-
       }
     } catch (error) {
       console.log(error);

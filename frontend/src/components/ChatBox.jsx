@@ -33,8 +33,7 @@ function ChatBox() {
   const [newMessage, setNewMessage] = useState("");
   const [allMessages, setAllMessages] = useState();
   const [socketConnected, setSocketConnected] = useState(false);
-  const [typing, setTyping] = useState(false)
-
+  const [typing, setTyping] = useState(false);
 
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
@@ -58,7 +57,7 @@ function ChatBox() {
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    socket.emit('stop typing', selectedChat?._id)
+    socket.emit("stop typing", selectedChat?._id);
     if (newMessage) {
       try {
         const { data } = await axios.post(`/api/message/`, {
@@ -71,30 +70,57 @@ function ChatBox() {
         socket.emit("new message", data);
         setAllMessages([...allMessages, data]);
         queryClient.invalidateQueries(["chat-list"]);
-
       } catch (error) {
         console.log(error);
       }
     }
   };
 
+  //Changes user status as online.
+  const showUserOnline = async () => {
+    try {
+      await axios.put("/api/user/userStatus", {
+        userId: loggedUserId,
+        status: "online",
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+ 
+
+
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", currentUser);
     socket.on("connected", () => {
       setSocketConnected(true);
+      showUserOnline();
     });
-    socket.on('typing', () => setIsTyping(true))
-    socket.on('stop typing', () => setIsTyping(false))
+
+    socket.on("typing", () => setIsTyping(true));
+    socket.on("stop typing", () => setIsTyping(false));
+
+    socket.on('disconnected', () => {
+      setSocketConnected(false)
+    })
+
     return () => {
-      socket.disconnect();
-    };
+      socket.off('connected')
+      socket.off('typing')
+      socket.off('stop typing')
+      socket.off('disconnect')
+    }
   }, []);
+
 
   useEffect(() => {
     fetchAllMessages();
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
+
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
@@ -109,22 +135,25 @@ function ChatBox() {
         queryClient.invalidateQueries(["chat-list"]);
       }
     });
+
+    
   }, []);
 
+ 
   const userTyping = (e) => {
     setNewMessage(e.target.value);
 
     //Typing indicator logic
-    if (!socketConnected) return
+    if (!socketConnected) return;
 
     if (!typing) {
-      setTyping(true)
-      socket.emit('typing', selectedChat?._id)
+      setTyping(true);
+      socket.emit("typing", selectedChat?._id);
     }
 
-    if (e.target.value === '') {
-      setTyping(false)
-      socket.emit('stop typing', selectedChat?._id)
+    if (e.target.value === "") {
+      setTyping(false);
+      socket.emit("stop typing", selectedChat?._id);
     }
   };
 

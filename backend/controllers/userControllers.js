@@ -89,6 +89,7 @@ const findUsers = asyncHandler(async (req, res) => {
     res.send(users);
 })
 
+
 const updateOnlineStatus = asyncHandler(async (req, res) => {
   //Current logged in user
   const { userId, status } = req.body;
