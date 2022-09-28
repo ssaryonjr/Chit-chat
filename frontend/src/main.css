@@ -205,13 +205,13 @@ html {
   padding: 4rem 4.5rem;
   border: none;
   outline: none;
-  border-radius: .5rem;
+  border-radius: 1.5rem;
   font-size: 1.8rem;
   font-weight: normal;
   line-height: 1.5;
   color: var(--primary-text);
-  background: var(--secondary-background);
-  box-shadow: var(--shadow-large);
+  background: #111111ff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin: 2.5rem 0;
 }
 
