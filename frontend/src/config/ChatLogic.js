@@ -67,17 +67,27 @@ export const timeDifference = (current, previous) => {
   const elapsed = current - previous;
 
   if (elapsed < msPerMinute) {
-    return Math.round(elapsed / 1000) + " seconds ago";
+    let time = Math.round(elapsed / 1000);
+    return time == 1 ? time + " second ago" : time + ' seconds ago'
+
   } else if (elapsed < msPerHour) {
-    return Math.round(elapsed / msPerMinute) + " minutes ago";
+    let time = Math.round(elapsed / msPerMinute);
+    return time == 1 ? time + " minute ago" : time + ' minutes ago'
+
   } else if (elapsed < msPerDay) {
-    return Math.round(elapsed / msPerHour) + " hours ago";
+    let time = Math.round(elapsed / msPerHour);
+    return time == 1 ? time + " hour ago" : time + ' hours ago'
+    
   } else if (elapsed < msPerMonth) {
-    return Math.round(elapsed / msPerDay) + " days ago";
+    let time = Math.round(elapsed / msPerDay);
+    return time == 1 ? time + " day ago" : time + ' days ago'
+
   } else if (elapsed < msPerYear) {
-    return Math.round(elapsed / msPerMonth) + " months ago";
+    let time = Math.round(elapsed / msPerMonth);
+    return time == 1 ? time + " month ago" : time + ' months ago'
   } else {
-    return Math.round(elapsed / msPerYear) + " years ago";
+    let time = Math.round(elapsed / msPerYear);
+    return time == 1 ? time + " year ago" : time + ' years ago'
   }
 }
 
@@ -133,7 +143,7 @@ export const getUserStatus = (loggedUser, chat) => {
     chat?.users?.[0]._id !== loggedUser ? chat?.users?.[0] : chat?.users?.[1];
   
   return oppositeUser?.userStatus === 'offline'
-    ? `Last seen ${timeDifference(new Date(), new Date(oppositeUser?.lastActive))}`
+    ? `Active ${timeDifference(new Date(), new Date(oppositeUser?.lastActive))}`
     : 'Online Now'
 }
 

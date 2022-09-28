@@ -1590,3 +1590,9 @@ aside {
     font-size:2.2rem;
   }
 }
+
+@media screen and (max-width: 400px){
+  .receiver{
+    max-width: calc(100% - 50px);
+  }
+}
