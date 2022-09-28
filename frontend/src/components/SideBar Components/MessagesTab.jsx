@@ -16,7 +16,7 @@ import {
 function MessagesTab(props) {
   
   //Global States
-  const { setSelectedChat, selectedChat, setChats, isTyping,setShowChatBox, setShowMessageList, width, setWidth } = useContext(ChatContext);
+  const { setSelectedChat, selectedChat, setChats, isTyping,setShowChatBox, setShowMessageList, width, } = useContext(ChatContext);
   
   const currentTime = new Date()
 
@@ -61,7 +61,14 @@ function MessagesTab(props) {
     
   const messageList = data?.data.map((chat, index) => {
     return (
-      <section style={{borderLeft: selectedChat?._id === chat?._id ? '10px solid #0B93F6' : 'none'}} className="user-conversation-container" key={index}>
+      <section
+        style={{
+          borderLeft:
+            selectedChat?._id === chat?._id ? "10px solid #0B93F6" : "none",
+        }}
+        className="user-conversation-container"
+        key={chat?._id}
+      >
         {chat.isGroupChat ? (
           <div className="thumbnail-container">
             <div className="avatars">
@@ -83,36 +90,47 @@ function MessagesTab(props) {
               alt="user thumbnail"
               className="conversation-thumbnail"
             />
-            {showStatusIcon(loggedUserId, chat) &&<span className="online-circle"></span>}
+            {showStatusIcon(loggedUserId, chat) && (
+              <span className="online-circle"></span>
+            )}
           </div>
         )}
         <div className="conversation-info">
           {!chat.isGroupChat ? (
             <h6 className="conversation-sender">
-              {getSenderName(loggedUserId, chat)}
+              {getSenderName(loggedUserId, chat).length > 20
+                ? getSenderName(loggedUserId, chat).substring(0, 20) + ".."
+                : getSenderName(loggedUserId, chat)}
             </h6>
           ) : (
-            <h6 className="conversation-sender">{chat?.chatName.length > 20 ? chat?.chatName.substring(0,20) + '..': chat?.chatName}</h6>
+            <h6 className="conversation-sender">
+              {chat?.chatName.length > 20
+                ? chat?.chatName.substring(0, 20) + ".."
+                : chat?.chatName}
+            </h6>
           )}
           <span className="conversation-brief">
             {isTyping
-              ? 'Typing...'
-              : messageBrief(chat?.latestMessage?.messageSent)
-              }
+              ? "Typing..."
+              : messageBrief(chat?.latestMessage?.messageSent)}
           </span>
         </div>
         <div className="conversation-date">
-          <span className="conversation-timestamp">{latestMessageTime(currentTime, new Date(chat?.latestMessage?.updatedAt))}</span>
+          <span className="conversation-timestamp">
+            {latestMessageTime(
+              currentTime,
+              new Date(chat?.latestMessage?.updatedAt)
+            )}
+          </span>
 
           {/* <div className="conversation-notification">
             <span className="notification-number">1</span>
           </div> */}
-
         </div>
         <div
           className="invisible-msg-wrapper"
           id={chat?._id}
-          onClick={(e)=> openChat(e.target.id)}
+          onClick={(e) => openChat(e.target.id)}
         ></div>
       </section>
     );

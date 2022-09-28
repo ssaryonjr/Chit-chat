@@ -25,8 +25,8 @@ function DisplayMessagesBox({ messages }) {
           return (
             <>
               {m?.sender?._id === loggedUserId ? (
-                <div className="chat-msg-container right-side" key={i}>
-                  <div className="chat-bubble-right">
+                <div className="chat-msg-container right-side" key={m?.sender?._id}>
+                  <div className="chat-bubble-right" key={i}>
                     <span className="text-bubble sender">{m?.messageSent}</span>
                     <span className="chat-bubble-time-right">
                       {timeDifference(currentTime, new Date(m?.createdAt))}
@@ -34,7 +34,7 @@ function DisplayMessagesBox({ messages }) {
                   </div>
                 </div>
               ) : (
-                <div className="chat-msg-container left-side" key={i}>
+                <div className="chat-msg-container left-side" key={m?.sender?._id}>
                   {isSameSender(messages, m, i, loggedUserId) ||
                   isLastMessage(messages, i, loggedUserId) ? (
                     <>
@@ -43,7 +43,7 @@ function DisplayMessagesBox({ messages }) {
                         alt="user profile"
                         className="chat-bubble-user"
                       />
-                      <div className="chat-bubble-left">
+                      <div className="chat-bubble-left" key={i}>
                         <span className="text-bubble receiver">
                           {m?.messageSent}
                         </span>

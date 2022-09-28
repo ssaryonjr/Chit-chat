@@ -83,6 +83,7 @@ function SideBar() {
 
   return (
     <aside>
+      <div className="aside-top-bar-wrapper">
       <div className="message-tab-info-wrapper">
         <div className="menu-wrapper">
           <h3 className="msg-tab-title" onClick={openDDMenu}>
@@ -114,17 +115,17 @@ function SideBar() {
           + Create Groupchat
         </button>
       </div>
-      <div className="search-container">
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Find a user to chat with.."
-          value={search}
-          onChange={handleSearchInput}
-        />
-        <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon" />
+        <div className="search-container">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Find a user to chat with.."
+            value={search}
+            onChange={handleSearchInput}
+          />
+          <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon" />
+        </div>
       </div>
-
       {showOnlineBoard ? (
         <MessageTab />
       ) : (
