@@ -1,7 +1,7 @@
 import React from 'react'
 import SideBar from '../components/SideBar'
 import ChatBox from '../components/ChatBox'
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ChatContext from '../ChatContext'
 import axios from 'axios'
@@ -14,22 +14,40 @@ const MainPage = () => {
   const currentUser = JSON.parse(localStorage.getItem("userData"));
   axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
 
+  //Global States
+  const { showModal, showChatBox, showMessageList, width, setWidth, setShowChatBox, setShowMessageList } = useContext(ChatContext);
+  
   //Refetching
   const queryClient = useQueryClient();
-
-  //Global States
-  const { showModal } = useContext(ChatContext);
+  //Page Navigation
   const navigate = useNavigate();
 
-  //Checks if user is NOT logged in.
+  //Redirect user to login page if no token found.
   useEffect(() => {
     if (!currentUser) {
       navigate("/");
     }
-
     sendWelcomeMessage();
   }, []);
 
+  //Conditional rendering of components based from viewport width
+  useEffect(() => {
+    const handleResizeWindow = () => {
+      setWidth(window.innerWidth);
+    }
+
+    if (width > 930) {
+      setShowChatBox(true);
+      setShowMessageList(true);
+    }
+
+    window.addEventListener("resize", handleResizeWindow);
+    return () => {
+      window.removeEventListener("resize", handleResizeWindow);
+    };
+  }, []);
+
+  //Change user status to OFFLNIE when they exit window/tab.
   useEffect(() => {
     window.addEventListener("visibilitychange", showUserOffline);
     return () => {
@@ -69,8 +87,8 @@ const MainPage = () => {
 
   return (
     <main className="homepage">
-      <SideBar />
-      <ChatBox />
+      {showMessageList && <SideBar />}
+      {showChatBox && <ChatBox />}
       {showModal && <GroupChatModal />}
     </main>
   );

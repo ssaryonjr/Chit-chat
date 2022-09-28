@@ -5,11 +5,9 @@ import App from './App';
 
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from "react-query/devtools";
 
 
 const queryClient = new QueryClient();
-// queryClient.invalidateQueries(["chat-list"]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,6 +15,5 @@ root.render(
     <BrowserRouter>
         <App />
       </BrowserRouter>
-    <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 );

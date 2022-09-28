@@ -7,7 +7,7 @@ import { useQueryClient } from 'react-query'
 
 function GroupChatModal() {
   //Global States
-  const { setShowModal, setSelectedChat } = useContext(ChatContext);
+  const { setShowModal, setSelectedChat, width, setShowMessageList, setShowChatBox } = useContext(ChatContext);
 
   //Local States
   const [groupChatName, setGroupChatName] = useState("");
@@ -60,14 +60,21 @@ function GroupChatModal() {
       })
       
       queryClient.invalidateQueries(["chat-list"]);
-      setShowModal(false)
-      setSelectedChat(data)
+
+      if (width > 930) {
+        setShowModal(false)
+        setSelectedChat(data)
+      } else if (width < 930) {
+        setShowMessageList(false)
+        setShowChatBox(true)
+        setShowModal(false);
+        setSelectedChat(data);
+      }
+      
     
     } catch (error) {
       console.log(error)
     }
-
-    
   };
 
   const addToSelectedUsers = (addedUser) => {

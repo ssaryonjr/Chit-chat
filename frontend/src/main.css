@@ -774,7 +774,7 @@ aside {
 /* Message Tab */
 .conversation-list-wrapper {
   width: 100%;
-  height: 605px;
+  max-height: 605px;
   overflow:auto;
 }
 
@@ -896,7 +896,7 @@ aside {
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-start;
-  width: 8.3rem;
+  width: 5.3rem;
   height: 100%;
   color: rgb(152, 152, 158);
 }
@@ -1018,6 +1018,13 @@ aside {
   cursor: pointer;
 }
 
+.back-btn {
+  font-size: 2.5rem;
+  color: rgba(202, 202, 202, 0.394);
+  margin-right: 2rem;
+  cursor: pointer;
+  display: none;
+}
 .single-chat-user-wrapper{
   display: flex;
   justify-content: center;
@@ -1279,6 +1286,7 @@ aside {
   font-size: 2.4rem;
   color: rgba(202, 202, 202, 0.394);
   margin-left: 1rem;
+  cursor: pointer;
 }
 
 .send-btn {
@@ -1291,6 +1299,7 @@ aside {
   align-items: center;
   justify-content: center;
   margin-left: 1rem;
+  cursor: pointer;
 }
 
 .send-icon {
@@ -1314,8 +1323,9 @@ aside {
 }
 
 .modal-content{
-  width: 40rem;
+  max-width: 40rem;
   min-height: 36rem;
+  margin: 0 1.5rem;
   background-color: rgb(19, 19, 21);
   border-radius: 1.5rem;
   position: relative;
@@ -1511,5 +1521,65 @@ aside {
   44% {
     transform: translateY(0px);
     background-color: #b5bbd9; 
+  }
+}
+
+
+/*Mobile and other Devices */
+@media screen and (max-width: 930px) {
+  .back-btn{
+    display: block;
+  }
+
+  aside{
+    max-width: 100%;
+    border-top-right-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+  }
+
+  .conversation-list-wrapper{
+    max-height: none;
+    height: 100%;
+  }
+  
+
+  .homepage{
+    height: 100vh;
+  }
+
+
+  .open-msg-box{
+    height: calc(100vh - 13rem);
+
+  }
+}
+
+@media screen and (max-width: 875px){
+  .app{
+    padding: 0;
+    display: block;
+  }
+
+  .chat-box{
+    padding: 0;
+    height: 100%;
+  }
+
+  aside {
+    height: 100vh;
+  }
+
+  .current-msg-top-bar,
+  .msg-input-container{
+    border-radius: 0;
+  }
+
+  .single-chat-user-name{
+    font-size: 1.75rem;
+  }
+
+  .single-chat-sender-photo{
+    width: 5.5rem;
+    height: 5.5rem;
   }
 }

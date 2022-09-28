@@ -112,7 +112,7 @@ export const latestMessageTime = (current, previous) => {
 
 //Cut down message
 export const messageBrief = (message) => {
-  if (message?.length > 20) {
+  if (message?.length > 25) {
       return message.split('').slice(0,25).join('') + ".."
   } else {
     return message

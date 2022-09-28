@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import ChatContext from "../../ChatContext";
 import axios from "axios";
 import { useQuery } from "react-query";
@@ -13,9 +13,10 @@ import {
   showStatusIcon
 } from "../../config/ChatLogic";
 
-function MessagesTab() {
+function MessagesTab(props) {
+  
   //Global States
-  const { setSelectedChat, selectedChat, setChats, isTyping } = useContext(ChatContext);
+  const { setSelectedChat, selectedChat, setChats, isTyping,setShowChatBox, setShowMessageList, width, setWidth } = useContext(ChatContext);
   
   const currentTime = new Date()
 
@@ -31,13 +32,30 @@ function MessagesTab() {
     return data
   });
 
+  let openChat
 
-  const openChat = async(id) => {
-    try {
-      const data = await axios.get(`/api/chat/${id}`)
-      return setSelectedChat(data.data)
-    } catch (error) {
-      console.log(error)
+  if (width < 930) {
+    setShowChatBox(false)
+    openChat = async (id) => {
+      try {
+        const data = await axios.get(`/api/chat/${id}`);
+        setShowMessageList(false)
+        setShowChatBox(true)
+        return setSelectedChat(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+  } else if (width > 930) {
+    setShowChatBox(true)
+    openChat = async(id) => {
+      try {
+        const data = await axios.get(`/api/chat/${id}`)
+        return setSelectedChat(data.data)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
     
@@ -74,7 +92,7 @@ function MessagesTab() {
               {getSenderName(loggedUserId, chat)}
             </h6>
           ) : (
-            <h6 className="conversation-sender">{chat?.chatName}</h6>
+            <h6 className="conversation-sender">{chat?.chatName.length > 20 ? chat?.chatName.substring(0,20) + '..': chat?.chatName}</h6>
           )}
           <span className="conversation-brief">
             {isTyping

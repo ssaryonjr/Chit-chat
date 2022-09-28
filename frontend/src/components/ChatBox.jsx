@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import ChatContext from "../ChatContext";
 import { useQueryClient } from "react-query";
-import TypingAnimation from "./Chat Components/TypingAnimation";
 
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +10,7 @@ import {
   faFaceLaughBeam,
   faPaperPlane,
   faEllipsis,
-  faCropSimple,
+  faCircleChevronLeft
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -24,11 +23,11 @@ import {
 import DisplayMessagesBox from "./Chat Components/DisplayMessagesBox";
 
 import io from "socket.io-client";
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "http://localhost:5000"; //Will need to change later for host
 var socket, selectedChatCompare;
 
 function ChatBox() {
-  const { selectedChat, isTyping, setIsTyping } = useContext(ChatContext);
+  const { selectedChat, isTyping, setIsTyping, setShowChatBox, setShowMessageList, setSelectedChat, width,} = useContext(ChatContext);
 
   const [newMessage, setNewMessage] = useState("");
   const [allMessages, setAllMessages] = useState();
@@ -88,9 +87,6 @@ function ChatBox() {
       console.log(error);
     }
   };
-
- 
-
 
   useEffect(() => {
     socket = io(ENDPOINT);
@@ -157,11 +153,27 @@ function ChatBox() {
     }
   };
 
+  const handleBackButton = () => {
+    setShowChatBox(false)
+    setShowMessageList(true)
+    setSelectedChat('')
+  }
+
+  if (width > 930) {
+    setShowChatBox(true)
+    setShowMessageList(true)
+  }
+
   return (
     <main className="chat-box">
       {selectedChat ? (
         <>
           <div className="current-msg-top-bar">
+            <FontAwesomeIcon
+              icon={faCircleChevronLeft}
+              className="back-btn"
+              onClick={handleBackButton}
+            />
             {selectedChat?.isGroupChat ? (
               <div className="group-chat-wrapper">
                 <div className="group-chat-icon-wrapper">
@@ -177,7 +189,7 @@ function ChatBox() {
                     </span>
                   </div>
                 </div>
-                <h1 className="group-chat-name">{selectedChat?.chatName}</h1>
+                <h1 className="group-chat-name">{selectedChat?.chatName.length > 21 ? selectedChat?.chatName.substring(0,21) + '..': selectedChat?.chatName}</h1>
               </div>
             ) : (
               <div className="single-chat-user-wrapper">
@@ -228,7 +240,9 @@ function ChatBox() {
               className="send-msg-icons"
             />
             <button className="send-btn">
-              <FontAwesomeIcon icon={faPaperPlane} className="send-icon" />
+              <FontAwesomeIcon icon={faPaperPlane} className="send-icon"
+              onClick={sendMessage}
+              />
             </button>
           </div>
         </>
