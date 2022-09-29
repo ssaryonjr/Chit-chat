@@ -77,9 +77,9 @@ function EditGroupChatModal() {
     } catch (error) { console.log(error) }
   }
 
-  const removeUser = async (clickedUser) => {
+  const handleRemoveUser = async (clickedUser) => {
     if (selectedChat?.users?.length === 3) {
-      setWarning('Unable to delete user, group chat cannot have less than 3 users.')
+      setWarning('Unable to remove user, group chat cannot have less than 3 users.')
       return
     }
       try {
@@ -118,7 +118,7 @@ function EditGroupChatModal() {
                   {selectedChat?.groupHost === loggedUserId && (
                     <button
                       className="remove-user-btn"
-                      onClick={() => removeUser(user)}
+                      onClick={() => handleRemoveUser(user)}
                     >
                       X
                     </button>
@@ -188,7 +188,10 @@ function EditGroupChatModal() {
           </ul>
         )}
 
-        <button className="group-chat-submit-btn leave">
+        <button
+          className="group-chat-submit-btn leave"
+          onClick={handleRemoveUser(loggedUserId)}
+        >
           Leave Group Chat
         </button>
 
