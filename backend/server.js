@@ -11,7 +11,7 @@ const app = express();
 app.use(cors())
 
 
-//Middleware that parses incoming JSON request and puts the data in req.body 
+//Middleware that parses incoming JSON request and puts the data in req.body
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -52,11 +52,11 @@ io.on("connection", (socket) => {
 
   socket.on('typing', (room) => {
     console.log('user is typing')
-    return socket.in(room).emit("typing")
+    return socket.in(room).emit("typing", room)
   })
 
    socket.on("stop typing", (room) => {
-     return socket.in(room).emit("stop typing");
+     return socket.in(room).emit("stop typing", room);
    });
 
   socket.on('new message', (newMessageReceived) => {
@@ -68,7 +68,6 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log('USER DISCONNECTED')
     socket.disconnect()
-  
+
   })
 })
-

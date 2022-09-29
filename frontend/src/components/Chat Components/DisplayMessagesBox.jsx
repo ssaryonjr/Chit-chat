@@ -8,16 +8,19 @@ import TypingAnimation from './TypingAnimation';
 
 function DisplayMessagesBox({ messages }) {
   //Global states
-  const { userIsTyping, setUserIsTyping } = useContext(ChatContext);
+  const { selectedChat, userIsTyping, setUserIsTyping } = useContext(ChatContext);
+
+  const roomId = selectedChat?._id;
+  const isTyping = userIsTyping[roomId]; // true if user is typing, else falsy
 
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
     const loggedUserId = currentUser._id;
     const currentTime = new Date()
-  
+
   const lastMessage = messages?.[messages?.length - 1]?.sender?._id
   console.log(lastMessage)
-  
+
   return (
     <ScrollableFeed className="all-msg-container">
       {messages &&
@@ -64,7 +67,7 @@ function DisplayMessagesBox({ messages }) {
             </>
           );
         })}
-      {userIsTyping && <TypingAnimation
+      {isTyping && <TypingAnimation
         latestMessage={lastMessage}
         userId={loggedUserId}
       />}
