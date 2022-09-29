@@ -79,6 +79,104 @@ html {
   flex-direction: column;
   transition: all .9s;
   padding: 2rem 3rem;
+  overflow-x: hidden;
+}
+
+/*Toast Notification */
+.toast {
+  position: absolute;
+  top: 35px;
+  right: 30px;
+  border-radius: 12px;
+  background: #1c429c;
+  padding: 20px 35px 20px 25px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  overflow: hidden;
+  transform: translateX(calc(100% + 30px));
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+  z-index: 100000;
+}
+
+.toast.active {
+  transform: translateX(0%);
+}
+
+.toast .toast-content {
+  display: flex;
+  align-items: center;
+}
+
+.toast-content .check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  min-width: 35px;
+  /* background-color: #4070f4; */
+  color:rgb(255, 225, 0);
+  font-size: 10px;
+  border-radius: 50%;
+}
+
+.toast-content .message {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+}
+
+.message .text {
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: #b8b8b8;
+}
+
+.message .text.text-1 {
+  font-weight: 600;
+  color: rgb(215, 215, 215);
+}
+
+.close-toast {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  padding: 5px;
+  cursor: pointer;
+  opacity: 0.7;
+  font-size: 2rem;
+  color: white;
+}
+
+.close-toast:hover {
+  opacity: 1;
+}
+
+.toast .progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+
+}
+
+.toast .progress:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.progress.active:before {
+  animation: progress 5s linear forwards;
+}
+
+@keyframes progress {
+  100% {
+    right: 100%;
+  }
 }
 
 /*Loading Animation */
@@ -342,6 +440,7 @@ html {
   text-rendering: optimizeLegibility;
   transition: all 0.35s ease;
   margin-bottom: 2rem;
+  cursor: pointer;
 }
 
 .login-method:hover{
@@ -1281,7 +1380,7 @@ aside {
 }
 
 .send-msg-form {
-  width: 84%;
+  width: 100%;
 }
 
 .send-msg-input {
@@ -1290,7 +1389,7 @@ aside {
   outline: none;
   margin-left: 1rem;
   border: none;
-  width: 99%;
+  width: 100%;
   padding-right: 1rem;
   padding-left: 1rem;
   background-color: #2b2d2f;
@@ -1307,14 +1406,14 @@ aside {
 
 .send-btn {
   width: 3.6rem;
-  height: 3.6rem;
+  height: 3rem;
   border-radius: 100%;
   border: none;
   background-color:#0B93F6;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 1rem;
+  margin: 0 1.7rem;
   cursor: pointer;
 }
 
@@ -1657,6 +1756,15 @@ aside {
   .msg-tab-title {
     font-size:2.2rem;
   }
+
+  .toast{
+    right: 0;
+    margin: 0 1.1rem;
+  }
+.message .text {
+  font-size: 1.5rem;
+}
+
 }
 
 @media screen and (max-width: 400px){

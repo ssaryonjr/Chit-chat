@@ -5,7 +5,6 @@ import axios from 'axios'
 import SearchResult from './SideBar Components/SearchResult'
 import { useNavigate } from "react-router-dom";
 
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
@@ -14,6 +13,7 @@ import {
 
   faMoon
 } from "@fortawesome/free-solid-svg-icons";
+import ToastNotification from './ToastNotification'
 
 function SideBar() {
   //Global States
@@ -25,6 +25,7 @@ function SideBar() {
   const currentUser = JSON.parse(localStorage.getItem("userData"));
   axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
 
+  const [showToast, setShowToast] = useState(false)
   const [showOnlineBoard, setShowOnlineBoard] = useState(true);
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -83,56 +84,62 @@ function SideBar() {
   };
 
   return (
-    <aside>
-      <div className="aside-top-bar-wrapper">
-      <div className="message-tab-info-wrapper">
-        <div className="menu-wrapper">
-          <h3 className="msg-tab-title" onClick={openDDMenu}>
-            Messages <FontAwesomeIcon icon={faCaretDown} />
-          </h3>
-          {openDD && (
-            <div className="dd-menu">
-              <ul className="dd-wrapper">
-                <li className="menu-item">
-                  <FontAwesomeIcon icon={faMoon} className="dd-menu-icon" />
-                  Display Preference
-                </li>
-                <li className="menu-item" onClick={signOut}>
-                  <FontAwesomeIcon
-                    icon={faRightFromBracket}
-                    className="dd-menu-icon"
-                  />
-                  Log out
-                </li>
-              </ul>
+    <>
+      <ToastNotification
+        showToast={showToast}
+        handleClose={() => setShowToast(false)}
+      />
+      <aside>
+        <div className="aside-top-bar-wrapper">
+          <div className="message-tab-info-wrapper">
+            <div className="menu-wrapper">
+              <h3 className="msg-tab-title" onClick={openDDMenu}>
+                Messages <FontAwesomeIcon icon={faCaretDown} />
+              </h3>
+              {openDD && (
+                <div className="dd-menu">
+                  <ul className="dd-wrapper">
+                    <li className="menu-item" onClick={()=> setShowToast(true)}>
+                      <FontAwesomeIcon icon={faMoon} className="dd-menu-icon" />
+                      Display Preference
+                    </li>
+                    <li className="menu-item" onClick={signOut}>
+                      <FontAwesomeIcon
+                        icon={faRightFromBracket}
+                        className="dd-menu-icon"
+                      />
+                      Log out
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
-          )}
-        </div>
 
-        <button
-          className="groupchat-button"
-          onClick={() => setShowModal((prevValue) => !prevValue)}
-        >
-          + Create Groupchat
-        </button>
-      </div>
-        <div className="search-container">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Find a user to chat with.."
-            value={search}
-            onChange={handleSearchInput}
-          />
-          <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon" />
+            <button
+              className="groupchat-button"
+              onClick={() => setShowModal((prevValue) => !prevValue)}
+            >
+              + Create Groupchat
+            </button>
+          </div>
+          <div className="search-container">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Find a user to chat with.."
+              value={search}
+              onChange={handleSearchInput}
+            />
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon" />
+          </div>
         </div>
-      </div>
-      {showOnlineBoard ? (
-        <MessageTab />
-      ) : (
-        <SearchResult loading={loading} data={searchResult} />
-      )}
-    </aside>
+        {showOnlineBoard ? (
+          <MessageTab />
+        ) : (
+          <SearchResult loading={loading} data={searchResult} />
+        )}
+      </aside>
+    </>
   );
 }
 

@@ -208,7 +208,11 @@ function ChatBox() {
                     </span>
                   </div>
                 </div>
-                <h1 className="group-chat-name">{selectedChat?.chatName.length > 21 ? selectedChat?.chatName.substring(0,21) + '..': selectedChat?.chatName}</h1>
+                <h1 className="group-chat-name">
+                  {selectedChat?.chatName.length > 21
+                    ? selectedChat?.chatName.substring(0, 21) + ".."
+                    : selectedChat?.chatName}
+                </h1>
               </div>
             ) : (
               <div className="single-chat-user-wrapper">
@@ -220,8 +224,9 @@ function ChatBox() {
                 <div className="single-chat-user-details">
                   <h5 className="single-chat-user-name">
                     {getSenderName(loggedUserId, selectedChat)}
-                      {checkIfVerified(loggedUserId, selectedChat) && <img src={VerifiedBadge} className="verified-badge"/>
-                    }
+                    {checkIfVerified(loggedUserId, selectedChat) && (
+                      <img src={VerifiedBadge} className="verified-badge" />
+                    )}
                   </h5>
                   <span className="single-chat-user-status">
                     {getUserStatus(loggedUserId, selectedChat)}
@@ -243,7 +248,10 @@ function ChatBox() {
             <DisplayMessagesBox messages={allMessages} />
           </div>
           <div className="msg-input-container">
-            <FontAwesomeIcon icon={faPaperclip} className="send-msg-icons" />
+            <FontAwesomeIcon
+              icon={faFaceLaughBeam}
+              className="send-msg-icons"
+            />
             <form className="send-msg-form" onSubmit={sendMessage}>
               <label htmlFor="text-msg">
                 <input
@@ -255,14 +263,12 @@ function ChatBox() {
                 />
               </label>
             </form>
-
-            <FontAwesomeIcon
-              icon={faFaceLaughBeam}
-              className="send-msg-icons"
-            />
+            
             <button className="send-btn">
-              <FontAwesomeIcon icon={faPaperPlane} className="send-icon"
-              onClick={sendMessage}
+              <FontAwesomeIcon
+                icon={faPaperPlane}
+                className="send-icon"
+                onClick={sendMessage}
               />
             </button>
           </div>

@@ -10,6 +10,7 @@ import { useQueryClient } from "react-query";
 import GroupChatModal from '../components/Modal Components/GroupChatModal'
 import EditGroupChatModal from '../components/Modal Components/EditGroupChatModal'
 import UserProfileModal from '../components/Modal Components/UserProfileModal'
+import ToastNotification from '../components/ToastNotification'
 
 const MainPage = () => {
   //User info
@@ -98,7 +99,8 @@ const MainPage = () => {
       {showChatBox && <ChatBox />}
       {showModal && <GroupChatModal />}
       {showEditModal && <EditGroupChatModal />}
-      {showUserProfile && <UserProfileModal/>}
+      {showUserProfile && <UserProfileModal />}
+      <ToastNotification/>
     </main>
   );
 }

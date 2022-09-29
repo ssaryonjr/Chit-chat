@@ -15,10 +15,6 @@ export function ChatProvider({ children }) {
     const [showChatBox, setShowChatBox] = useState(true)
     const [showMessageList, setShowMessageList] = useState(true)
     const [width, setWidth] = useState(window.innerWidth)
-    const [verifiedUser, setVerifiedUser] = useState(
-      "6335195dd79952cd9e023a94"
-    );
-
 
     return (
         <ChatContext.Provider value={{
@@ -44,7 +40,6 @@ export function ChatProvider({ children }) {
             setShowEditModal,
             showUserProfile,
             setShowUserProfile,
-            verifiedUser
         }}>
             {children}
         </ChatContext.Provider>

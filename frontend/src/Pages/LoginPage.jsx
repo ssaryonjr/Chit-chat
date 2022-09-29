@@ -1,61 +1,68 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import Logo from '../img/logo.png' 
 import facebookLogo from '../img/facebook-logo.png'
 import googleLogo from '../img/google-logo.png'
 import axios from "axios";
-
+import ToastNotification from '../components/ToastNotification'
 
 const Home = () => {
   const navigate = useNavigate();
 
   //Checks if user is already logged in.
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('userData'))
-    if (user) navigate("/homepage")
-  }, [])
-  
+    const user = JSON.parse(localStorage.getItem("userData"));
+    if (user) navigate("/homepage");
+  }, []);
 
-  const [warning, setWarning] = useState('')
+  //Local states
+  const [showToast, setShowToast] = useState(false)
+  const [warning, setWarning] = useState("");
   const [loginForm, setLoginForm] = useState({
     email: "",
-    password: ""
-  })
+    password: "",
+  });
 
   const updateForm = (event) => {
-    const { name, value} = event.target
-    setLoginForm(prevData => ({
+    const { name, value } = event.target;
+    setLoginForm((prevData) => ({
       ...prevData,
-      [name]: value
-    }))
-  }
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    
-    const {email, password} = loginForm
+    event.preventDefault();
+
+    const { email, password } = loginForm;
     if (!email || !password) {
-      setWarning("Please fill out all fields")
-      return
+      setWarning("Please fill out all fields");
+      return;
     }
 
     try {
-      const { data } = await axios.post("/api/user/login",
+      const { data } = await axios.post(
+        "/api/user/login",
         { email, password },
         { headers: { "Content-type": "application/json" } }
       );
 
-        localStorage.setItem("userData", JSON.stringify(data));
-        navigate("/homepage");
-
-
+      localStorage.setItem("userData", JSON.stringify(data));
+      navigate("/homepage");
     } catch (error) {
-      setWarning("Invalid user credentials")
+      setWarning("Invalid user credentials");
     }
-  }
+  };
+
+
 
   return (
     <>
+      <ToastNotification
+        showToast={showToast}
+        handleClose={()=> setShowToast(false)}
+      />
+
       <main className="auth-container">
         <div>
           <div className="login-top-container">
@@ -95,9 +102,9 @@ const Home = () => {
               <a href="./forgotpassword" className="text-links">
                 Forgot password
               </a>
-              <button className="auth-submit"
-              onClick={handleSubmit}
-              >Sign In</button>
+              <button className="auth-submit" onClick={handleSubmit}>
+                Sign In
+              </button>
             </div>
           </form>
           <div class="striped">
@@ -108,7 +115,7 @@ const Home = () => {
         </div>
 
         <div className="login-options">
-          <button className="login-method">
+          <button className="login-method" onClick={() => setShowToast(true)}>
             <img
               className="affiliate-icons"
               src={googleLogo}
@@ -116,7 +123,7 @@ const Home = () => {
             />
             Sign in with Google
           </button>
-          <button className="login-method">
+          <button className="login-method" onClick={() => setShowToast(true)}>
             <img
               className="affiliate-icons"
               src={facebookLogo}
