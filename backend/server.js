@@ -51,6 +51,7 @@ io.on("connection", (socket) => {
   })
 
   socket.on('typing', (room) => {
+    console.log('user is typing')
     return socket.in(room).emit("typing")
   })
 

@@ -8,7 +8,7 @@ import TypingAnimation from './TypingAnimation';
 
 function DisplayMessagesBox({ messages }) {
   //Global states
-  const { isTyping, setIsTyping } = useContext(ChatContext);
+  const { userIsTyping, setUserIsTyping } = useContext(ChatContext);
 
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
@@ -64,7 +64,7 @@ function DisplayMessagesBox({ messages }) {
             </>
           );
         })}
-      {isTyping && <TypingAnimation
+      {userIsTyping && <TypingAnimation
         latestMessage={lastMessage}
         userId={loggedUserId}
       />}

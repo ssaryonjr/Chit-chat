@@ -31,7 +31,10 @@ function ChatBox() {
   //Global states
   const {
     selectedChat,
-    isTyping,
+    setUserIsTyping,
+    userIsTyping,
+
+
     setIsTyping,
     setShowChatBox,
     setShowMessageList,
@@ -115,8 +118,8 @@ function ChatBox() {
       showUserOnline();
     });
 
-    socket.on("typing", () => setIsTyping(true));
-    socket.on("stop typing", () => setIsTyping(false));
+    socket.on("typing", () => setUserIsTyping(true));
+    socket.on("stop typing", () => setUserIsTyping(false));
 
     socket.on('disconnected', () => {
       setSocketConnected(false)
@@ -156,7 +159,7 @@ function ChatBox() {
 
  
   const userTyping = (e) => {
-    setNewMessage(e.target.value).trim()
+    setNewMessage(e.target.value)
 
     //Typing indicator logic
     if (!socketConnected) return;
@@ -176,6 +179,7 @@ function ChatBox() {
     setShowChatBox(false)
     setShowMessageList(true)
     setSelectedChat('')
+    setNewMessage()
   }
 
   if (width > 930) {
@@ -263,7 +267,7 @@ function ChatBox() {
                 />
               </label>
             </form>
-            
+
             <button className="send-btn">
               <FontAwesomeIcon
                 icon={faPaperPlane}
