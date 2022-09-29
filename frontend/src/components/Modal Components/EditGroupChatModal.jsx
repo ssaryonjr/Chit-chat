@@ -46,6 +46,8 @@ function EditGroupChatModal() {
       console.log(error);
     }
     setUpdateGroupName("");
+    queryClient.invalidateQueries(["chat-list"]);
+
   };
 
   const handleSearch = async (search) => {
@@ -85,29 +87,31 @@ function EditGroupChatModal() {
     }
   };
 
-  const handleRemoveUser = async (clickedUser) => {
+  const handleRemoveUser = async(clickedUser) => {
     if (selectedChat?.users?.length === 3) {
       setWarning(
         "Unable to remove user, group chat cannot have less than 3 users."
       );
       return;
     }
+
     try {
       const { data } = await axios.put("/api/chat/removeGcUser", {
         chatId: selectedChat?._id,
         userId: clickedUser?._id,
       });
 
+      setShowEditModal(false)
       clickedUser?._id === loggedUserId
         ? setSelectedChat()
-        : setSelectedChat(data);
+        : setSelectedChat(data)
       
       if (width < 930) {
         setShowChatBox(false)
         setShowMessageList(true)
+        queryClient.invalidateQueries(["chat-list"]);
       }
-
-    } catch (error) {}
+    } catch (error) {console.log(error)}
   };
 
   return (
@@ -206,7 +210,7 @@ function EditGroupChatModal() {
 
         <button
           className="group-chat-submit-btn leave"
-          onClick={handleRemoveUser(loggedUserId)}
+          onClick={()=> handleRemoveUser(currentUser)}
         >
           Leave Group Chat
         </button>
