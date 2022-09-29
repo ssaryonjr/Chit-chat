@@ -2,24 +2,28 @@ import React, {useState, useContext} from 'react'
 import ChatContext from '../../ChatContext'
 import axios from "axios";
 import VerifiedBadge from "../../img/verifiedbadge.png";
+import { useQueryClient } from "react-query";
 
 
 function EditGroupChatModal() {
   //Global States
-  const { setShowEditModal, selectedChat, setSelectedChat } =
+  const { setShowEditModal, selectedChat, setSelectedChat, width, setShowMessageList, setShowChatBox } =
     useContext(ChatContext);
 
   //Local States
   const [updateGroupName, setUpdateGroupName] = useState("");
-  const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [warning, setWarning] = useState('')
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [warning, setWarning] = useState("");
 
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
   axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
   const loggedUserId = currentUser._id;
+
+  //Refetching
+  const queryClient = useQueryClient();
 
   //Loading animation
   const loadSpinner = (
@@ -28,71 +32,83 @@ function EditGroupChatModal() {
     </div>
   );
 
- 
-  const handleRenameGroupChat = async() => {
-    if (!updateGroupName) return
-    if (updateGroupName.trim() === '') return
+  const handleRenameGroupChat = async () => {
+    if (!updateGroupName) return;
+    if (updateGroupName.trim() === "") return;
 
     try {
       const { data } = await axios.put("/api/chat/renameGc", {
         chatId: selectedChat?._id,
-        chatName: updateGroupName
+        chatName: updateGroupName,
       });
-      setSelectedChat(data)
+      setSelectedChat(data);
+    } catch (error) {
+      console.log(error);
+    }
+    setUpdateGroupName("");
+  };
 
-    } catch (error) { console.log(error)}
-    setUpdateGroupName('')
-  }
-
-  const handleSearch = async(search) => {
-    setSearchQuery(search)
+  const handleSearch = async (search) => {
+    setSearchQuery(search);
     if (!searchQuery) return;
     if (searchQuery.trim() === "") return;
 
     try {
-      setLoading(true)
-      const { data } = await axios.get(`/api/user?search=${searchQuery}`)
+      setLoading(true);
+      const { data } = await axios.get(`/api/user?search=${searchQuery}`);
 
       setLoading(false);
-      setSearchResults(data)
-    } catch (error) { console.log(error)}
-  }
+      setSearchResults(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  const handleAddUser = async(clickedUser) => {
+  const handleAddUser = async (clickedUser) => {
     if (selectedChat?.users.find((user) => user?._id === clickedUser?._id)) {
-      setWarning('User already exist in group chat.')
-      return
+      setWarning("User already exist in group chat.");
+      return;
     }
 
     try {
-      setLoading(true)
-      const { data } = await axios.put('/api/chat/addGcUser', {
+      setLoading(true);
+      const { data } = await axios.put("/api/chat/addGcUser", {
         chatId: selectedChat?._id,
-        userId: clickedUser?._id
-      })
+        userId: clickedUser?._id,
+      });
 
-      setLoading(false)
-      setWarning('')
-      setSelectedChat(data)
-    } catch (error) { console.log(error) }
-  }
+      setLoading(false);
+      setWarning("");
+      setSelectedChat(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleRemoveUser = async (clickedUser) => {
     if (selectedChat?.users?.length === 3) {
-      setWarning('Unable to remove user, group chat cannot have less than 3 users.')
-      return
+      setWarning(
+        "Unable to remove user, group chat cannot have less than 3 users."
+      );
+      return;
     }
-      try {
-        const { data } = await axios.put("/api/chat/removeGcUser", {
-          chatId: selectedChat?._id,
-          userId: clickedUser?._id
-        }); 
+    try {
+      const { data } = await axios.put("/api/chat/removeGcUser", {
+        chatId: selectedChat?._id,
+        userId: clickedUser?._id,
+      });
 
-        setSelectedChat(data)
-      } catch (error) {
-        
+      clickedUser?._id === loggedUserId
+        ? setSelectedChat()
+        : setSelectedChat(data);
+      
+      if (width < 930) {
+        setShowChatBox(false)
+        setShowMessageList(true)
       }
-    }
+
+    } catch (error) {}
+  };
 
   return (
     <div className="modal-overlay">
