@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import ChatContext from "../ChatContext";
 import { useQueryClient } from "react-query";
-
+import VerifiedBadge from '../img/verifiedbadge.png'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,7 +18,8 @@ import {
   getSenderPic,
   getSecondGroupPic,
   getFirstGroupPic,
-  getUserStatus
+  getUserStatus,
+  checkIfVerified
 } from "../config/ChatLogic";
 import DisplayMessagesBox from "./Chat Components/DisplayMessagesBox";
 
@@ -27,8 +28,21 @@ const ENDPOINT = "http://localhost:5000"; //Will need to change later for host
 var socket, selectedChatCompare;
 
 function ChatBox() {
-  const { selectedChat, isTyping, setIsTyping, setShowChatBox, setShowMessageList, setSelectedChat, width,} = useContext(ChatContext);
+  //Global states
+  const {
+    selectedChat,
+    isTyping,
+    setIsTyping,
+    setShowChatBox,
+    setShowMessageList,
+    setSelectedChat,
+    width,
+    setShowEditModal,
+    setShowUserProfile,
+    verifiedUser
+  } = useContext(ChatContext);
 
+  //Local states
   const [newMessage, setNewMessage] = useState("");
   const [allMessages, setAllMessages] = useState();
   const [socketConnected, setSocketConnected] = useState(false);
@@ -39,7 +53,7 @@ function ChatBox() {
   axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
   const loggedUserId = currentUser._id;
 
-  //Refetching
+  //Intializing Refetching
   const queryClient = useQueryClient();
 
   const fetchAllMessages = async () => {
@@ -57,6 +71,11 @@ function ChatBox() {
   const sendMessage = async (e) => {
     e.preventDefault();
     socket.emit("stop typing", selectedChat?._id);
+
+    if (newMessage.trim().length === 0) {
+      return; //No message sent
+    }
+
     if (newMessage) {
       try {
         const { data } = await axios.post(`/api/message/`, {
@@ -137,7 +156,7 @@ function ChatBox() {
 
  
   const userTyping = (e) => {
-    setNewMessage(e.target.value);
+    setNewMessage(e.target.value).trim()
 
     //Typing indicator logic
     if (!socketConnected) return;
@@ -201,6 +220,8 @@ function ChatBox() {
                 <div className="single-chat-user-details">
                   <h5 className="single-chat-user-name">
                     {getSenderName(loggedUserId, selectedChat)}
+                      {checkIfVerified(loggedUserId, selectedChat) && <img src={VerifiedBadge} className="verified-badge"/>
+                    }
                   </h5>
                   <span className="single-chat-user-status">
                     {getUserStatus(loggedUserId, selectedChat)}
@@ -213,8 +234,8 @@ function ChatBox() {
               className="top-bar-msg-icon"
               onClick={
                 selectedChat?.isGroupChat
-                  ? () => console.log("hi")
-                  : () => console.log("bye")
+                  ? () => setShowEditModal(true)
+                  : () => setShowUserProfile(true)
               }
             />
           </div>

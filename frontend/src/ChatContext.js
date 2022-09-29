@@ -8,11 +8,16 @@ export function ChatProvider({ children }) {
     const [chats, setChats] = useState([])
     const [search, setSearch] = useState("")
     const [showModal, setShowModal] = useState(false)
+    const [showEditModal, setShowEditModal] = useState(false)
+    const [showUserProfile, setShowUserProfile] = useState(false)
     const [currentChat, setCurrentChat] = useState()
     const [isTyping, setIsTyping] = useState(false);
     const [showChatBox, setShowChatBox] = useState(true)
     const [showMessageList, setShowMessageList] = useState(true)
     const [width, setWidth] = useState(window.innerWidth)
+    const [verifiedUser, setVerifiedUser] = useState(
+      "6335195dd79952cd9e023a94"
+    );
 
 
     return (
@@ -34,7 +39,12 @@ export function ChatProvider({ children }) {
             showMessageList,
             setShowMessageList,
             width,
-            setWidth
+            setWidth,
+            showEditModal,
+            setShowEditModal,
+            showUserProfile,
+            setShowUserProfile,
+            verifiedUser
         }}>
             {children}
         </ChatContext.Provider>

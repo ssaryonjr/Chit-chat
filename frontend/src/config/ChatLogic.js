@@ -1,13 +1,5 @@
 //Single Chat:
 //Gets opposite user first and last name from chat object.
-
-// export const getSenderName = (loggedUser, chat) => {
-//   const user = chat?.users;
-//   return chat?.users?.[0]._id !== loggedUser
-//     ? `${user?.[0].firstName} ${user?.[0].lastName}`
-//     : `${user?.[1].firstName} ${user?.[1].lastName}`;
-// };
-
 export const getSenderName = (loggedUser, chat) => {
   const [user1, user2] = chat?.users;
   return chat?.users?.[0]._id !== loggedUser
@@ -47,6 +39,7 @@ export const isSameSender = (messages, m, i, userId) => {
   );
 };
 
+//Gets ID of who sent the last message
 export const isLastMessage = (messages, i, userId) => {
   return (
     i === messages.length - 1 &&
@@ -68,26 +61,26 @@ export const timeDifference = (current, previous) => {
 
   if (elapsed < msPerMinute) {
     let time = Math.round(elapsed / 1000);
-    return time == 1 ? time + " second ago" : time + ' seconds ago'
+    return time === 1 ? time + " second ago" : time + ' seconds ago'
 
   } else if (elapsed < msPerHour) {
     let time = Math.round(elapsed / msPerMinute);
-    return time == 1 ? time + " minute ago" : time + ' minutes ago'
+    return time === 1 ? time + " minute ago" : time + ' minutes ago'
 
   } else if (elapsed < msPerDay) {
     let time = Math.round(elapsed / msPerHour);
-    return time == 1 ? time + " hour ago" : time + ' hours ago'
+    return time === 1 ? time + " hour ago" : time + ' hours ago'
     
   } else if (elapsed < msPerMonth) {
     let time = Math.round(elapsed / msPerDay);
-    return time == 1 ? time + " day ago" : time + ' days ago'
+    return time === 1 ? time + " day ago" : time + ' days ago'
 
   } else if (elapsed < msPerYear) {
     let time = Math.round(elapsed / msPerMonth);
-    return time == 1 ? time + " month ago" : time + ' months ago'
+    return time === 1 ? time + " month ago" : time + ' months ago'
   } else {
     let time = Math.round(elapsed / msPerYear);
-    return time == 1 ? time + " year ago" : time + ' years ago'
+    return time === 1 ? time + " year ago" : time + ' years ago'
   }
 }
 
@@ -129,8 +122,9 @@ export const messageBrief = (message) => {
   }
 }
 
+//Find admin account
 export const findAdminChat = (chatList) => {
-  const adminId = "6319a45164dc25f89f6e61e0";
+  const adminId = "6335195dd79952cd9e023a94";
 
   const singlechats = chatList?.filter(chat => (chat?.users?.length === 2))
   const adminChat = singlechats?.filter(chat => chat?.users?.[0]?._id === adminId || chat?.users?.[1]?._id === adminId)
@@ -138,6 +132,7 @@ export const findAdminChat = (chatList) => {
   return adminChat?.[0]
 }
 
+//Shows if user is currently active or when their last time active was inside of the chat page.
 export const getUserStatus = (loggedUser, chat) => {
   const oppositeUser =
     chat?.users?.[0]._id !== loggedUser ? chat?.users?.[0] : chat?.users?.[1];
@@ -147,10 +142,25 @@ export const getUserStatus = (loggedUser, chat) => {
     : 'Online Now'
 }
 
+//Shows user status if they're currently online or last time they were.
+export const getUserStatusForList = (user) => {
+  return user?.userStatus === "offline"
+    ? `Active ${timeDifference(new Date(), new Date(user?.lastActive))}`
+    : "Online Now";
+}
+
+
 export const showStatusIcon = (loggedUser, chat) => {
   const oppositeUser = chat?.users?.[0]._id !== loggedUser ? chat?.users?.[0] : chat?.users?.[1];
 
   return oppositeUser?.userStatus === 'online'
     ? true
     : false
+}
+
+//Check if user is verified
+export const checkIfVerified = (loggedUser, chat) => {
+  const oppositeUser =
+    chat?.users?.[0]._id !== loggedUser ? chat?.users?.[0] : chat?.users?.[1];
+  return oppositeUser?.verified
 }

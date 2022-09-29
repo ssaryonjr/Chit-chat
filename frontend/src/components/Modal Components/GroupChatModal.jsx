@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComments } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
 import { useQueryClient } from 'react-query'
+import VerifiedBadge from '../../img/verifiedbadge.png'
 
 function GroupChatModal() {
   //Global States
@@ -109,7 +110,7 @@ function GroupChatModal() {
         <input
           className="group-chat-input"
           type="text"
-          placeholder="Add users"
+          placeholder="Add users e.g: Sam, Leon, etc."
           onChange={(e) => handleSearch(e.target.value)}
         ></input>
 
@@ -127,6 +128,13 @@ function GroupChatModal() {
                     <div className="user-status-info">
                       <span className="user-status-name">
                         {user?.firstName} {user?.lastName}
+                        {user.verified && (
+                          <img
+                            src={VerifiedBadge}
+                            className="verified-badge"
+                            alt="verified badge"
+                          />
+                        )}
                       </span>
 
                       <span className="user-status-subtitle">New User</span>
@@ -135,12 +143,13 @@ function GroupChatModal() {
                     <div
                       className="invisible-search-wrapper"
                       id={user}
-                      onClick={()=> addToSelectedUsers(user)}
+                      onClick={() => addToSelectedUsers(user)}
                     ></div>
                   </li>
                 );
               })}
-          </ul>)
+            </ul>
+          )
         }
 
         {selectedUsers.length > 0 && <div className="selected-users-container">

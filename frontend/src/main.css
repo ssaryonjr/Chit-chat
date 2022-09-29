@@ -541,16 +541,17 @@ aside {
   left: 0;
   width: 220px;
   height: 100px;
-  background-color: #181a1a;
+  /* background-color: #181a1a; */
+  background-color: #0a0c0c; 
   z-index: 3;
   border-radius: 1.5rem;
   color: #b8b8b8;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
   transition: 0.7s;
   padding: 1rem;
+  box-shadow: rgba(97, 99, 101, 0.2) 0px 8px 24px;
 }
 
 .menu-item:first-child{
@@ -580,7 +581,7 @@ aside {
     transform: translateX(-50%);
     z-index: 3;
     border: 15px solid;
-    border-color: transparent transparent #181a1a transparent;
+    border-color: transparent transparent #0a0c0c transparent;
 }
 
 .dd-menu-icon{
@@ -599,7 +600,7 @@ aside {
 
 .user-thumbnail {
   border-radius: 100%;
-  object-fit: cover;
+  object-fit: fill;
 }
 
 .user-ping {
@@ -700,7 +701,7 @@ aside {
 .user-status-thumbnail{
   width: 5rem;
   height: 5rem;
-  object-fit: cover;
+  object-fit: fill;
   border-radius: 100%;
   margin-right: .7rem;
 }
@@ -854,15 +855,17 @@ aside {
   justify-content: flex-start;
 }
 
-.conversation-thumbnail {
-  object-fit: cover;
+.conversation-thumbnail,
+.group-chat-member-thumbnail {
+  object-fit: fill;
   width: 90%;
   height: 90%;
   border-radius: 100%;
   position: relative;
 }
 
-.online-circle {
+.online-circle,
+.remove-user-btn {
   display: block;
   background-color:#36d52b;
   width: 1.3rem;
@@ -872,6 +875,12 @@ aside {
   top: 4px;
   right: 10px;
   border: 1.5px solid #1c1d21;
+}
+
+
+.remove-user-btn:hover{
+  background-color: rgb(219, 0, 0);
+  cursor: pointer;
 }
 
 .conversation-sender{
@@ -968,10 +977,11 @@ aside {
   font-size: 1.8rem;
 }
 
-.verified-badge.small{
+.verified-badge {
   width: 1.5rem;
   object-fit: cover;
   display: inline-block;
+  margin-left: .5rem;
 }
 
 
@@ -1039,6 +1049,7 @@ aside {
 .single-chat-sender-photo{
   width: 6.5rem;
   height: 6.5rem;
+  object-fit: fill;
   border-radius: 50%;
 }
 
@@ -1341,6 +1352,10 @@ aside {
   box-shadow: rgba(174, 174, 174, 0.25) 0px 14px 28px, rgba(92, 91, 91, 0.22) 0px 10px 10px;
 }
 
+.modal-content.small{
+  min-height: 30rem;
+}
+
 .close-btn {
   width: 2.5rem;
   height: 2.5rem;
@@ -1392,6 +1407,15 @@ aside {
   width: 90%;
   transition: 0.3s;
   margin-bottom: .7rem;
+}
+
+.group-chat-submit-btn.leave{
+  background-color: #e70000;
+  margin-top: 2rem;
+}
+
+.group-chat-submit-btn.leave:hover{
+  background-color: #fb0000;
 }
 
 .group-chat-submit-btn:hover{
@@ -1448,6 +1472,47 @@ aside {
   overflow: auto;
   margin: 1.5rem 0;
   padding: 0 1rem;
+}
+
+.update-group-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.update-input{
+  margin-top: 0;
+}
+
+.remove-user-btn{
+  background-color: red;
+  color: white;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  transition: 0.3s;
+}
+
+.update-group-name-btn{
+  background-color:  #0B93F6;
+  color: white;
+  padding: .7rem 1.8rem;
+  border-radius: 1.5rem;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  margin-left: .5rem;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.update-group-name-btn:hover{
+  background-color: #0483dd;
 }
 
 .group-chat-user-finder-container::-webkit-scrollbar,
@@ -1555,12 +1620,15 @@ aside {
     height: calc(100vh - 13rem);
 
   }
+
+  .app, .chat-box{
+    padding: 0;
+  }
 }
 
 @media screen and (max-width: 875px){
   .app{
     padding: 0;
-    display: block;
   }
 
   .chat-box{
@@ -1593,6 +1661,12 @@ aside {
 
 @media screen and (max-width: 400px){
   .receiver{
-    max-width: calc(100% - 50px);
+    max-width: calc(330px - 50px);
   }
+
+  .chat-bubble-user{
+    width: 35px;
+    height: 35px;
+  }
+
 }

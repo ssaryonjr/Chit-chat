@@ -2,7 +2,8 @@ import React, {useContext} from 'react'
 import axios from 'axios';
 import ChatContext from '../../ChatContext';
 import MessagesTab from './MessagesTab';
-
+import {getUserStatusForList } from '../../config/ChatLogic'
+import VerifiedBadge from '../../img/verifiedbadge.png'
 
 function SearchResult(props) {
   const { setSelectedChat, setSearch, setCurrentTab, chats, setChats } = useContext(ChatContext)
@@ -57,17 +58,25 @@ function SearchResult(props) {
         <div className="user-status-info">
           <span className="user-status-name">
             {user.firstName} {user.lastName}
+            {user.verified && (
+              <img
+                src={VerifiedBadge}
+                className="verified-badge"
+                alt="verified badge"
+              />
+            )}
           </span>
 
-          <span className="user-status-subtitle">Online Now</span>
+          <span className="user-status-subtitle">
+            {getUserStatusForList(user)}
+          </span>
         </div>
         <div className="user-icon-wrapper">
-          {/* <button className="user-list-btn">
-            <FontAwesomeIcon icon={faIdBadge} className="groupchat-icon" />
-          </button> */}
-
-   
-          <span className="user-status-online-indicator green"></span>
+          {user.userStatus === "online" ? (
+            <span className="user-status-online-indicator green"></span>
+          ) : (
+            <span className="user-status-online-indicator grey"></span>
+          )}
         </div>
         <div
           className="invisible-search-wrapper"

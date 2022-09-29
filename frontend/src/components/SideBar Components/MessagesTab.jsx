@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import ChatContext from "../../ChatContext";
 import axios from "axios";
 import { useQuery } from "react-query";
+import VerifiedBadge from '../../img/verifiedbadge.png'
 
 import {
   getSenderName,
@@ -10,10 +11,11 @@ import {
   getSecondGroupPic,
   messageBrief,
   latestMessageTime,
-  showStatusIcon
+  showStatusIcon,
+  checkIfVerified
 } from "../../config/ChatLogic";
 
-function MessagesTab(props) {
+function MessagesTab() {
   
   //Global States
   const { setSelectedChat, selectedChat, setChats, isTyping,setShowChatBox, setShowMessageList, width, } = useContext(ChatContext);
@@ -101,6 +103,9 @@ function MessagesTab(props) {
               {getSenderName(loggedUserId, chat).length > 20
                 ? getSenderName(loggedUserId, chat).substring(0, 20) + ".."
                 : getSenderName(loggedUserId, chat)}
+              {checkIfVerified(loggedUserId, chat) && (
+                <img src={VerifiedBadge} className="verified-badge" alt="verified badge" />
+              )}
             </h6>
           ) : (
             <h6 className="conversation-sender">

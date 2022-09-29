@@ -33,6 +33,11 @@ const userSchema = mongoose.Schema(
       type: String,
       default: 'offline'
     },
+    verified: {
+      type: Boolean,
+      default: false
+    },
+
     lastActive: Date,
   },
   { timestamps: true }

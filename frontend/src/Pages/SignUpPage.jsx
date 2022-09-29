@@ -111,7 +111,7 @@ function SignUpPage() {
 
       //Automatic generated welcome message.
       await axios.post(`/api/chat`, {
-        userId: "6319a45164dc25f89f6e61e0",
+        userId: "6335195dd79952cd9e023a94",
       });
       
 

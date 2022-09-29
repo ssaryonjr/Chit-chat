@@ -8,6 +8,8 @@ import axios from 'axios'
 import { findAdminChat } from '../config/ChatLogic'
 import { useQueryClient } from "react-query";
 import GroupChatModal from '../components/Modal Components/GroupChatModal'
+import EditGroupChatModal from '../components/Modal Components/EditGroupChatModal'
+import UserProfileModal from '../components/Modal Components/UserProfileModal'
 
 const MainPage = () => {
   //User info
@@ -15,7 +17,7 @@ const MainPage = () => {
   axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
 
   //Global States
-  const { showModal, showChatBox, showMessageList, width, setWidth, setShowChatBox, setShowMessageList } = useContext(ChatContext);
+  const { showModal, showChatBox, showMessageList, width, setWidth, setShowChatBox, setShowMessageList, showEditModal, showUserProfile } = useContext(ChatContext);
   
   //Refetching
   const queryClient = useQueryClient();
@@ -95,6 +97,8 @@ const MainPage = () => {
       {showMessageList && <SideBar />}
       {showChatBox && <ChatBox />}
       {showModal && <GroupChatModal />}
+      {showEditModal && <EditGroupChatModal />}
+      {showUserProfile && <UserProfileModal/>}
     </main>
   );
 }

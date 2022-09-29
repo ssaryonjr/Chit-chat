@@ -17,7 +17,7 @@ import {
 
 function SideBar() {
   //Global States
-  const { search, setSearch, setShowModal } = useContext(ChatContext);
+  const { search, setSearch, setShowModal, setSelectedChat } = useContext(ChatContext);
 
   const navigate = useNavigate();
 
@@ -75,6 +75,7 @@ function SideBar() {
   };
 
   const signOut = () => {
+    setSelectedChat('')
     showUserOffline(); 
     navigate("/");
     JSON.parse(localStorage.removeItem("userData"));

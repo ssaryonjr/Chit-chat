@@ -70,8 +70,13 @@ const welcomeMessage = asyncHandler(async (req, res) => {
 
   //Automatic generated message sent to new users
   var newMessage = {
-    sender: "6319a45164dc25f89f6e61e0",
-    messageSent: "Welcome to Chitchat! This is a free message web application built by me using React, Node, MongoDB, Express, Socket.io and a few other tools. \n \n Some cool features of this app includes live chat, group chats, message timestamps, and viewing users online/offline status. \n \n If you enjoy this app please follow me on github and twitter!\n https://github.com/ssaryonjr \n https://twitter.com/samsaryonjr",
+    sender: "6335195dd79952cd9e023a94",
+    messageSent:
+      `Welcome to Chitchat, a free messaging web application built by me using React, Node, MongoDB, Express, Socket.io and a few other handy tools. 
+      
+      Some cool features of this app includes live real time messaging, group chats, message timestamps, and viewing users online/offline status. If you enjoy this app please follow me on github and twitter!
+      
+      https://twitter.com/samsaryonjr`,
     chatReference: chatId,
   };
 
