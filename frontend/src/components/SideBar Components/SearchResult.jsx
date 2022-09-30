@@ -17,7 +17,7 @@ function SearchResult(props) {
 
 
   //Skeleton loader while fetching data from api
-  const skeletonArray = [1, 2, 3, 4, 5, 6, 7];
+  const skeletonArray = [1, 2, 3, 4, 5, 6, 7,8];
   const skeletonLoader = skeletonArray.map((box) => {
     return (
       <div key={box} className="skeleton">

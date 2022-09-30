@@ -48,7 +48,7 @@ function MessagesTab() {
     setShowChatBox(false);
     openChat = async (id) => {
       try {
-        const {data} = await axios.get(`/api/chat/${id}`);
+        const { data } = await axios.get(`/api/chat/${id}`);
         setShowMessageList(false);
         setShowChatBox(true);
         return setSelectedChat(data);
@@ -60,7 +60,7 @@ function MessagesTab() {
     setShowChatBox(true);
     openChat = async (id) => {
       try {
-        const {data} = await axios.get(`/api/chat/${id}`);
+        const { data } = await axios.get(`/api/chat/${id}`);
         return setSelectedChat(data);
       } catch (error) {
         console.log(error);
@@ -68,7 +68,21 @@ function MessagesTab() {
     };
   }
 
-  if (!chats.length) return <h1>Loading</h1>
+  //Skeleton loader while fetching data from api
+  const skeletonArray = [1, 2, 3, 4, 5, 6, 7, 8];
+  const skeletonLoader = skeletonArray.map((box) => {
+    return (
+      <div key={box} className="skeleton">
+        <div className="s-img"></div>
+        <div className="s-line first"></div>
+        <div className="s-line second"></div>
+        <div className="s-line third"></div>
+      </div>
+    );
+  });
+
+  if (!chats.length)
+    return <div className="skeleton-container">{skeletonLoader}</div>;
 
   const messageList = data?.data.map((chat, index) => {
     return (
