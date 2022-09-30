@@ -6,7 +6,6 @@ import VerifiedBadge from '../img/verifiedbadge.png'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faPaperclip,
   faFaceLaughBeam,
   faPaperPlane,
   faEllipsis,
@@ -19,7 +18,8 @@ import {
   getSecondGroupPic,
   getFirstGroupPic,
   getUserStatus,
-  checkIfVerified
+  checkIfVerified,
+  getUserId
 } from "../config/ChatLogic";
 import DisplayMessagesBox from "./Chat Components/DisplayMessagesBox";
 
@@ -38,6 +38,7 @@ function ChatBox() {
     width,
     setShowEditModal,
     setShowUserProfile,
+    setProfile
   } = useContext(ChatContext);
 
   //Local states
@@ -168,9 +169,18 @@ function ChatBox() {
         queryClient.invalidateQueries(["chat-list"]);
       }
     });
-    
+
   }, []);
 
+  //Grabs user ID that's clicked and displays profile modal.
+  const getUserProfile = async (id) => {
+    if (!id) return 
+    try {
+      const { data } = await axios.get(`/api/user/${id}`)
+      setProfile(data)
+      setShowUserProfile(true)
+    } catch (error) { console.log(error) }    
+  }
  
   const userTyping = (e) => {
     setNewMessage(e.target.value)
@@ -258,7 +268,7 @@ function ChatBox() {
               onClick={
                 selectedChat?.isGroupChat
                   ? () => setShowEditModal(true)
-                  : () => setShowUserProfile(true)
+                  : () => getUserProfile(getUserId(loggedUserId, selectedChat))
               }
             />
           </div>

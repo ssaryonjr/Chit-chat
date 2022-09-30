@@ -16,6 +16,15 @@ export const getSenderPic = (loggedUser, chat) => {
       : user?.[1]?.profilePic
 }
 
+//Get opposite user !logged in Id
+export const getUserId = (loggedUser, chat) => {
+  const [user1, user2] = chat?.users
+  return chat?.users?.[0]?._id !== loggedUser
+    ? user1?._id
+    : user2?._id
+
+}
+
 //Group Chat:
 //Gets first user pic from group.
 export const getFirstGroupPic = (loggedUser, chat) => {
@@ -152,7 +161,6 @@ export const getUserStatusForList = (user) => {
 
 export const showStatusIcon = (loggedUser, chat) => {
   const oppositeUser = chat?.users?.[0]._id !== loggedUser ? chat?.users?.[0] : chat?.users?.[1];
-
   return oppositeUser?.userStatus === 'online'
     ? true
     : false

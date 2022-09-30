@@ -177,7 +177,6 @@ const removeGcUser = asyncHandler(async (req, res) => {
 //@desc Retrieve a singular specific chat to display.
 //@route GET /api/chat/:id
 //@access Private
-
 const openSingleChat = asyncHandler(async (req, res) => {
     try {
         const data = await Chat.findById(req.params.id).populate(

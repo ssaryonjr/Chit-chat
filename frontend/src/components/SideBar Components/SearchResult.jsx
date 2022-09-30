@@ -1,41 +1,24 @@
 import React, {useContext} from 'react'
 import axios from 'axios';
 import ChatContext from '../../ChatContext';
-import MessagesTab from './MessagesTab';
 import {getUserStatusForList } from '../../config/ChatLogic'
 import VerifiedBadge from '../../img/verifiedbadge.png'
 
 function SearchResult(props) {
-  const { setSelectedChat, setSearch, setCurrentTab, chats, setChats } = useContext(ChatContext)
-  
+  const { setProfile, setShowUserProfile } =
+    useContext(ChatContext);
+
   //Access logged in user data from local storage.
   const currentUser = JSON.parse(localStorage.getItem("userData"));
   axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
 
-  const loading = props.loading
-  const data = props.data
-
-  //Creates and opens the chat that is clicked.
-  const openChat = async(userId) => {
-    try {
-      const { data } = await axios.post(`/api/chat`, { userId })
-      // return console.log(data)
-
-      if (!chats.find((c) => c._id === data._id)) {
-        setChats([data, ...chats])
-      }
-      setSelectedChat(data)
-      setSearch('')
-      setCurrentTab(<MessagesTab />)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const loading = props.loading;
+  const data = props.data;
 
 
   //Skeleton loader while fetching data from api
-  const skeletonArray = [1, 2, 3, 4, 5, 6, 7]
-  const skeletonLoader = skeletonArray.map(box => {
+  const skeletonArray = [1, 2, 3, 4, 5, 6, 7];
+  const skeletonLoader = skeletonArray.map((box) => {
     return (
       <div key={box} className="skeleton">
         <div className="s-img"></div>
@@ -44,10 +27,21 @@ function SearchResult(props) {
         <div className="s-line third"></div>
       </div>
     );
-  })
+  });
 
+  //Grabs user ID that's clicked and displays profile modal.
+  const getUserProfile = async (id) => {
+    if (!id) return;
+    try {
+      const { data } = await axios.get(`/api/user/${id}`);
+      setProfile(data);
+      setShowUserProfile(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  const showList = data?.slice(0,14).map((user, index) => {
+  const showList = data?.slice(0, 14).map((user, index) => {
     return (
       <div key={index} className="search-user-wrapper">
         <img
@@ -81,27 +75,25 @@ function SearchResult(props) {
         <div
           className="invisible-search-wrapper"
           id={user._id}
-          onClick={(e) => openChat(e.target.id)}
+          onClick={(e) => getUserProfile(e.target.id)}
         ></div>
       </div>
     );
-  })
-  
+  });
+
   return (
     <>
       {loading ? (
-        <div className="skeleton-container">
-          {skeletonLoader}
-        </div>
+        <div className="skeleton-container">{skeletonLoader}</div>
       ) : (
         <div className="user-list-wrapper">
-        
-            {data.length > 0
-              ? showList
-              : <div className="no-result-container">
-                <h1 className='no-result-title'>No results found..</h1>
-              </div>
-            }
+          {data.length > 0 ? (
+            showList
+          ) : (
+            <div className="no-result-container">
+              <h1 className="no-result-title">No results found..</h1>
+            </div>
+          )}
         </div>
       )}
     </>

@@ -90,6 +90,23 @@ const findUsers = asyncHandler(async (req, res) => {
 })
 
 
+//@desc Retrieve a singular user by their ID.
+//@route GET /api/user/userProfile
+//@access Private
+const getSingularUser = asyncHandler(async (req, res) => {
+    const { id } = req.body
+
+    try {
+      const data = await User.findById(req.params.id).select("-password");
+      res.status(200).send(data);
+    } catch (error) {
+      console.log(error);
+    }
+})
+
+//@desc Upates user status as online or offline
+//@route PUT /api/user/userStatus
+//@access Private
 const updateOnlineStatus = asyncHandler(async (req, res) => {
   //Current logged in user
   const { userId, status } = req.body;
@@ -118,5 +135,6 @@ module.exports = {
     registerUser,
     loginUser,
     findUsers,
-    updateOnlineStatus
+    updateOnlineStatus,
+    getSingularUser
 }
