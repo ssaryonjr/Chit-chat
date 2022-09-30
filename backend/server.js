@@ -8,13 +8,9 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 connectDB()
 const path = require("path");
 
-
 const app = express();
 app.use(cors())
 
-// --------------------------deployment------------------------------
-app.use(express.static(path.join(__dirname, "../frontend/build/")));
-// --------------------------deployment------------------------------
 
 //Middleware that parses incoming JSON request and puts the data in req.body 
 app.use(express.json());
@@ -74,4 +70,15 @@ io.on("connection", (socket) => {
   
   })
 })
+
+// --------------------------deployment------------------------------
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, "../frontend/build/")));
+
+  app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../', 'frontend', 'build', 'index.html')))
+} else {
+  app.get('/', (req, res) => res.send('Please set to node_env to production'))
+}
+
+// --------------------------deployment------------------------------
 
