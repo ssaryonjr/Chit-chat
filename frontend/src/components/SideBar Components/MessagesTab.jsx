@@ -27,11 +27,6 @@ function MessagesTab() {
     userIsTyping,
   } = useContext(ChatContext);
 
-  const roomId = selectedChat?._id;
-  const isTyping = userIsTyping[roomId]; //True or false
-
-  const currentTime = new Date();
-
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
   axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
