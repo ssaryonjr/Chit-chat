@@ -107,6 +107,7 @@ function ChatBox() {
     }
   };
 
+  //Initiating Socket.io
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", currentUser);

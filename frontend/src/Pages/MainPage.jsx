@@ -37,18 +37,18 @@ const MainPage = () => {
   useEffect(() => {
     const handleResizeWindow = () => {
       setWidth(window.innerWidth);
-
-
     }
 
-   if (width > 930) {
-      setShowChatBox(true);
-      setShowMessageList(true);
-    } else if (width < 930) {
+    if (width < 930) {
       setShowChatBox(false)
       setShowMessageList(true)
     }
-
+    
+   if (width > 930) {
+    setShowChatBox(true);
+     setShowMessageList(true);
+    }
+    
     window.addEventListener("resize", handleResizeWindow);
     return () => {
       window.removeEventListener("resize", handleResizeWindow);

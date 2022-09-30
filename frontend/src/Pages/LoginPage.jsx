@@ -5,8 +5,37 @@ import facebookLogo from '../img/facebook-logo.png'
 import googleLogo from '../img/google-logo.png'
 import axios from "axios";
 import ToastNotification from '../components/ToastNotification'
+import ChatContext from "../ChatContext";
+
 
 const Home = () => {
+  //Global States
+  const {
+    width,
+    setWidth,
+    setShowChatBox,
+    setShowMessageList,
+  } = useContext(ChatContext);
+  useEffect(() => {
+    const handleResizeWindow = () => {
+      setWidth(window.innerWidth);
+    };
+
+    if (width < 930) {
+      setShowChatBox(false);
+      setShowMessageList(true);
+    }
+
+    if (width > 930) {
+      setShowChatBox(true);
+      setShowMessageList(true);
+    }
+
+    window.addEventListener("resize", handleResizeWindow);
+    return () => {
+      window.removeEventListener("resize", handleResizeWindow);
+    };
+  }, []);
   const navigate = useNavigate();
 
   //Checks if user is already logged in.
@@ -16,7 +45,7 @@ const Home = () => {
   }, []);
 
   //Local states
-  const [showToast, setShowToast] = useState(false)
+  const [showToast, setShowToast] = useState(false);
   const [warning, setWarning] = useState("");
   const [loginForm, setLoginForm] = useState({
     email: "",
@@ -54,13 +83,11 @@ const Home = () => {
     }
   };
 
-
-
   return (
     <>
       <ToastNotification
         showToast={showToast}
-        handleClose={()=> setShowToast(false)}
+        handleClose={() => setShowToast(false)}
       />
 
       <main className="auth-container">

@@ -27,6 +27,8 @@ function MessagesTab() {
     userIsTyping,
   } = useContext(ChatContext);
 
+  const currentTime = new Date();
+
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
   axios.defaults.headers.common.Authorization = `Bearer ${currentUser.token}`;
@@ -40,6 +42,8 @@ function MessagesTab() {
   });
 
   let openChat;
+
+ 
 
   if (width < 930) {
     setShowChatBox(false);

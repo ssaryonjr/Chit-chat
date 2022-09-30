@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Logo from '../img/logo.png'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -6,93 +6,118 @@ import ChatContext from '../ChatContext'
 
 
 function SignUpPage() {
-  const {setTest} = useContext(ChatContext)
+  //Global States
+  const { width, setWidth, setShowChatBox, setShowMessageList } =
+    useContext(ChatContext);
+  useEffect(() => {
+    const handleResizeWindow = () => {
+      setWidth(window.innerWidth);
+    };
 
-  const navigate = useNavigate()
+    if (width < 930) {
+      setShowChatBox(false);
+      setShowMessageList(true);
+    }
+
+    if (width > 930) {
+      setShowChatBox(true);
+      setShowMessageList(true);
+    }
+
+    window.addEventListener("resize", handleResizeWindow);
+    return () => {
+      window.removeEventListener("resize", handleResizeWindow);
+    };
+  }, []);
+
+  const navigate = useNavigate();
   const defaultProfile =
     "https://res.cloudinary.com/ssaryonjr/image/upload/v1662530729/ece2b0f541d47e4078aef33ffd22777e_tqiffc.jpg";
 
-  const [warning, setWarning] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [warning, setWarning] = useState("");
+  const [loading, setLoading] = useState(false);
   const [signupForm, setSignupForm] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confPassword: "",
-    profilePic: defaultProfile
+    profilePic: defaultProfile,
   });
-  
- 
 
   const updateForm = (event) => {
-    const { name, value } = event.target
-    setSignupForm(prevData => ({
+    const { name, value } = event.target;
+    setSignupForm((prevData) => ({
       ...prevData,
-      [name]: value
-    }))
-  }
-  
-  //Update user profile picture on screen. 
+      [name]: value,
+    }));
+  };
+
+  //Update user profile picture on screen.
   const uploadPicture = (retrievedPicture) => {
     if (retrievedPicture === undefined) {
       setSignupForm((prevData) => ({
         ...prevData,
         profilePic: defaultProfile,
       }));
-      setWarning('')
+      setWarning("");
     }
 
-    if (retrievedPicture.type === "image/jpeg" || retrievedPicture.type === "image/png") {
+    if (
+      retrievedPicture.type === "image/jpeg" ||
+      retrievedPicture.type === "image/png"
+    ) {
       setLoading(true);
-      const data = new FormData()
-      data.append("file", retrievedPicture)
-      data.append("upload_preset", "Chitchat")
-      data.append("cloud_name", "ssaryonjr")
+      const data = new FormData();
+      data.append("file", retrievedPicture);
+      data.append("upload_preset", "Chitchat");
+      data.append("cloud_name", "ssaryonjr");
 
       fetch("https://api.cloudinary.com/v1_1/ssaryonjr/image/upload", {
-        method: 'post',
-        body: data
-      }).then((res) => res.json())
-        .then(data => {
-          setSignupForm(prevData => ({
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setSignupForm((prevData) => ({
             ...prevData,
-            profilePic: data.url.toString()
-          }))
-          setLoading(false)
-        }).catch((err) => {
-          console.log(err)
+            profilePic: data.url.toString(),
+          }));
+          setLoading(false);
         })
-      
-      setWarning('')
+        .catch((err) => {
+          console.log(err);
+        });
+
+      setWarning("");
     } else {
-      setWarning("Uploaded picture is not supported")
+      setWarning("Uploaded picture is not supported");
       setSignupForm((prevData) => ({
         ...prevData,
         profilePic: defaultProfile,
       }));
     }
-
   };
 
-  const handleSubmit = async(event) => {
-    event.preventDefault()
-    const { firstName, lastName, email, password, confPassword, profilePic } = signupForm
-    
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const { firstName, lastName, email, password, confPassword, profilePic } =
+      signupForm;
+
     //Validates all fields have be inputed.
     if (!firstName || !lastName || !email || !password || !confPassword) {
-      setWarning('Please fill out all required fields')
-      return
+      setWarning("Please fill out all required fields");
+      return;
     }
 
     if (password !== confPassword) {
-      setWarning('Passwords do not match')
-      return
+      setWarning("Passwords do not match");
+      return;
     }
 
     if (password.length <= 5) {
-      setWarning('Password must be a minimum of 6 characters')
-      return
+      setWarning("Password must be a minimum of 6 characters");
+      return;
     }
 
     try {
@@ -113,27 +138,24 @@ function SignUpPage() {
       await axios.post(`/api/chat`, {
         userId: "6335195dd79952cd9e023a94",
       });
-      
-
     } catch (error) {
       setWarning(
         error.response.data.message
           .toString()
           .split("User validation failed:  ")
       );
-      console.log(error)
+      console.log(error);
     }
-
-  }
+  };
 
   const profileImg = (
     <>
-     <img
-      src={signupForm.profilePic}
-      className="register-pic"
-      alt="user profile"
-    />
-    <span className="online-indicator"></span>
+      <img
+        src={signupForm.profilePic}
+        className="register-pic"
+        alt="user profile"
+      />
+      <span className="online-indicator"></span>
     </>
   );
 
@@ -149,7 +171,6 @@ function SignUpPage() {
 
         <div className="register-profile-form">
           {loading ? loadSpinner : profileImg}
-          
         </div>
 
         <form className="login-form">

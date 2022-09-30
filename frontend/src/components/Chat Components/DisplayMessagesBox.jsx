@@ -20,7 +20,6 @@ function DisplayMessagesBox({ messages }) {
     const currentTime = new Date()
   
   const lastMessage = messages?.[messages?.length - 1]?.sender?._id
-  console.log(lastMessage)
   
   return (
     <ScrollableFeed className="all-msg-container">
