@@ -1314,6 +1314,7 @@ aside {
   position: relative;
   margin-right: .5rem;
   z-index: 2;
+  cursor: pointer;
 }
 
 .sender{
