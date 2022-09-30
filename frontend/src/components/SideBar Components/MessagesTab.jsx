@@ -16,11 +16,21 @@ import {
 } from "../../config/ChatLogic";
 
 function MessagesTab() {
-  
   //Global States
-  const { setSelectedChat, selectedChat, setChats, isTyping,setShowChatBox, setShowMessageList, width, } = useContext(ChatContext);
-  
-  const currentTime = new Date()
+  const {
+    setSelectedChat,
+    selectedChat,
+    setChats,
+    setShowChatBox,
+    setShowMessageList,
+    width,
+    userIsTyping,
+  } = useContext(ChatContext);
+
+  const roomId = selectedChat?._id;
+  const isTyping = userIsTyping[roomId]; //True or false
+
+  const currentTime = new Date();
 
   //User info
   const currentUser = JSON.parse(localStorage.getItem("userData"));
@@ -29,38 +39,37 @@ function MessagesTab() {
 
   //Fetching all users chats
   const { data } = useQuery(["chat-list"], async () => {
-    const data = await axios.get("/api/chat")
-    setChats(data?.data)
-    return data
+    const data = await axios.get("/api/chat");
+    setChats(data?.data);
+    return data;
   });
 
-  let openChat
+  let openChat;
 
   if (width < 930) {
-    setShowChatBox(false)
+    setShowChatBox(false);
     openChat = async (id) => {
       try {
         const data = await axios.get(`/api/chat/${id}`);
-        setShowMessageList(false)
-        setShowChatBox(true)
+        setShowMessageList(false);
+        setShowChatBox(true);
         return setSelectedChat(data.data);
       } catch (error) {
         console.log(error);
       }
     };
-
   } else if (width > 930) {
-    setShowChatBox(true)
-    openChat = async(id) => {
+    setShowChatBox(true);
+    openChat = async (id) => {
       try {
-        const data = await axios.get(`/api/chat/${id}`)
-        return setSelectedChat(data.data)
+        const data = await axios.get(`/api/chat/${id}`);
+        return setSelectedChat(data.data);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
+    };
   }
-    
+
   const messageList = data?.data.map((chat, index) => {
     return (
       <section
@@ -104,7 +113,11 @@ function MessagesTab() {
                 ? getSenderName(loggedUserId, chat).substring(0, 20) + ".."
                 : getSenderName(loggedUserId, chat)}
               {checkIfVerified(loggedUserId, chat) && (
-                <img src={VerifiedBadge} className="verified-badge" alt="verified badge" />
+                <img
+                  src={VerifiedBadge}
+                  className="verified-badge"
+                  alt="verified badge"
+                />
               )}
             </h6>
           ) : (
@@ -115,7 +128,7 @@ function MessagesTab() {
             </h6>
           )}
           <span className="conversation-brief">
-            {isTyping
+            {userIsTyping[chat?._id]
               ? "Typing..."
               : messageBrief(chat?.latestMessage?.messageSent)}
           </span>
@@ -141,12 +154,7 @@ function MessagesTab() {
     );
   });
 
-  return (
-      <div className="conversation-list-wrapper">
-        {messageList}
-      </div>
-  
-  );
+  return <div className="conversation-list-wrapper">{messageList}</div>;
 }
 
 export default MessagesTab;

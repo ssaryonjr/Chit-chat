@@ -32,10 +32,6 @@ function ChatBox() {
   const {
     selectedChat,
     setUserIsTyping,
-    userIsTyping,
-
-
-    setIsTyping,
     setShowChatBox,
     setShowMessageList,
     setSelectedChat,
@@ -87,6 +83,7 @@ function ChatBox() {
         });
 
         setNewMessage("");
+        setTyping(false);
 
         socket.emit("new message", data);
         setAllMessages([...allMessages, data]);
@@ -118,7 +115,26 @@ function ChatBox() {
       showUserOnline();
     });
 
-    socket.on("typing", () => setUserIsTyping(true));
+    socket.on("typing", (room_id) => {
+      setUserIsTyping((previousTypingMap) => {
+        const updatedTypingMap = {
+          ...previousTypingMap,
+          [room_id]: true,
+        };
+        return updatedTypingMap;
+      });
+    });
+
+    socket.on("stop typing", (room_id) => {
+      setUserIsTyping((previousTypingMap) => {
+        const updatedTypingMap = {
+          ...previousTypingMap,
+          [room_id]: false,
+        };
+        return updatedTypingMap;
+      });
+    });
+    
     socket.on("stop typing", () => setUserIsTyping(false));
 
     socket.on('disconnected', () => {

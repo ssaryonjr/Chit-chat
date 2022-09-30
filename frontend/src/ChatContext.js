@@ -11,7 +11,7 @@ export function ChatProvider({ children }) {
     const [showEditModal, setShowEditModal] = useState(false)
     const [showUserProfile, setShowUserProfile] = useState(false)
     const [currentChat, setCurrentChat] = useState()
-    const [userIsTyping, setUserIsTyping] = useState(false);
+    const [userIsTyping, setUserIsTyping] = useState({});
     const [showChatBox, setShowChatBox] = useState(true)
     const [showMessageList, setShowMessageList] = useState(true)
     const [width, setWidth] = useState(window.innerWidth)

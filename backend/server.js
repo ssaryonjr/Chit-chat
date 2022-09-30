@@ -52,17 +52,15 @@ io.on("connection", (socket) => {
 
   socket.on('typing', (room) => {
     console.log('user is typing')
-    return socket.in(room).emit("typing")
+    return socket.in(room).emit("typing", room)
   })
 
    socket.on("stop typing", (room) => {
-     return socket.in(room).emit("stop typing");
+     return socket.in(room).emit("stop typing", room);
    });
 
   socket.on('new message', (newMessageReceived) => {
-    // var chat = newMessageReceived?.chatReference
     socket.broadcast.emit('message received',  newMessageReceived)
-
   })
 
   socket.on("disconnect", () => {
