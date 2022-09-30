@@ -24,7 +24,7 @@ import {
 import DisplayMessagesBox from "./Chat Components/DisplayMessagesBox";
 
 import io from "socket.io-client";
-const ENDPOINT = "http://localhost:5000"; //Will need to change later for host
+const ENDPOINT = "https://chitchat-saryon.herokuapp.com/"; 
 var socket, selectedChatCompare;
 
 function ChatBox() {
