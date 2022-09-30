@@ -6,19 +6,11 @@ const userSchema = mongoose.Schema(
     firstName: {
       type: String,
       require: true,
-      match: [
-        /^([A-z0-9!@#$%^&*().,<>{}[\]<>?_=+\-|;:\'\"\/])*[^\s]\1*$/,
-        "Please provide a valid name",
-      ],
       maxLength: 12,
     },
     lastName: {
       type: String,
       require: true,
-      match: [
-        /^([A-z0-9!@#$%^&*().,<>{}[\]<>?_=+\-|;:\'\"\/])*[^\s]\1*$/,
-        "Please provide a valid name",
-      ],
       maxLength: 15,
     },
     email: {
