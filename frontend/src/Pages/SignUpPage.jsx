@@ -119,7 +119,7 @@ function SignUpPage() {
       setWarning(
         error.response.data.message
           .toString()
-          .split("User validation failed: email:")
+          .split("User validation failed:  ")
       );
       console.log(error)
     }

@@ -71,12 +71,9 @@ const welcomeMessage = asyncHandler(async (req, res) => {
   //Automatic generated message sent to new users
   var newMessage = {
     sender: "6335195dd79952cd9e023a94",
-    messageSent:
-      `Welcome to Chitchat, a free messaging web application built by me using React, Node, MongoDB, Express, Socket.io and a few other handy tools. 
+    messageSent: `Welcome to Chitchat, a free messaging web app built by me using React, Node, MongoDB, Express, Socket.io and a few other handy tools. 
       
-      Some cool features of this app includes live real time messaging, group chats, message timestamps, and viewing users online/offline status. If you enjoy this app please follow me on github and twitter!
-      
-      https://twitter.com/samsaryonjr`,
+      Some features this app have is realtime messaging, group chats, and timestamps. More features such as notifications, emojis and light mode will be coming soon. If you like this project give me a follow on twitter! @samsaryonjr `,
     chatReference: chatId,
   };
 

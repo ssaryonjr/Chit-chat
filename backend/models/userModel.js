@@ -6,10 +6,20 @@ const userSchema = mongoose.Schema(
     firstName: {
       type: String,
       require: true,
+      match: [
+        /^([A-z0-9!@#$%^&*().,<>{}[\]<>?_=+\-|;:\'\"\/])*[^\s]\1*$/,
+        "Please provide a valid name",
+      ],
+      maxLength: 12,
     },
     lastName: {
       type: String,
       require: true,
+      match: [
+        /^([A-z0-9!@#$%^&*().,<>{}[\]<>?_=+\-|;:\'\"\/])*[^\s]\1*$/,
+        "Please provide a valid name",
+      ],
+      maxLength: 15,
     },
     email: {
       type: String,
@@ -31,11 +41,11 @@ const userSchema = mongoose.Schema(
     },
     userStatus: {
       type: String,
-      default: 'offline'
+      default: "offline",
     },
     verified: {
       type: Boolean,
-      default: false
+      default: false,
     },
 
     lastActive: Date,

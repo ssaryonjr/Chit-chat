@@ -38,7 +38,6 @@ function ChatBox() {
     width,
     setShowEditModal,
     setShowUserProfile,
-    verifiedUser
   } = useContext(ChatContext);
 
   //Local states
@@ -169,7 +168,6 @@ function ChatBox() {
         queryClient.invalidateQueries(["chat-list"]);
       }
     });
-
     
   }, []);
 

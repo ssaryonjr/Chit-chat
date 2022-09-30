@@ -47,7 +47,7 @@ function SearchResult(props) {
   })
 
 
-  const showList = data.map((user, index) => {
+  const showList = data?.slice(0,14).map((user, index) => {
     return (
       <div key={index} className="search-user-wrapper">
         <img
