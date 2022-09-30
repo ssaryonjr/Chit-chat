@@ -20,6 +20,7 @@ function MessagesTab() {
   const {
     setSelectedChat,
     selectedChat,
+    chats,
     setChats,
     setShowChatBox,
     setShowMessageList,
@@ -43,16 +44,14 @@ function MessagesTab() {
 
   let openChat;
 
- 
-
   if (width < 930) {
     setShowChatBox(false);
     openChat = async (id) => {
       try {
-        const data = await axios.get(`/api/chat/${id}`);
+        const {data} = await axios.get(`/api/chat/${id}`);
         setShowMessageList(false);
         setShowChatBox(true);
-        return setSelectedChat(data.data);
+        return setSelectedChat(data);
       } catch (error) {
         console.log(error);
       }
@@ -61,13 +60,15 @@ function MessagesTab() {
     setShowChatBox(true);
     openChat = async (id) => {
       try {
-        const data = await axios.get(`/api/chat/${id}`);
-        return setSelectedChat(data.data);
+        const {data} = await axios.get(`/api/chat/${id}`);
+        return setSelectedChat(data);
       } catch (error) {
         console.log(error);
       }
     };
   }
+
+  if (!chats.length) return <h1>Loading</h1>
 
   const messageList = data?.data.map((chat, index) => {
     return (

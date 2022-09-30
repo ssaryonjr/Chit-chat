@@ -6,9 +6,15 @@ const PORT = process.env.PORT || 5000
 const colors = require('colors')
 const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 connectDB()
+const path = require("path");
+
 
 const app = express();
 app.use(cors())
+
+// --------------------------deployment------------------------------
+app.use(express.static(path.join(__dirname, "../frontend/build/")));
+// --------------------------deployment------------------------------
 
 
 //Middleware that parses incoming JSON request and puts the data in req.body 
