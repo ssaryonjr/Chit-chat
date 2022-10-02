@@ -71,21 +71,21 @@ More Projects
 <a target="_blank" href="https://github.com/ssaryonjr/iReviews" align="center">iReviews</a>
         <br />
       <a target="_blank" href="https://github.com/ssaryonjr/iReviews">
-            <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(1).gif?raw=true" width="100%"  alt="Rigley 2: Flappy Bug"/>
+            <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(1).gif?raw=true" width="100%" height="300px" />
         </a>
     </td>
     <td width="33.3%" valign="top">
-<a target="_blank" href="https://github.com/CharlesCreativeContent/matching-card-game"> Matching Card Game</a>
+<a target="_blank" href="https://github.com/ssaryonjr/iReviews"> T&K Nigerian Restaurant</a>
       <br />
-        <a target="_blank" href="https://github.com/CharlesCreativeContent/matching-card-game">
-          <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(5).gif?raw=true" width="100%" alt="Matching Card Game"/>
+        <a target="_blank" href="https://github.com/ssaryonjr/iReviews">
+          <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(5).gif?raw=true" width="100%" height="300px" alt="Matching Card Game"/>
         </a>
     </td>
     <td width="33.3%" valign="top">
-<a target="_blank" href="https://github.com/CharlesCreativeContent/Portfolio2021">Portfolio</a>
+<a target="_blank" href="https://github.com/ssaryonjr/Naruto-Character-Selector">Naruto 2D Fighting Game</a>
         <br />
-        <a target="_blank" href="https://github.com/CharlesCreativeContent/Portfolio2021/">
-          <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(5).gif?raw=true" width="100%" alt="Portfolio"/>
+        <a target="_blank" href="https://github.com/ssaryonjr/Naruto-Character-Selector">
+          <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/NarutoProjectGif.gif?raw=true" width="100%" height="300px" alt="Portfolio"/>
         </a>
     </td>
   </tr>
