@@ -45,6 +45,13 @@ Chitchat is a free social media platform for users to interact with one another 
 <img src="https://i.imgur.com/NjJ04JG.png" height="300px" width="250px">
 </p>
 
+## Installation: 
+1. Clone repository
+2. `npm install`
+3. Create `.env` file and replace `MONGO_URI` with yur own Mongo Database offered through Mongo Atlas. 
+4. `JWT_SECRET` replace with your Json Webtoken and change `PORT` variable to `5000`
+
+
 ## Future Optimizations:
 - Email validation to reduce spam and fake users.
 - Notifications for finding unread messages.
