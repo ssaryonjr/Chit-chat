@@ -31,22 +31,23 @@ Chitchat is a free social media platform for users to interact with one another 
 - Through the means of levarging powerful technologies such as web sockets provided by socket.io I was able to create two way connections between the client and the server which opens up the ability for users to have real time messaging sent and received with very low latency. 
 
 ## Features
-- Mobile & Desktop Friendly, Message Timestamps, User typing animation upon web socket connection.
+- Mobile & Desktop Friendly, Message Timestamps, User online/offline status, & User typing animation upon web socket connection.
 <p align="center">
 <img src="https://i.imgur.com/vA4VY8D.png" width="300px"><img src="https://i.imgur.com/UzhA0dK.png" width="300px">
 <img src="https://i.imgur.com/OQhoRd5.png" width="300px">
 <img src="https://i.imgur.com/HoM7zKr.png" width="300px">
 </p>
 
-- Group Chat Creation, Updating Name, Adding & Removing Users Note: Only group creator can remove users)
+- User profiles, Group Chat Creation, Updating Name, Adding & Removing Users Note: Only group creator can remove users)
 <p align="center">
-<img src="https://i.imgur.com/AJ46T9Z.png" height="450px" width="350px">
-<img src="https://i.imgur.com/f0SH6Qs.png" height="450px" width="350px">
+<img src="https://i.imgur.com/AJ46T9Z.png" height="350px" width="300px">
+<img src="https://i.imgur.com/f0SH6Qs.png" height="350px" width="300px">
+<img src="https://i.imgur.com/NjJ04JG.png" height="350px" width="300px">
 </p>
 
 ## Future Optimizations:
 - Email validation to reduce spam and fake users.
-- Notifications for better UI while for finding unread messages.
+- Notifications for finding unread messages.
 - Light mode for users who prefer it over dark.
 - Emojis and photo attachments.
 - Refactor some components.
