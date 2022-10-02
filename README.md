@@ -31,7 +31,7 @@ Chitchat is a free social media platform for users to interact with one another 
 - Through the means of levarging powerful technologies such as web sockets provided by socket.io I was able to create two way connections between the client and the server which opens up the ability for users to have real time messaging sent and received with very low latency. 
 
 ## Features
-- Mobile and Desktop Friendly
+- Mobile & Desktop Friendly, Message Timestamps, User typing animation upon web socket connection.
 <p align="center">
 <img src="https://i.imgur.com/vA4VY8D.png" width="300px"><img src="https://i.imgur.com/UzhA0dK.png" width="300px">
 <img src="https://i.imgur.com/OQhoRd5.png" width="300px">
