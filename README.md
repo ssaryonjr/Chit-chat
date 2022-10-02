@@ -30,6 +30,13 @@ Chitchat is a free social media platform for users to interact with one another 
 - One of the main tools I used on the front end was React Query for state managment. The reason I went with React Query over a tool like Redux was because ReactQuery gives a better developer experience for handling API request from the server side & caching while also not having so much boilerplate code.
 - Through the means of levarging powerful technologies such as web sockets provided by socket.io I was able to create two way connections between the client and the server which opens up the ability for users to have real time messaging sent and received with very low latency. 
 
+## Features
+- Mobile and Desktop Friendly
+<p align="center">
+<img src="https://i.imgur.com/vA4VY8D.png" width="300px"><img src="https://i.imgur.com/UzhA0dK.png" width="300px">
+<img src="https://i.imgur.com/OQhoRd5.png" width="300px">
+
+</p>
 
 ## Future Optimizations:
 - Email validation to reduce spam and fake users.
