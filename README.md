@@ -50,7 +50,8 @@ Chitchat is a free social media platform for users to interact with one another 
 2. `npm install`
 3. Create `.env` file and replace `MONGO_URI` with yur own Mongo Database offered through Mongo Atlas. 
 4. `JWT_SECRET` replace with your Json Webtoken and change `PORT` variable to `5000`
-
+5. run `node server.js`
+6. `cd \frontend\` and run `npm start` and react will open up a new tab on port `3000`
 
 ## Future Optimizations:
 - Email validation to reduce spam and fake users.
