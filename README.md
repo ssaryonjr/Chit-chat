@@ -40,8 +40,8 @@ Chitchat is a free social media platform for users to interact with one another 
 
 - Group Chat Creation, Updating Name, Adding & Removing Users Note: Only group creator can remove users)
 <p align="center">
-<img src="https://i.imgur.com/AJ46T9Z.png" height="350px" width="350px">
-<img src="https://i.imgur.com/f0SH6Qs.png" height="350px" width="350px">
+<img src="https://i.imgur.com/AJ46T9Z.png" height="450px" width="350px">
+<img src="https://i.imgur.com/f0SH6Qs.png" height="450px" width="350px">
 </p>
 
 ## Future Optimizations:
