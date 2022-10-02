@@ -36,7 +36,13 @@ Chitchat is a free social media platform for users to interact with one another 
 <img src="https://i.imgur.com/vA4VY8D.png" width="300px"><img src="https://i.imgur.com/UzhA0dK.png" width="300px">
 <img src="https://i.imgur.com/OQhoRd5.png" width="300px">
 <img src="https://i.imgur.com/HoM7zKr.png" width="300px">
+</p>
 
+- Group Chat Creation, Updating Name, Adding & Removing Users.
+<p align="center">
+<img src="https://i.imgur.com/AJ46T9Z.png" height="320px" width="300px">
+<img src="https://i.imgur.com/f0SH6Qs.png" height="320px" width="300px">
+<img src="https://i.imgur.com/CXIPLzY.png" height="300px" width="300px">
 </p>
 
 ## Future Optimizations:
