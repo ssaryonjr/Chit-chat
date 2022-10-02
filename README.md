@@ -18,6 +18,14 @@ Chitchat is a free social media platform for users to interact with one another 
 </p>
 
 <b>Technologies & Tools Utilized:</b> React, Node, MongoDB, Express, Mongoose, Socket.io, React Query, HTML & CSS.</b> This project was inspired directly from popular platforms such as Facebook and iMessage, I decided to construct my own version of the software that everday people use to connect with others around the world daily. 
+
+<b>Backend:</b>
 - To begin, I initially structured my application using the MVC software architectural pattern, also known as Model-View-Controller. Doing this will allow better modularity across the source code, an easier time with debugging, and a lot of other benefits of keeping the project organized as things scale in the future.
-- For my choice of a backend language I went with Node because of its V8 engine that interprets code, its event driven architecture along with my familiarity with already using JavaScript in the front end. I could continue using the same language.
-- Through the means of levarging powerful technologies such as web sockets provided by socket.io I was able to create two way connections between the client and the server which opens up the ability for users to have real time messaging sent and received almost instantly by other users no matter where they're at in the world.
+- For my choice of a backend language I went with Node because of its V8 engine that interprets code, its event driven architecture along with my familiarity with already using JavaScript in the front end.
+- I went with using MongoDB because NoSQL is extremely useful for unstructured or very large data objects such as chat log data, video, or images and is even used by big companies such as Facebook.
+- I leveraged mongoose to help aid in my development with using MongoDB because it's ability to provide schema validations.
+
+<b>Frontend:</b>
+- I needed a framework that would give me the ability to create fast user interfaces with complex designs and modularity across my frontend, and for that React was a no brainer!
+- One of the main tools I used on the front end was React Query for state managment. The reason I went with React Query over a tool like Redux was because ReactQuery gives a better developer experience for handling API request from the server side & caching while also not having so much boilerplate code.
+- Through the means of levarging powerful technologies such as web sockets provided by socket.io I was able to create two way connections between the client and the server which opens up the ability for users to have real time messaging sent and received with very low latency. 
