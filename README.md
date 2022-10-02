@@ -1,5 +1,5 @@
 # Chit-chat <img src="https://i.imgur.com/2CeVDQo.png" alt="" height="40px" width="40px" /> - Messaging App
-Chitchat is a free social media platform for users to interact with one another through either single or group chats. Send & receive messages in real time through the means of web sockets and see timestamps of when those messages were sent! <a href=""><b>Click here</b></a> to sign up now and start networking with other developers!
+Chitchat is a free social media platform for users to interact with one another through either single or group chats. Send & receive messages in real time through the means of web sockets and see timestamps of when those messages were sent! <a href="https://chitchat-messenger.herokuapp.com/"><b>Click here</b></a> to sign up now and start networking with other developers!
 
 <p align="center">
 <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/chitchat.gif?raw=true" height="500px" />
@@ -60,3 +60,33 @@ Chitchat is a free social media platform for users to interact with one another 
 - Emojis and photo attachments.
 - Refactor some components.
 - Tailwind (maybe..)
+
+
+<h2 align="center">
+More Projects
+</h2>
+<table bordercolor="#66b2b2">
+  <tr>
+    <td width="33.3%"  style="align:center;" valign="top">
+<a target="_blank" href="https://github.com/ssaryonjr/iReviews" align="center">iReviews</a>
+        <br />
+      <a target="_blank" href="https://github.com/ssaryonjr/iReviews">
+            <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(1).gif?raw=true" width="100%"  alt="Rigley 2: Flappy Bug"/>
+        </a>
+    </td>
+    <td width="33.3%" valign="top">
+<a target="_blank" href="https://github.com/CharlesCreativeContent/matching-card-game"> Matching Card Game</a>
+      <br />
+        <a target="_blank" href="https://github.com/CharlesCreativeContent/matching-card-game">
+          <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(5).gif?raw=true" width="100%" alt="Matching Card Game"/>
+        </a>
+    </td>
+    <td width="33.3%" valign="top">
+<a target="_blank" href="https://github.com/CharlesCreativeContent/Portfolio2021">Portfolio</a>
+        <br />
+        <a target="_blank" href="https://github.com/CharlesCreativeContent/Portfolio2021/">
+          <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(5).gif?raw=true" width="100%" alt="Portfolio"/>
+        </a>
+    </td>
+  </tr>
+</table>
