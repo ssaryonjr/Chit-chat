@@ -71,21 +71,21 @@ More Projects
 <a target="_blank" href="https://github.com/ssaryonjr/iReviews" align="center">iReviews</a>
         <br />
       <a target="_blank" href="https://github.com/ssaryonjr/iReviews">
-            <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(1).gif?raw=true" width="100%" height="300px" />
+            <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(1).gif?raw=true" width="100%" height="210px" />
         </a>
     </td>
     <td width="33.3%" valign="top">
 <a target="_blank" href="https://github.com/ssaryonjr/iReviews"> T&K Nigerian Restaurant</a>
       <br />
         <a target="_blank" href="https://github.com/ssaryonjr/iReviews">
-          <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(5).gif?raw=true" width="100%" height="300px" alt="Matching Card Game"/>
+          <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(5).gif?raw=true" width="100%" height="210px" alt="Matching Card Game"/>
         </a>
     </td>
     <td width="33.3%" valign="top">
 <a target="_blank" href="https://github.com/ssaryonjr/Naruto-Character-Selector">Naruto 2D Fighting Game</a>
         <br />
         <a target="_blank" href="https://github.com/ssaryonjr/Naruto-Character-Selector">
-          <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/NarutoProjectGif.gif?raw=true" width="100%" height="300px" alt="Portfolio"/>
+          <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/NarutoProjectGif.gif?raw=true" width="100%" height="210px" alt="Portfolio"/>
         </a>
     </td>
   </tr>
