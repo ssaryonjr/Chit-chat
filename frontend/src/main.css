@@ -750,8 +750,8 @@ aside {
 
 .user-list-wrapper{
   width: 100%;
-  /* height: calc(100% - 39px);
-  height: 600px; */
+  height: calc(100% - 13rem);
+  /*height: 63rem; */
   overflow:auto;
   padding: .2rem 1.7rem;
 }
