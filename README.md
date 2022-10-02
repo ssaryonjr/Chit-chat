@@ -18,6 +18,6 @@ Chitchat is a free social media platform for users to interact with one another 
 </p>
 
 <b>Technologies & Tools Utilized:</b> React, Node, MongoDB, Express, Mongoose, Socket.io, React Query, HTML & CSS.</b> This project was inspired directly from popular platforms such as Facebook and iMessage, I decided to construct my own version of the software that everday people use to connect with others around the world daily. 
-- To begin, I initially structured my application using the MVC software architectural pattern. Doing this will allow better modularity across the source code, an easier time with debugging, and a lot of other benefits of keeping the project organized as things scale in the future.
-- For my choice of backend technologies I went with Node because of its V8 engine that interprets code, its event driven architecture along with my familiarity with using JavaScript in the front end. I could continue using the same language.
-- Through the means of levarging powerful technologies such as web sockets provided by socket.io 
+- To begin, I initially structured my application using the MVC software architectural pattern, also known as Model-View-Controller. Doing this will allow better modularity across the source code, an easier time with debugging, and a lot of other benefits of keeping the project organized as things scale in the future.
+- For my choice of a backend language I went with Node because of its V8 engine that interprets code, its event driven architecture along with my familiarity with already using JavaScript in the front end. I could continue using the same language.
+- Through the means of levarging powerful technologies such as web sockets provided by socket.io I was able to create two way connections between the client and the server which opens up the ability for users to have real time messaging sent and received almost instantly by other users no matter where they're at in the world.
