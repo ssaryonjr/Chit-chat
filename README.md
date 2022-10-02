@@ -35,6 +35,7 @@ Chitchat is a free social media platform for users to interact with one another 
 <p align="center">
 <img src="https://i.imgur.com/vA4VY8D.png" width="300px"><img src="https://i.imgur.com/UzhA0dK.png" width="300px">
 <img src="https://i.imgur.com/OQhoRd5.png" width="300px">
+<img src="https://i.imgur.com/HoM7zKr.png" width="300px">
 
 </p>
 
