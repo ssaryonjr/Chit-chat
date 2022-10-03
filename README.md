@@ -45,6 +45,9 @@ Chitchat is a free social media platform for users to interact with one another 
 <img src="https://i.imgur.com/NjJ04JG.png" height="300px" width="250px">
 </p>
 
+## Lessons Learned
+This was my first <i><b>big</b></i> full stack project so the learning curve for putting things together was steep. For starters, I built two to three smaller React projects before this just so I can get the hang of writing code in React. I've spent a lot of time planning, researching, reading on the best way to structure such a project. I've learned and implemented the MVC (model-view-controller) archeticture structure and from doing so I grasp a greater understanding for why this software archetictual pattern is so popular. I enjoyed the process of making this and learned a ton over the course of building this project. I now understand the hype over typescript because I was so fustrated when I tried running my code in production and I was getting so many error codes that wasn't showing up during development. I dived head in first in this project knowing only HMTL, CSS, JavaScript and a bit of React and came out being able to confidently use react and the tools in its eco system to produce fast and complex user interfaces. On the backend I had a tougher time in the beginning because I was so used to visually seeing the results of the things I coded. After reading a lot of documentation and a few youtube videos I was able to grasp a better understanding of how the server talks to the API and fetch data from the database and sends it to the front end. This was one of the funnest projects I've built thus far and it gave me the confidence to build anything! 
+
 ## Installation: 
 1. Clone repository
 2. `npm install`
@@ -52,13 +55,14 @@ Chitchat is a free social media platform for users to interact with one another 
 4. `JWT_SECRET` replace with your Json Webtoken and change `PORT` variable to `5000`
 5. run `node server.js`
 6. `cd \frontend\` and run `npm start` and react will open up a new tab on port `3000`
+7. In the frontend `signup` page you can change the cloudinary API to your own (optional), or keep the default user picture when registering users.
 
 ## Future Optimizations:
 - Email validation to reduce spam and fake users.
 - Notifications for finding unread messages.
 - Light mode for users who prefer it over dark.
 - Emojis and photo attachments.
-- Refactor some components.
+- Refactor code in Typescript.
 - Tailwind (maybe..)
 
 
@@ -68,7 +72,7 @@ More Projects
 <table bordercolor="#66b2b2">
   <tr>
     <td width="33.3%"  style="align:center;" valign="top">
-<a target="_blank" href="https://github.com/ssaryonjr/iReviews" align="center">iReviews</a>
+<a target="_blank" href="https://github.com/ssaryonjr/iReviews" align="center">iMovie Reviews</a>
         <br />
       <a target="_blank" href="https://github.com/ssaryonjr/iReviews">
             <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(1).gif?raw=true" width="100%" height="210px" />
