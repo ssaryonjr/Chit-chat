@@ -72,10 +72,10 @@ More Projects
 <table bordercolor="#66b2b2">
   <tr>
     <td width="33.3%"  style="align:center;" valign="top">
-<a target="_blank" href="https://github.com/ssaryonjr/iReviews" align="center">iMovie Reviews</a>
+<a target="_blank" href="https://github.com/ssaryonjr/iMovie-Reviews" align="center">iMovie Reviews</a>
         <br />
-      <a target="_blank" href="https://github.com/ssaryonjr/iReviews">
-            <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(1).gif?raw=true" width="100%" height="210px" />
+      <a target="_blank" href="https://github.com/ssaryonjr/iMovie-Reviews">
+            <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/imovie.gif?raw=true" width="100%" height="210px" />
         </a>
     </td>
     <td width="33.3%" valign="top">
