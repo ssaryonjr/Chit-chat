@@ -86,10 +86,10 @@ More Projects
         </a>
     </td>
     <td width="33.3%" valign="top">
-<a target="_blank" href="https://github.com/ssaryonjr/Naruto-Character-Selector">Naruto 2D Fighting Game</a>
+<a target="_blank" href="https://github.com/ssaryonjr/Python-Daily-Quote-Automation">Automated SMS Quotes</a>
         <br />
-        <a target="_blank" href="https://github.com/ssaryonjr/Naruto-Character-Selector">
-          <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/NarutoProjectGif.gif?raw=true" width="100%" height="210px" alt="Portfolio"/>
+        <a target="_blank" href="https://github.com/ssaryonjr/Python-Daily-Quote-Automation">
+          <img src="https://camo.githubusercontent.com/5cbc78720a7f03d1d68fb812e6f59ea7223556babfb9d9958d52c1d865635d1b/68747470733a2f2f692e696d6775722e636f6d2f4c48434a5a324d2e676966" width="100%" height="210px" alt="Portfolio"/>
         </a>
     </td>
   </tr>
