@@ -79,9 +79,9 @@ More Projects
         </a>
     </td>
     <td width="33.3%" valign="top">
-<a target="_blank" href="https://github.com/ssaryonjr/iReviews"> T&K Nigerian Restaurant</a>
+<a target="_blank" href="https://github.com/ssaryonjr/T-K-Restaurant-"> T&K Nigerian Restaurant</a>
       <br />
-        <a target="_blank" href="https://github.com/ssaryonjr/iReviews">
+        <a target="_blank" href="https://github.com/ssaryonjr/T-K-Restaurant-">
           <img src="https://github.com/ssaryonjr/ssaryonjr/raw/main/ezgif.com-gif-maker%20(5).gif?raw=true" width="100%" height="210px" alt="Matching Card Game"/>
         </a>
     </td>
