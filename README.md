@@ -26,9 +26,9 @@ Chitchat is a free social media platform for users to interact with one another 
 - I leveraged mongoose to help aid in my development with using MongoDB because it's ability to provide schema validations.
 
 <b>Frontend:</b>
-- I needed a framework that would give me the ability to create fast user interfaces with complex designs and modularity across my frontend, and for that React was a no brainer!
-- One of the main tools I used on the front end was React Query for state managment. The reason I went with React Query over a tool like Redux was because ReactQuery gives a better developer experience for handling API request from the server side & caching while also not having so much boilerplate code.
-- Through the means of levarging powerful technologies such as web sockets provided by socket.io I was able to create two way connections between the client and the server which opens up the ability for users to have real time messaging sent and received with very low latency. 
+- I needed a framework that would give me the ability to create fast user interfaces with complex designs and modularity across my front, and for that React was a no-brainer!
+- One of the main tools I used on the front end was React Query for state management. The reason I went with React Query over a tool like Redux was that ReactQuery gives a better developer experience for handling API requests from the server side & caching while also not having so much boilerplate code.
+- Through the means of leveraging powerful technologies such as web sockets provided by socket.io, I was able to create two-way connections between the client and the server which opens up the ability for users to have real-time messaging sent and received with very low latency.
 
 ## Features
 - Mobile & Desktop Friendly, Message Timestamps, User online/offline status, & User typing animation upon web socket connection.
